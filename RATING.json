@@ -1,5 +1,5 @@
 {
-    "generated":  "2026-10-23T06:50:18Z",
+    "generated":  "2026-10-23T17:15:33Z",
     "rubric_version":  2,
     "craft_share":  0.75,
     "weights":  {
@@ -39,7 +39,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (review 9.6)",
-                       "chars":  7453,
+                       "chars":  7317,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -64,7 +64,7 @@
                                                       "5 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "7453 chars - in range"
+                                                     "7317 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -207,7 +207,7 @@
                        "craft":  10,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (security-and-hardening 10)",
-                       "chars":  19519,
+                       "chars":  19413,
                        "dimensions":  {
                                           "references":  10,
                                           "portability":  10,
@@ -232,7 +232,7 @@
                                                       "8 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "19519 chars - in range"
+                                                     "19413 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -249,7 +249,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (browser-testing-with-devtools 9.6)",
-                       "chars":  11025,
+                       "chars":  11003,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -274,7 +274,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "11025 chars - in range"
+                                                     "11003 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -459,7 +459,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (brainstorming 9.6)",
-                       "chars":  11418,
+                       "chars":  11408,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -484,7 +484,7 @@
                                                       "7 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "11418 chars - in range"
+                                                     "11408 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -627,7 +627,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 3 sources, craft matches best source (systematic-debugging 9.6)",
-                       "chars":  5638,
+                       "chars":  5588,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -652,7 +652,7 @@
                                                       "9 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "5638 chars - in range"
+                                                     "5588 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -669,7 +669,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 3 sources, craft matches best source (deprecation-and-migration 9.6)",
-                       "chars":  5676,
+                       "chars":  5648,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -694,7 +694,7 @@
                                                       "5 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "5676 chars - in range"
+                                                     "5648 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -837,7 +837,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (frontend-ui-engineering 9.6)",
-                       "chars":  14304,
+                       "chars":  13788,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -862,7 +862,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "14304 chars - in range"
+                                                     "13788 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1131,7 +1131,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (code-review-and-quality 9.2)",
-                       "chars":  15419,
+                       "chars":  15325,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1156,7 +1156,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "15419 chars - in range"
+                                                     "15325 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1215,7 +1215,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "no candidate scores higher",
-                       "chars":  9788,
+                       "chars":  7704,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1231,16 +1231,16 @@
                                         "portability":  "no absolute paths or vendor helpers",
                                         "structure":  [
                                                           "name matches directory",
-                                                          "description 238 chars (usable)"
+                                                          "description 257 chars (usable)"
                                                       ],
                                         "procedure":  [
-                                                          "37 numbered steps, 13 headings, 12 bullets"
+                                                          "10 numbered steps, 8 headings, 12 bullets"
                                                       ],
                                         "gates":  [
-                                                      "10 gate/verification markers"
+                                                      "8 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "9788 chars - in range"
+                                                     "7704 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1299,7 +1299,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (finishing-a-development-branch 9.3)",
-                       "chars":  9122,
+                       "chars":  9112,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1324,7 +1324,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "9122 chars - in range"
+                                                     "9112 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1341,7 +1341,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (code-simplification 9.3)",
-                       "chars":  11371,
+                       "chars":  11347,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1366,7 +1366,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "11371 chars - in range"
+                                                     "11347 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1383,7 +1383,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (dispatching-parallel-agents 9.3)",
-                       "chars":  8184,
+                       "chars":  8178,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1408,7 +1408,7 @@
                                                       "5 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "8184 chars - in range"
+                                                     "8178 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1467,7 +1467,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 3 sources, craft matches best source (verification-before-completion 9.6)",
-                       "chars":  6943,
+                       "chars":  6927,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1492,7 +1492,7 @@
                                                       "7 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "6943 chars - in range"
+                                                     "6927 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1551,7 +1551,7 @@
                        "craft":  10,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (writing-for-agents 9.6)",
-                       "chars":  17020,
+                       "chars":  16925,
                        "dimensions":  {
                                           "references":  10,
                                           "portability":  10,
@@ -1576,7 +1576,7 @@
                                                       "9 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "17020 chars - in range"
+                                                     "16925 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1635,7 +1635,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 2 sources, craft matches best source (context-engineering 9.6)",
-                       "chars":  7208,
+                       "chars":  7121,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1660,7 +1660,7 @@
                                                       "5 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "7208 chars - in range"
+                                                     "7121 chars - in range"
                                                  ]
                                     },
                        "findings":  [
@@ -1677,7 +1677,7 @@
                        "craft":  9.6,
                        "selection":  10,
                        "selection_note":  "composed from 3 sources, craft matches best source (documentation-and-adrs 9.6)",
-                       "chars":  5754,
+                       "chars":  5676,
                        "dimensions":  {
                                           "references":  8,
                                           "portability":  10,
@@ -1702,7 +1702,7 @@
                                                       "6 gate/verification markers"
                                                   ],
                                         "size":  [
-                                                     "5754 chars - in range"
+                                                     "5676 chars - in range"
                                                  ]
                                     },
                        "findings":  [

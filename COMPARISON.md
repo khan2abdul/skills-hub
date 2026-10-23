@@ -3,7 +3,7 @@
 Every skill compared against the upstream original it was fetched from, scored
 with the same rubric (`tools/_rubric.ps1`). Wire: `tools/compare-skills.ps1`.
 
-**Craft: ours 9.69 vs originals 9.42.** Faithfulness: 18 exact, 23 composed, 0 lossy.
+**Craft: ours 9.69 vs originals 9.42.** Faithfulness: 17 exact, 23 composed, 0 lossy.
 
 The headline: our copies are verbatim, so a low score is almost never a
 transcription defect. When ours scores 6, the original also scores 6. The
@@ -14,7 +14,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 | check | result |
 |---|---|
-| body byte-identical to original | 18/41 |
+| body byte-identical to original | 17/41 |
 | body differs | 0 |
 | payload files missing vs original | 5 skills |
 | payload files altered | 0 skills |
@@ -38,7 +38,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 | `write-the-docs` | 9.6 | 9.6 | `context-engineering` (addy-agent-skills) | composed | 9.7 | 1 |
 | `split-across-agents` | 9.6 | 9.3 | `dispatching-parallel-agents` (superpowers) | composed | 9.7 | 1 |
 | `set-the-quality-bar` | 9.6 | 9.6 | `constraint-driven-development` (addy-agent-skills) | exact | 9.7 | 0 |
-| `route-to-the-right-skill` | 9.6 | 9.6 | `using-agent-skills` (addy-agent-skills) | exact | 9.7 | 0 |
+| `route-to-the-right-skill` | 9.6 | - | - | n/a | 9.7 | 0 |
 | `simplify-this-code` | 9.6 | 9.3 | `code-simplification` (addy-agent-skills) | composed | 9.7 | 2 |
 | `ship-it` | 9.6 | 9.3 | `finishing-a-development-branch` (superpowers) | composed | 9.7 | 0 |
 | `isolate-this-branch` | 9.6 | 9.6 | `using-git-worktrees` (superpowers) | exact | 9.7 | 0 |
@@ -69,11 +69,11 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 ### `audit-the-whole-repo` - 9.6/10 (original 9.6)
 
-- **truncated** - composition (7453c) is smaller than 'review' (8632c) alone
+- **truncated** - composition (7317c) is smaller than 'review' (8632c) alone
 
 ### `check-my-ui` - 9.6/10 (original 9.6)
 
-- **truncated** - composition (11025c) is smaller than 'browser-testing-with-devtools' (13935c) alone
+- **truncated** - composition (11003c) is smaller than 'browser-testing-with-devtools' (13935c) alone
 
 ### `debug-this-code` - 10/10 (original 10)
 
@@ -87,7 +87,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 ### `discuss-on-new-idea` - 9.6/10 (original 9.6)
 
 - **payload** - original ships 7 file(s) we do not: builder-check-prompt.md, visual-companion.md, scripts\frame-template.html, scripts\helper.js, scripts\server.cjs
-- **truncated** - composition (11418c) is smaller than 'brainstorming' (13602c) alone
+- **truncated** - composition (11408c) is smaller than 'brainstorming' (13602c) alone
 
 ### `explore-this-repo` - 9.4/10 (original 8.4)
 
@@ -98,17 +98,17 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 - **payload** - original ships 2 file(s) we do not: bin\check-careful.sh, bin\hook-extract.sh
 - **payload** - original ships 1 file(s) we do not: agents\openai.yaml
-- **truncated** - composition (5676c) is smaller than 'deprecation-and-migration' (12534c) alone
+- **truncated** - composition (5648c) is smaller than 'deprecation-and-migration' (12534c) alone
 
 ### `review-my-code` - 9.6/10 (original 9.2)
 
 - **payload** - original ships 1 file(s) we do not: agents\openai.yaml
-- **truncated** - composition (15419c) is smaller than 'code-review-and-quality' (20898c) alone
+- **truncated** - composition (15325c) is smaller than 'code-review-and-quality' (20898c) alone
 
 ### `simplify-this-code` - 9.6/10 (original 9.3)
 
 - **payload** - original ships 1 file(s) we do not: agents\openai.yaml
-- **truncated** - composition (11371c) is smaller than 'code-simplification' (13497c) alone
+- **truncated** - composition (11347c) is smaller than 'code-simplification' (13497c) alone
 
 ### `split-across-agents` - 9.6/10 (original 9.3)
 
@@ -131,7 +131,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 ### `write-the-docs` - 9.6/10 (original 9.6)
 
-- **truncated** - composition (7208c) is smaller than 'context-engineering' (14936c) alone
+- **truncated** - composition (7121c) is smaller than 'context-engineering' (14936c) alone
 
 ## What would make each one a 10
 
@@ -452,17 +452,11 @@ to improve:
 
 ### `route-to-the-right-skill` - 9.7/10
 
-fidelity: exact - faithful copy; the score IS the original score
-
-| source | repo | chars | craft | 
-|---|---|---|---|
-| `using-agent-skills` | addy-agent-skills | 9782 | 9.6 | 10 | 10 | 10 | 8 | 10 | 10 |
-
-ours: 
+fidelity: n/a
 
 alternatives the manifest proposed (best first):
 
-- `using-agent-skills` (addy-agent-skills, 9782c) craft 9.6 - in use elsewhere
+- `using-agent-skills` (addy-agent-skills, 9782c) craft 9.6 - rejected
 - `ask-matt` (mattpocock-skills, 12677c) craft 8.7 - rejected
 - `using-superpowers` (superpowers, 3180c) craft 8.5 - rejected
 
