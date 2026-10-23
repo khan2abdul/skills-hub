@@ -1,0 +1,100 @@
+# Compose spec: test-every-surface
+#
+# The hub had browser QA (check-my-ui) but no portable procedure for the other
+# surfaces an agent is asked to test: HTTP APIs, CLIs, jobs, workers and
+# webhooks. gstack's `qa`/`qa-only` cover them, but the SKILL.md is a 43-51k
+# router whose real method lives in `sections/*.md`, and its exploratory loop
+# calls gstack helper binaries the hub does not ship.
+#
+# This composition takes only the self-contained pieces:
+#   - the surface selector (scope.md): browser / functional / mixture, isolation
+#   - the functional contract map (system-functional.md): success, invalid input,
+#     auth, exit codes, state transitions, timeout, retry, idempotency,
+#     concurrency, partial failure
+#   - the report-only request/artifact/output rules from qa-only
+#   - the finalizer (reporting.md): observed vs expected vs hypothesis, no
+#     invented evidence, no repair
+#
+# It deliberately does NOT take the deadline/evidence helper loop or the browser
+# sections. Those need gstack's runtime and belong to check-my-ui. The templates
+# are copied beside the skill so `templates/...` resolves.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "test-every-surface"
+title = "Test Every Surface"
+description = "Report-only QA for functional surfaces - HTTP API, CLI, job, worker and webhook - with surface selection, isolated fixtures, a contract map covering success, invalid input, auth, exit codes, state transitions, timeouts, retries, idempotency, concurrency and partial failure, plus a reproducible evidence report. Use when the thing to test is not a browser UI; for browser flows use check-my-ui."
+sources = ["gstack"]
+
+[[include]]
+skill = "qa-only"
+title = ""
+from = "## Request Parameters"
+
+[[include]]
+skill = "qa-only"
+title = ""
+from = "## Test Plan Context"
+
+[[include]]
+skill = "qa"
+title = ""
+file = "sections/scope.md"
+from = "### Select the surface before setup"
+
+[[include]]
+skill = "qa-only"
+title = ""
+from = "## Prepare Report Artifacts"
+
+[[include]]
+skill = "qa"
+title = ""
+file = "sections/system-functional.md"
+from = "## Functional modes"
+
+[[include]]
+skill = "qa"
+title = ""
+file = "sections/system-functional.md"
+from = "## Contract map"
+
+[[include]]
+skill = "qa"
+title = ""
+file = "sections/system-functional.md"
+from = "## Execute and retain evidence"
+
+[[include]]
+skill = "qa-only"
+title = ""
+file = "sections/reporting.md"
+from = "## 1. Establish each finding once"
+
+[[include]]
+skill = "qa-only"
+title = ""
+file = "sections/reporting.md"
+from = "## 2. Fill timing fields from their actual boundaries"
+
+[[include]]
+skill = "qa-only"
+title = ""
+file = "sections/reporting.md"
+from = "## 3. Assemble and check every repetition before writing"
+
+[[include]]
+skill = "qa-only"
+title = ""
+file = "sections/reporting.md"
+from = "## 4. Capture permitted notes, then write the report"
+
+[[include]]
+skill = "qa-only"
+title = ""
+from = "### Output Structure"
+
+[[include]]
+skill = "qa-only"
+title = ""
+from = "## Additional Rules (qa-only specific)"

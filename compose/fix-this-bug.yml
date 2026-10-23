@@ -1,0 +1,54 @@
+# Compose spec: fix-this-bug
+#
+# Shipped version was `surgical-patch` (caveman): 664 chars, craft 6.2, size 2/10.
+# It is a six-bullet summary of a discipline, not a procedure - no numbered steps,
+# no gates, no way to know when you are done beyond "stop when fixed".
+#
+# `debug-this-code` already owns the full red-green debugging procedure, so
+# re-vendoring a second debug skill would duplicate it. What is missing from the
+# stub is (a) the change-discipline: what counts as in-scope and what must not be
+# touched, and (b) how to make "done" verifiable.
+#
+# `karpathy-guidelines` supplies (a) in sections 3 and 4.
+# `systematic-debugging` supplies (b): its Quick Reference is a four-phase table
+# with explicit success criteria per phase, and Phase 1 is the root-cause
+# investigation that stops a fix being applied to a symptom. Both are taken.
+#
+# REJECTED from systematic-debugging:
+#   - Phase 4 Implementation (1,535c, 3 gates): the best-fit section on paper,
+#     but it instructs the agent to use `superpowers:test-driven-development` and
+#     `superpowers:verification-before-completion`. Neither is shipped by this
+#     hub, so the instruction cannot be followed. Same defect class as the dead
+#     gstack hooks - shipped prose pointing at a missing dependency.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "fix-this-bug"
+title = "Fix This Bug"
+description = "Fix a bug or small behavior change at the narrowest responsible layer, with regression proof and preserved surrounding behavior. Use when a specific defect is known and the fix must not sprawl: find the root cause before editing, match the existing style, touch only what the fix needs, keep every changed line traceable to the request, and stop when the focused proof passes."
+sources = ["caveman", "andrej-karpathy-skills", "superpowers"]
+
+[[include]]
+skill = "surgical-patch"
+title = "The discipline"
+whole = true
+
+[[include]]
+skill = "karpathy-guidelines"
+title = "Surgical changes"
+from = "## 3. Surgical Changes"
+
+[[include]]
+skill = "karpathy-guidelines"
+title = "Goal-driven execution"
+from = "## 4. Goal-Driven Execution"
+
+[[include]]
+skill = "systematic-debugging"
+title = "The four phases"
+from = "## Quick Reference"
+
+[[include]]
+skill = "systematic-debugging"
+title = "Root cause investigation"
+from = "### Phase 1: Root Cause Investigation"

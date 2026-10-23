@@ -1,0 +1,92 @@
+# Compose spec: check-my-security
+#
+# Shipped version was `security-review` (gsd-2): 8,101 chars, craft 8.1, 4/10 on
+# procedure - 18 headings, zero numbered steps.
+#
+# `security-and-hardening` (addy-agent-skills) is the procedure the gsd-2 version
+# lacked: threat model first, a three-tier Always/Ask-First/Never boundary
+# system, per-surface hardening controls, a review checklist, red flags and a
+# verification pass. It scores 10/10 on every dimension.
+#
+# Two gsd-2 sections add what the base genuinely does not have:
+#   - Step 3 STRIDE pass: names the six threat categories and the questions that
+#     surface each. The base says "threat model first" and never enumerates the
+#     threats.
+#   - Step 5 Triage: severity x exploitability = priority, with an explicit
+#     ranking scale. The base has no severity language at all.
+#   - Step 6 Write the report: the finding template - location, category,
+#     exploit, reachability, remediation. The description promises a report and
+#     the base never shows its shape.
+#
+# DROPPED, with reasons:
+#   - Step 4 OWASP cross-check (526c): its eight bullets restate the base's own
+#     "Injection, XSS, and access control", "Server-side fetches (SSRF)" and
+#     "Headers, CORS, and responses" controls. Duplicate.
+#   - Step 7 Follow-ups (1,385c): routes through `.gsd/DECISIONS.md` and
+#     `/gsd start hotfix`, commands this hub does not ship, and the extraction
+#     also drags in stray `</process>` and `<anti_patterns>` scaffolding. Its
+#     useful part (file a private advisory, never a public issue for sensitive
+#     findings) is already in the base's Never Do tier.
+#   - base "Overview" (304c) and "When to Use" (269c): orientation prose that
+#     restates the description. Dropped to bring the body inside the 20,000
+#     size band without removing a single check.
+#   - base "Common Rationalizations" (1,594c): motivational, not procedural. The
+#     base already carries a review checklist, red flags and verification, so
+#     this is the one section that can go without losing a check.
+#
+# The base is included as named level-2 sections rather than `whole = true` so
+# that the drop-one-section trade can be made while every kept section stays
+# verbatim. Composed total lands inside the 20,000 band, which `whole = true`
+# plus the gsd-2 tail blew past at 23,125.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "check-my-security"
+title = "Check My Security"
+description = "Threat-model-driven security review of a change, feature, or subsystem: a STRIDE pass over the actual code, an OWASP cross-check, severity x exploitability triage, and a filing-ready report with a concrete exploit and remediation per finding. Use before shipping anything that touches auth, input handling, secrets, or data storage."
+sources = ["addy-agent-skills", "gsd-2"]
+
+[[include]]
+skill = "security-and-hardening"
+title = "Threat model first"
+from = "## Process: Threat Model First"
+
+[[include]]
+skill = "security-and-hardening"
+title = "The three-tier boundary system"
+from = "## The Three-Tier Boundary System"
+
+[[include]]
+skill = "security-and-hardening"
+title = "Hardening controls"
+from = "## Hardening Controls"
+
+[[include]]
+skill = "security-review"
+title = "STRIDE pass"
+from = "## Step 3: STRIDE pass"
+
+[[include]]
+skill = "security-and-hardening"
+title = "Review checklist"
+from = "## Review Checklist"
+
+[[include]]
+skill = "security-review"
+title = "Triage"
+from = "## Step 5: Triage"
+
+[[include]]
+skill = "security-review"
+title = "Write the report"
+from = "## Step 6: Write the report"
+
+[[include]]
+skill = "security-and-hardening"
+title = "Red flags"
+from = "## Red Flags"
+
+[[include]]
+skill = "security-and-hardening"
+title = "Verification"
+from = "## Verification"

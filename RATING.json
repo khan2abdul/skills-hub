@@ -1,0 +1,1761 @@
+{
+    "generated":  "2026-10-23T06:50:18Z",
+    "rubric_version":  2,
+    "craft_share":  0.75,
+    "weights":  {
+                    "structure":  15,
+                    "procedure":  20,
+                    "gates":  15,
+                    "references":  20,
+                    "portability":  15,
+                    "size":  15
+                },
+    "dim_help":  {
+                     "gates":  "STOP/MUST/NEVER and verification language",
+                     "procedure":  "numbered steps and headings - does it say what to do",
+                     "portability":  "no absolute paths or uninstalled vendor helpers",
+                     "references":  "files the body names exist in the skill dir",
+                     "structure":  "frontmatter parses, name matches dir, description usable",
+                     "size":  "big enough to be a procedure, small enough to load"
+                 },
+    "summary":  {
+                    "count":  41,
+                    "mean":  9.77,
+                    "min":  9.6,
+                    "max":  10,
+                    "by_grade":  [
+                                     {
+                                         "count":  41,
+                                         "grade":  "A"
+                                     }
+                                 ],
+                    "auto_fixes":  0
+                },
+    "skills":  [
+                   {
+                       "name":  "audit-the-whole-repo",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (review 9.6)",
+                       "chars":  7453,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 329 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "15 numbered steps, 6 headings, 30 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "7453 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "break-into-tasks",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  7634,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 445 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "8 numbered steps, 12 headings, 32 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "7634 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "build-in-small-steps",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  9323,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 343 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "5 numbered steps, 21 headings, 41 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "9323 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "build-it-test-first",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  16444,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 424 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "9 numbered steps, 28 headings, 29 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "16444 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "check-my-security",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (security-and-hardening 10)",
+                       "chars":  19519,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 332 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "8 numbered steps, 34 headings, 87 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "19519 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "check-my-ui",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (browser-testing-with-devtools 9.6)",
+                       "chars":  11025,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 287 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "33 numbered steps, 11 headings, 16 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "11025 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "debug-the-stubborn-one",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  8647,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "5/5 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 259 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "16 numbered steps, 7 headings, 59 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "8647 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "debug-this-code",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "composed from 3 sources, craft matches best source (diagnosing-bugs 10)",
+                       "chars":  11814,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 225 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "18 numbered steps, 18 headings, 18 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "11814 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "design-the-interface",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 5 sources, craft matches best source (documentation-and-adrs 9.6)",
+                       "chars":  13218,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 429 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "6 numbered steps, 15 headings, 71 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "13218 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "deslop-the-writing",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  7755,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "2/2 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 605 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "5 numbered steps, 9 headings, 17 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "7755 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "discuss-on-new-idea",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (brainstorming 9.6)",
+                       "chars":  11418,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 404 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "9 numbered steps, 21 headings, 62 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "7 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "11418 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "document-the-decision",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  10875,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 290 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "7 numbered steps, 38 headings, 68 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "10875 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "explore-this-repo",
+                       "score":  9.6,
+                       "grade":  "A",
+                       "craft":  9.4,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (cavecrew 8.4)",
+                       "chars":  3129,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  9,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 290 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "3 numbered steps, 2 headings, 1 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "3129 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "finish-the-experience",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  8437,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 522 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "7 numbered steps, 10 headings, 12 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "8437 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "fix-this-bug",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 3 sources, craft matches best source (systematic-debugging 9.6)",
+                       "chars":  5638,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 376 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "8 numbered steps, 5 headings, 34 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "9 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "5638 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "guard-the-dangerous-stuff",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 3 sources, craft matches best source (deprecation-and-migration 9.6)",
+                       "chars":  5676,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 417 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "5 numbered steps, 7 headings, 7 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "5676 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "hand-off-to-next-session",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  6202,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 478 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "7 numbered steps, 10 headings, 25 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "6202 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "interview-me-properly",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  15043,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 485 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "3 numbered steps, 17 headings, 56 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "15043 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "isolate-this-branch",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  6803,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 196 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "3 numbered steps, 10 headings, 2 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "6803 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "make-it-accessible",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (frontend-ui-engineering 9.6)",
+                       "chars":  14304,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 394 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "19 numbered steps, 32 headings, 10 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "14304 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "make-it-fast",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  16505,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 295 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "5 numbered steps, 14 headings, 45 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "7 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "16505 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "make-it-observable",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  13875,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 307 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "7 numbered steps, 13 headings, 31 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "13875 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "polish-the-ui",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (frontend-ui-engineering 9.6)",
+                       "chars":  33339,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  7
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "4/4 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 337 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "4 numbered steps, 85 headings, 105 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "33339 chars - heavy"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "prove-it-works",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  3582,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 225 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "5 numbered steps, 8 headings, 20 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "3582 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "receive-code-review",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  6163,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 234 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "15 numbered steps, 15 headings, 24 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "6163 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "research-this-topic",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (source-driven-development 8.4)",
+                       "chars":  10892,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 238 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "3 numbered steps, 11 headings, 50 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "10892 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "review-my-code",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (code-review-and-quality 9.2)",
+                       "chars":  15419,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 334 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "9 numbered steps, 21 headings, 92 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "15419 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "review-the-plan",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (junior-to-senior 10)",
+                       "chars":  10941,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "2/2 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 422 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "21 numbered steps, 22 headings, 27 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "7 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "10941 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "route-to-the-right-skill",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  9788,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 238 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "37 numbered steps, 13 headings, 12 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "10 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "9788 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "set-the-quality-bar",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  20946,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  7
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 880 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "15 numbered steps, 21 headings, 43 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "20946 chars - heavy"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "ship-it",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (finishing-a-development-branch 9.3)",
+                       "chars":  9122,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 288 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "8 numbered steps, 15 headings, 3 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "9122 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "simplify-this-code",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (code-simplification 9.3)",
+                       "chars":  11371,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 444 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "7 numbered steps, 15 headings, 40 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "11371 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "split-across-agents",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (dispatching-parallel-agents 9.3)",
+                       "chars":  8184,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 368 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "13 numbered steps, 13 headings, 27 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "8184 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "test-every-surface",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (qa 6.9)",
+                       "chars":  17037,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 394 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "11 numbered steps, 13 headings, 3 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "17037 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "trim-my-output",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 3 sources, craft matches best source (verification-before-completion 9.6)",
+                       "chars":  6943,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 331 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "20 numbered steps, 18 headings, 17 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "7 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "6943 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "watch-my-context",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  6607,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "1/1 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 500 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "9 numbered steps, 5 headings, 4 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "7 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "6607 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "write-a-new-skill",
+                       "score":  10,
+                       "grade":  "A",
+                       "craft":  10,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (writing-for-agents 9.6)",
+                       "chars":  17020,
+                       "dimensions":  {
+                                          "references":  10,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "2/2 referenced files present"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 278 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "8 numbered steps, 20 headings, 49 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "9 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "17020 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "write-less-code",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "no candidate scores higher",
+                       "chars":  3554,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 366 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "6 numbered steps, 3 headings, 9 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "3554 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "write-the-docs",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (context-engineering 9.6)",
+                       "chars":  7208,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 440 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "15 numbered steps, 7 headings, 28 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "5 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "7208 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "write-the-domain-glossary",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 3 sources, craft matches best source (documentation-and-adrs 9.6)",
+                       "chars":  5754,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 387 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "6 numbered steps, 11 headings, 8 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "6 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "5754 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   },
+                   {
+                       "name":  "write-the-spec",
+                       "score":  9.7,
+                       "grade":  "A",
+                       "craft":  9.6,
+                       "selection":  10,
+                       "selection_note":  "composed from 2 sources, craft matches best source (spec-driven-development 9.6)",
+                       "chars":  16237,
+                       "dimensions":  {
+                                          "references":  8,
+                                          "portability":  10,
+                                          "structure":  10,
+                                          "procedure":  10,
+                                          "gates":  10,
+                                          "size":  10
+                                      },
+                       "evidence":  {
+                                        "references":  [
+                                                           "names no resource files"
+                                                       ],
+                                        "portability":  "no absolute paths or vendor helpers",
+                                        "structure":  [
+                                                          "name matches directory",
+                                                          "description 354 chars (usable)"
+                                                      ],
+                                        "procedure":  [
+                                                          "23 numbered steps, 30 headings, 59 bullets"
+                                                      ],
+                                        "gates":  [
+                                                      "8 gate/verification markers"
+                                                  ],
+                                        "size":  [
+                                                     "16237 chars - in range"
+                                                 ]
+                                    },
+                       "findings":  [
+
+                                    ],
+                       "fixes":  [
+
+                                 ]
+                   }
+               ],
+    "plan":  [
+
+             ]
+}

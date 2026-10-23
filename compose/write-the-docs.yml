@@ -1,0 +1,35 @@
+# Compose spec: write-the-docs
+#
+# Shipped version was `write-docs` (gsd-2): 5,519 chars,
+# craft 9.3, GATES 8/10. Three good stages - gather context, iterate on
+# structure, reader-test - and no way to tell whether the document actually
+# works before publishing it.
+#
+# `context-engineering` (addy-agent-skills, craft 9.6) closes that with a
+# Verification section and a Red Flags list: the checks to run on a document
+# before calling it done. Both are taken.
+#
+# The rest of context-engineering was rejected: it optimises an agent's context
+# window, which is a different job from writing a document for a human reader.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "write-the-docs"
+title = "Write The Docs"
+description = "Author a document a stranger can act on: proposal, technical spec, decision record, RFC, README section, or long-form prose. Use when asked to write the docs, draft a proposal or RFC, write the README, or when a document must be understandable without this session's context. Three stages - gather context, iterate on structure, reader-test - plus the verification pass and red flags that catch a document which is clear only to its author."
+sources = ["gsd-2", "addy-agent-skills"]
+
+[[include]]
+skill = "write-docs"
+title = "The three stages"
+whole = true
+
+[[include]]
+skill = "context-engineering"
+title = "Red flags in a document"
+from = "## Red Flags"
+
+[[include]]
+skill = "context-engineering"
+title = "Verification"
+from = "## Verification"

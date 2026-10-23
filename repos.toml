@@ -1,0 +1,250 @@
+# Skill sources.
+#
+# The 9 harvested repos are cloned INSIDE the hub, at repos/, by
+# tools/clone-repos.ps1. That keeps the hub self-contained: one clone of this
+# repo plus one command reproduces every source, with no external folder.
+#
+# Every `path` is RELATIVE to sources_root. Nothing here is machine-specific.
+#
+# sources_root resolution (first wins):
+#   1. $env:SKILLS_HUB_SOURCES
+#   2. sources_root below (relative to the hub, or absolute)
+#   3. <hub>/../setupskills   (legacy external layout, kept so an existing
+#                              checkout resolves without re-downloading)
+#
+# status = "cloned"    -> cloned into repos/, harvest scans it
+# status = "reference" -> catalogued only; not cloned, harvest skips it
+#
+# Run tools/clone-repos.ps1 to clone or refresh, then tools/harvest.ps1.
+
+sources_root = "repos"
+
+# --- Cloned and harvested -------------------------------------------------
+
+[[repo]]
+name = "addy-agent-skills"
+url = "https://github.com/addyosmani/agent-skills.git"
+status = "cloned"
+path = "addy-agent-skills"
+roots = ["skills"]
+
+[[repo]]
+name = "gsd-2"
+url = "https://github.com/gsd-build/gsd-2.git"
+status = "cloned"
+path = "gsd-2"
+roots = ["src/resources/skills"]
+
+[[repo]]
+name = "mattpocock-skills"
+url = "https://github.com/mattpocock/skills.git"
+status = "cloned"
+path = "mattpocock-skills"
+roots = ["skills/engineering", "skills/productivity"]
+
+[[repo]]
+name = "superpowers"
+url = "https://github.com/obra/superpowers.git"
+status = "cloned"
+path = "superpowers"
+roots = ["skills"]
+
+[[repo]]
+name = "caveman"
+url = "https://github.com/JuliusBrussee/caveman.git"
+status = "cloned"
+path = "caveman"
+roots = ["skills"]
+
+[[repo]]
+name = "julius-skills"
+url = "https://github.com/JuliusBrussee/skills.git"
+status = "cloned"
+path = "julius-skills"
+roots = ["skills"]
+
+[[repo]]
+name = "ponytail"
+url = "https://github.com/DietrichGebert/ponytail.git"
+status = "cloned"
+path = "ponytail"
+roots = ["skills"]
+
+[[repo]]
+name = "gstack"
+url = "https://github.com/garrytan/gstack.git"
+status = "cloned"
+# upstream ships all 57 skills flat at the repo root; the old
+# _backup_legacy/gstack_unused_skills tree is now redundant and not used.
+path = "gstack"
+roots = ["."]
+
+[[repo]]
+name = "andrej-karpathy-skills"
+url = "https://github.com/multica-ai/andrej-karpathy-skills"
+status = "cloned"
+path = "andrej-karpathy-skills"
+roots = ["skills"]
+
+# --- Reference catalog: candidates worth harvesting later -----------------
+# Not cloned. To promote one, git clone it, change status to "cloned",
+# add path and roots, then run tools/harvest.ps1.
+
+# 1. Core engineering methodologies
+[[repo]]
+name = "obra-superpowers"
+url = "https://github.com/obra/superpowers"
+status = "reference"
+focus = "full engineering methodology: brainstorming, planning, TDD, debugging, worktrees"
+compat = "Claude Code, Cursor, Kiro, Cline, Gemini CLI"
+note = "already vendored here as 'superpowers'"
+
+[[repo]]
+name = "mattpocock-skills-ref"
+url = "https://github.com/mattpocock/skills"
+status = "reference"
+focus = "grill-me, to-spec, to-tickets, tdd, diagnosing-bugs, domain-modeling"
+compat = "npx skills add mattpocock/skills"
+note = "already vendored here as 'mattpocock-skills'"
+
+[[repo]]
+name = "everything-claude-code"
+url = "https://github.com/affaan-m/everything-claude-code"
+status = "reference"
+focus = "292+ skills, 68 agents, 94 command shims, AgentShield security scanning"
+compat = "Claude Code, multi-agent harness"
+note = "largest single source; likely overlaps everything below. Harvest only after a gap appears."
+
+[[repo]]
+name = "addyosmani-agent-skills-ref"
+url = "https://github.com/addyosmani/agent-skills"
+status = "reference"
+focus = "clean architecture, web performance, testing guardrails, systematic review"
+compat = "npx skills add addyosmani/agent-skills"
+note = "already vendored here as 'addy-agent-skills'"
+
+[[repo]]
+name = "jasonkneen-kiro"
+url = "https://github.com/jasonkneen/kiro"
+status = "reference"
+focus = "spec-driven-development, requirements-engineering (EARS), quality-assurance, steering docs"
+compat = "Kiro IDE, Claude Code, Cursor, VS Code"
+note = "EARS requirements format is a genuine gap in the current manifest"
+
+[[repo]]
+name = "anthropics-skills"
+url = "https://github.com/anthropics/skills"
+status = "reference"
+focus = "docx, pptx, xlsx, pdf document automation"
+compat = "Claude Code, MCP clients, npx skills"
+note = "dsh already ships office-* skills; harvest only if a capability is missing"
+
+[[repo]]
+name = "vercel-labs-agent-skills"
+url = "https://github.com/vercel-labs/agent-skills"
+status = "reference"
+focus = "next-best-practices, next-cache-components, web-design-guidelines, next-upgrade"
+compat = "npx skills add vercel-labs/agent-skills"
+note = "fills make-it-fast for Next.js specifically"
+
+# 2. CLI tooling and scaffolding
+[[repo]]
+name = "vercel-labs-skills"
+url = "https://github.com/vercel-labs/skills"
+status = "reference"
+focus = "npx skills: discover, install, sync, symlink across 70+ agents"
+compat = "CLI, all agents"
+note = "installer, not a skill source. Used by the setup docs."
+
+[[repo]]
+name = "agents-md-kit"
+url = "https://github.com/reaatech/agents-md-kit"
+status = "reference"
+focus = "lint, validate, scaffold SKILL.md and AGENTS.md"
+compat = "CLI"
+note = "candidate validator for verify.ps1"
+
+[[repo]]
+name = "AOSSIE-Org-skills"
+url = "https://github.com/AOSSIE-Org/Skills"
+status = "reference"
+focus = "org-wide skills, repo rules, safety policies, onboarding"
+compat = "multi-agent"
+
+[[repo]]
+name = "forgecat-agent-profiles"
+url = "https://github.com/nota-america/forgecat-agent-profiles"
+status = "reference"
+focus = "package manager for SKILL.md + Cursor rules + MCP configs as shareable profiles"
+compat = "registry"
+
+# 3. Curated directories
+[[repo]]
+name = "awesome-agent-skills"
+url = "https://github.com/VoltAgent/awesome-agent-skills"
+status = "reference"
+focus = "directory of 1000+ skills: Stripe, Cloudflare, Neon, Angular, Google Workspace"
+compat = "directory"
+note = "index only; harvest individual skills directly from their origin"
+
+[[repo]]
+name = "awesome-claude-skills"
+url = "https://github.com/ComposioHQ/awesome-claude-skills"
+status = "reference"
+focus = "50+ verified skills, SaaS integrations, DevOps, memory, browser automation"
+compat = "Claude Code"
+
+[[repo]]
+name = "awesome-llm-apps"
+url = "https://github.com/Shubhamsaboo/awesome-llm-apps"
+status = "reference"
+focus = "agent_skills: project-graveyard, scope-creep-detector, commit-archaeologist"
+compat = "directory"
+note = "scope-creep-detector overlaps set-the-quality-bar; commit-archaeologist is a real gap"
+
+[[repo]]
+name = "agentic-awesome-skills"
+url = "https://github.com/sickn33/agentic-awesome-skills"
+status = "reference"
+focus = "cross-platform library tagged for Kiro, Claude Code, Gemini CLI, Codex CLI, Cursor"
+compat = "all"
+
+[[repo]]
+name = "awesome-openclaw-skills"
+url = "https://github.com/VoltAgent/awesome-openclaw-skills"
+status = "reference"
+focus = "5400+ OpenClaw skills for autonomous execution"
+compat = "directory"
+note = "largest index; treat as discovery only"
+
+# 4. Domain-specific
+[[repo]]
+name = "taste-skill"
+url = "https://github.com/Leonxlnx/taste-skill"
+status = "reference"
+focus = "frontend art direction, reference checks, browser verification"
+compat = "Claude Code, Cursor"
+note = "direct competitor to polish-the-ui; compare before choosing"
+
+[[repo]]
+name = "archify"
+url = "https://github.com/tt-a1i/archify"
+status = "reference"
+focus = "diagrams-as-code, sequence diagrams, codebase visualisation"
+compat = "skill"
+note = "no diagram capability in the current manifest; likely a genuine add"
+
+[[repo]]
+name = "diagram-design"
+url = "https://github.com/cathrynlavery/diagram-design"
+status = "reference"
+focus = "45 diagram types as self-contained HTML+SVG, no broken Mermaid"
+compat = "skill"
+
+[[repo]]
+name = "open-code-review"
+url = "https://github.com/alibaba/open-code-review"
+status = "reference"
+focus = "deterministic + agent PR review: concurrency, thread safety, XSS, SQL injection"
+compat = "CLI + skill"
+note = "stronger line-level security than check-my-security; evaluate for that slot"

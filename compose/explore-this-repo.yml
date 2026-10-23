@@ -1,0 +1,41 @@
+# Compose spec: explore-this-repo
+#
+# Shipped version was `caveman-explore` (caveman) shipped verbatim: 1,966 chars,
+# craft 8.4. Two real defects, both from being a verbatim copy:
+#
+#   1. PORTABILITY 7/10. The upstream frontmatter carries `tools: Read, Glob,
+#      Grep` and `model: haiku` - host keys that pin a specific harness's tool
+#      names and model alias. `model: haiku` in particular is meaningless outside
+#      one vendor. (The read-only intent is not lost: the body already states
+#      "You never edit files, run commands, or propose a solution" in prose.)
+#   2. SIZE 6/10 and PROCEDURE 8/10. The body is 1,966 chars of unbroken prose
+#      with ZERO headings and no numbered steps, so it reads as a prompt rather
+#      than a procedure.
+#
+# `cavecrew` (same repo family, craft 8.9, portability 10) supplies the missing
+# output contract: the exact citation format a caller can rely on, machine-
+# greppable, with the terminal `No match.` case. That is the one thing the
+# explorer body never specifies precisely and the thing its caller most needs.
+#
+# Composing also drops the host frontmatter by construction - compose.ps1 emits
+# only `name` and `description`.
+#
+# Only the Output contracts section is taken from cavecrew; its investigator /
+# builder / reviewer triage is a different job from cold-start exploration.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "explore-this-repo"
+title = "Explore This Repo"
+description = "Read-only repository explorer for cold-start orientation, broad cross-file localization, or when a direct search failed. Skip it when the exact file or symbol is already named. Returns path:line citations only, in a fixed machine-comparable contract, and its reads stay out of main context."
+sources = ["caveman", "julius-skills"]
+
+[[include]]
+skill = "caveman-explore"
+title = "The explorer"
+whole = true
+
+[[include]]
+skill = "cavecrew"
+title = "What the caller can rely on"
+from = "## Output contracts"

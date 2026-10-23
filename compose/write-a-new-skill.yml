@@ -1,0 +1,47 @@
+﻿# Compose spec: write-a-new-skill
+#
+# Shipped version was `create-skill` (gsd-2): 6,434 chars, craft 7.8, and only
+# 4/10 on procedure - 11 headings and 30 bullets, zero numbered steps.
+#
+# First attempt took writing-for-agents AND writing-skills whole (28k). That
+# overshot: craft fell to 7.1 because the body became a context bomb. This spec
+# keeps the higher-scoring base (writing-for-agents, 9.3) and adds only the
+# writing-skills sections it does not already cover.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "write-a-new-skill"
+title = "Write A New Skill"
+description = "Create, write, and refine a skill: the SKILL.md format, frontmatter fields, section structure, progressive disclosure, and the failure modes that make a skill unusable. Use when authoring a new skill, improving an existing one, or when a skill keeps being ignored or misapplied."
+sources = ["mattpocock-skills", "superpowers"]
+
+# The procedure, whole. craft 9.3 - how to write a document an agent can follow,
+# which is exactly what a SKILL.md is.
+[[include]]
+skill = "writing-for-agents"
+title = "Writing a skill an agent can follow"
+whole = true
+
+# Unique to writing-skills: the TDD loop applied to skills themselves.
+[[include]]
+skill = "writing-skills"
+title = "RED-GREEN-REFACTOR for skills"
+from = "## RED-GREEN-REFACTOR for Skills"
+
+# Unique: the rules an agent talks itself out of, and how to close them.
+[[include]]
+skill = "writing-skills"
+title = "Bulletproofing against rationalization"
+from = "## Bulletproofing Against Rationalization"
+
+# Unique: concrete failure patterns to recognise in your own draft.
+[[include]]
+skill = "writing-skills"
+title = "Anti-patterns"
+from = "## Anti-Patterns"
+
+# The final gate before calling a skill done.
+[[include]]
+skill = "writing-skills"
+title = "Skill creation checklist"
+from = "## Skill Creation Checklist (TDD Adapted)"

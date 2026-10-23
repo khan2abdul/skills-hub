@@ -1,0 +1,48 @@
+# Compose spec: trim-my-output
+#
+# Shipped version was `caveman` (caveman repo): 4,678 chars, craft 9.0, GATES 6/10.
+# Its rules are good but the "what must survive" list is scattered across rule 6
+# and the pre-send check, so the failure mode of every terse mode - dropping a
+# fact to save tokens - has no single checked list.
+#
+# `caveman-compress` (same repo, 9.4 craft) carries exactly that as two tables:
+# Remove (what may go) and Preserve EXACTLY (never modify). Only those two
+# sections are taken. Its Purpose/Trigger/Process are about compressing a file on
+# disk, which is a different job, and are left out - taking the whole body was
+# tested and produced a skill that told you to rewrite CLAUDE.md.
+#
+# `caveman-learn` was rejected: about lowering an agent's token cost over time,
+# not about this reply.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "trim-my-output"
+title = "Trim My Output"
+description = "Answer in terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, 'caveman mode', 'talk like caveman', 'be brief', 'less tokens'. Stays on until 'stop caveman' or 'normal mode'. Carries an explicit list of what may be cut and what must survive verbatim, so brevity does not silently drop a fact."
+sources = ["caveman", "superpowers"]
+
+[[include]]
+skill = "caveman"
+title = "Caveman mode"
+whole = true
+
+# The two tables that turn "be brief" into a checkable rule set.
+[[include]]
+skill = "caveman-compress"
+title = "What may be cut"
+from = "### Remove"
+
+[[include]]
+skill = "caveman-compress"
+title = "What must survive verbatim"
+from = "### Preserve EXACTLY (never modify)"
+
+# The rules above say what to cut; nothing said how to verify a reply before
+# sending it. `verification-before-completion` supplies that as an ordered gate
+# (identify the check, run it, read the output, verify, only then claim). A terse
+# mode needs exactly that, because its failure is a dropped fact and a dropped
+# fact is invisible without a list to compare against.
+[[include]]
+skill = "verification-before-completion"
+title = "Check before you send"
+from = "## The Gate Function"

@@ -1,0 +1,32 @@
+﻿# Compose spec: make-it-accessible
+#
+# Shipped version was `web-accessibility` (gsd-2): 12,836 chars, craft 9.0, but
+# GATES 6/10 - it lists WCAG criteria and never says how to confirm the fix
+# landed. An a11y audit without a verification step is a checklist you tick while
+# hoping.
+#
+# `frontend-ui-engineering` (addy-agent-skills, 9.6) has the missing gate as a
+# short section: collect reference evidence first, turn decisions into a written
+# design contract, then verify the result against it - and never copy another
+# product's branding. That is the "did it actually get better?" step.
+#
+# Only that section is taken. Its full body builds UIs, not audits them; the
+# whole-body version was rejected as a different job.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "make-it-accessible"
+title = "Make It Accessible"
+description = "Audit and improve web accessibility to WCAG 2.1: keyboard paths, screen-reader semantics, focus order and visible focus, contrast, form labelling, and motion. Use for an a11y audit, a WCAG compliance pass, screen-reader or keyboard-navigation problems, or before shipping any user-facing surface. Includes the evidence-and-contract check that confirms the fix landed instead of assuming it did."
+sources = ["accessibility", "frontend-ui-engineering"]
+
+[[include]]
+skill = "accessibility"
+title = "The audit and the fixes"
+whole = true
+
+[[include]]
+skill = "frontend-ui-engineering"
+title = "Verify against a written contract, not a vibe"
+from = "### Reference-led UI quality"
+

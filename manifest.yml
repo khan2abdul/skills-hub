@@ -1,0 +1,376 @@
+# Canonical skill manifest.
+#
+# ONE entry per capability. `name` is what the agent sees and what users say.
+# `candidates` lists every upstream skill that covers this capability, best first.
+# `chosen` is the upstream skill whose body is vendored as the base. Empty until merged.
+#
+# Status: proposed = awaits review | merged = body vendored in skills/<name>/
+# Dedupe rule: merge only where the capability is genuinely the same job.
+#            Distinct jobs keep distinct names even if they touch the same phase.
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Understand the problem ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "discuss-on-new-idea"
+status = "merged"
+chosen = ""
+composed = ["idea-refine", "brainstorming"]
+candidates = ["idea-refine", "brainstorming", "grilling", "junior-to-senior"]
+rationale = "Sharpens a vague idea before any planning. Was idea-refine alone (craft 8.7, GATES 6/10): its Process section explains three phases and never says what makes an idea ready to leave a phase or when to stop diverging. Added brainstorming's Play It Back and Red Flags, which are exactly those gates - what an idea must survive before it becomes a plan. grilling is stress-test only. brainstorming's full body was rejected as a replacement base: it is a session protocol (visual companion, browser handoff) rather than an ideation method."
+
+[[skill]]
+name = "interview-me-properly"
+status = "merged"
+chosen = ""
+candidates = ["interview-me", "grill-me", "grill-with-docs", "grilling"]
+rationale = "One-question-at-a-time interrogation until ambiguity is 0%. Four repos ship a version; addyosmani's is the most forcing."
+
+[[skill]]
+name = "explore-this-repo"
+status = "merged"
+chosen = ""
+composed = ["caveman-explore", "cavecrew"]
+candidates = ["caveman-explore", "caveman-discover", "cavecrew"]
+rationale = "Read-only orientation across a cold repo, returning path:line only; keeps reads out of main context. Was caveman-explore shipped verbatim, which carried two defects: host frontmatter (tools: Read, Glob, Grep and model: haiku pin one vendor's tool names and a model alias - portability 7/10, and it also failed the minimum size band at 1,966 chars), and a body with zero headings and no numbered steps. Composing fixes the frontmatter by construction, since compose.ps1 emits only name and description. cavecrew adds the output contract the explorer never specified: the exact citation shape a caller can rely on, backticked symbols, and the terminal No match. case. Its full investigator/builder/reviewer triage was rejected as a different job."
+
+[[skill]]
+name = "research-this-topic"
+status = "merged"
+chosen = ""
+composed = ["source-driven-development", "research"]
+candidates = ["research", "source-driven-development"]
+rationale = "Was `research` alone (816 chars, no headings, zero verification language): a stub that says 'go research' with no procedure. `source-driven-development` does the same job with a 4-step process, a citations rule and a rationalisations section. Composed: its whole body as the procedure, plus research's closing section on where the findings are written - the one thing the stub did better."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Shape the work ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "write-the-spec"
+status = "merged"
+chosen = ""
+composed = ["spec-driven-development", "to-spec"]
+candidates = ["to-spec", "spec-driven-development", "write-milestone-brief", "loop-factory", "spec"]
+rationale = "Was `to-spec` alone (3,118 chars, craft 8.4) and it carried disable-model-invocation: true, so only a typed /write-the-spec reached it. `spec` is the largest candidate (56,410 chars) but scores craft 6.9, not 10: 76 headings of host-specific preamble and portability 1/10 - picking on size alone would have chosen the worst source. Composed: spec-driven-development's gated workflow (craft 9.6) as the procedure, plus to-spec's distinct job of synthesising a spec straight from the current conversation."
+
+[[skill]]
+name = "break-into-tasks"
+status = "merged"
+chosen = ""
+candidates = ["decompose-into-slices", "to-tickets", "planning-and-task-breakdown", "wayfinder"]
+rationale = "Vertical tracer-bullet slices with declared blocking edges. decompose-into-slices is the sharpest; planning-and-task-breakdown produces no ticket file."
+
+[[skill]]
+name = "review-the-plan"
+status = "merged"
+chosen = ""
+composed = ["junior-to-senior", "plan-eng-review"]
+candidates = ["plan-eng-review", "junior-to-senior", "office-hours"]
+rationale = "Was `plan-eng-review` alone (51,484c, craft 6.9, portability 1/10, 14 uninstalled helpers); ~95% of it is gstack scaffolding - preamble, plan-mode notes, AskUserQuestion format, telemetry, status footer, cache refresh. `junior-to-senior` scores 10/10 on every dimension (9,194c): a five-phase adversarial review that treats the plan as junior work and builds a senior reviewer to attack it. Same job at one fifth the context. Kept only two plan-eng-review sections with content it lacks: the scope challenge and how great eng managers think."
+
+[[skill]]
+name = "write-the-domain-glossary"
+status = "merged"
+candidates = ["domain-modeling", "grill-with-docs", "codebase-design"]
+chosen = ""
+composed = ["domain-modeling", "documentation-and-adrs", "spec-driven-development"]
+rationale = "Canonical terms in GLOSSARY.md plus ADRs. Was domain-modeling alone (craft 8.9, GATES 4/10, the weakest gate score in the hub): it says how to build a glossary and an ADR and never states a rule that stops you publishing a bad one. Added documentation-and-adrs Prose Review, the checks to run on the written result. codebase-design rejected: different vocabulary, 2 gates, overlaps the base."
+
+[[skill]]
+name = "design-the-interface"
+status = "merged"
+chosen = ""
+composed = ["codebase-design", "design-an-interface", "api-and-interface-design", "documentation-and-adrs", "spec-driven-development"]
+candidates = ["design-an-interface", "api-and-interface-design", "api-design", "codebase-design"]
+rationale = "Produce several designs, compare them, then gate the winner. Was design-an-interface + codebase-design (8,886c, craft 9.3, GATES 6/10): it generates designs and compares them and then stops - nothing says when a design is finished, and codebase-design's own sections score 0-2 gates each so it cannot supply that. Added api-and-interface-design's Verification checklist (typed schemas, one error format, validation at boundaries only, additive fields, idempotency) and its Red Flags. That is what turns 'here are three designs' into 'here is the one that passes'. Its 3,070c worked example was rejected: teaches one pattern rather than gating a design."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Build ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "build-it-test-first"
+status = "merged"
+chosen = ""
+candidates = ["test-driven-development", "tdd", "verify-and-stop"]
+rationale = "Red-green-refactor with an anti-rationalization table. addyosmani's TDD has the table; gsd-2's tdd adds vertical slices."
+
+[[skill]]
+name = "build-in-small-steps"
+status = "merged"
+chosen = ""
+candidates = ["incremental-implementation", "lean-build", "surgical-patch"]
+rationale = "Thin verifiable slices, narrowest responsible layer, explicit stop condition."
+
+[[skill]]
+name = "fix-this-bug"
+status = "merged"
+chosen = ""
+composed = ["surgical-patch", "karpathy-guidelines", "systematic-debugging"]
+candidates = ["surgical-patch", "debugging-and-error-recovery", "systematic-debugging", "karpathy-guidelines"]
+rationale = "Was surgical-patch alone (664c, craft 6.2, size 2/10): a six-bullet summary of a discipline, not a procedure. debug-this-code already owns the full red-green procedure, so a second debug skill would duplicate it. The stub lacked two things: change-discipline (what counts as in-scope, what must not be touched) and a way to make done verifiable. karpathy-guidelines sections 3-4 supply the first; systematic-debugging's four-phase Quick Reference and Phase 1 root-cause investigation supply the second. Phase 4 of systematic-debugging was rejected despite being the best fit on paper: it instructs the agent to use superpowers:test-driven-development and superpowers:verification-before-completion, neither of which this hub ships - the same defect as the dead gstack hooks. 5,732c, in band."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Debug ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "debug-this-code"
+status = "merged"
+chosen = ""
+composed = ["diagnosing-bugs", "systematic-debugging", "debugging-and-error-recovery"]
+candidates = ["diagnosing-bugs", "systematic-debugging", "debugging-and-error-recovery", "debug-like-expert", "investigate-first", "investigate"]
+rationale = "Scored 16 debugging practices (tools/evaluate.ps1). diagnosing-bugs scored 30/37 and is the base; the three debugging-and-error-recovery excerpts plus systematic-debugging's Iron Law cover the missing 7, reaching 37/37. Chosen over the single best file because no single file covers the loop, the law, the rationalisations and the injection warning together."
+
+[[skill]]
+name = "debug-the-stubborn-one"
+status = "merged"
+chosen = ""
+candidates = ["debug-like-expert", "investigate-first", "forensics"]
+rationale = "Escalation path when the first debug loop fails twice. Kept separate from debug-this-code on purpose."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Review and verify ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "review-my-code"
+status = "merged"
+chosen = ""
+composed = ["code-review-and-quality", "code-review"]
+candidates = ["code-review-and-quality", "code-review", "review", "ponytail-review", "caveman-review", "requesting-code-review"]
+rationale = "Was code-review-and-quality whole (20,889c, craft 9.2) - past the 20k size band and padded with advice sections (Change Sizing, Dependency Discipline, Review Speed, Multi-Model Pattern) that are good sense but not review procedure. Recomposed from its own spine - the five axes, the process steps, finding categories, red flags, verification - keeping all review method and dropping the opining. review (gsd-2) and ponytail-review were rejected as bases: review's headings all live inside one fenced template so there is no structure to take, and ponytail-review is thin on structure."
+
+[[skill]]
+name = "receive-code-review"
+status = "merged"
+chosen = ""
+candidates = ["receiving-code-review"]
+rationale = "How to act on feedback without performative agreement. Genuinely distinct job from giving review."
+
+[[skill]]
+name = "check-my-security"
+status = "merged"
+chosen = ""
+composed = ["security-and-hardening", "security-review"]
+candidates = ["security-review", "security-and-hardening", "ponytail-audit", "cso"]
+rationale = "Was security-review alone (8,101c, craft 8.1): 18 headings, zero numbered steps - described security review without ordering it. Was then security-and-hardening whole + the gsd-2 tail, which hit 23,125c (size 7/10, past the 20k band). Now composed section-by-section: the base contributes threat-model-first, the Always/Ask-First/Never boundary system, hardening controls, checklist, red flags and verification; gsd-2 contributes the STRIDE pass, severity x exploitability triage and the finding template - the three things the base genuinely lacks. Dropped: base Overview and When-to-Use (orientation, restates the description), base Common Rationalizations (motivational, and the checklist and red flags already cover the checks), gsd-2 OWASP cross-check (restates the base's injection/SSRF/CORS controls) and gsd-2 Follow-ups (routes through .gsd/ paths and /gsd commands this hub does not ship, and the extraction drags stray </process> and <anti_patterns> tags). 19,658c, inside the band, no check lost."
+
+[[skill]]
+name = "prove-it-works"
+status = "merged"
+chosen = ""
+candidates = ["verification-before-completion", "verify-before-complete", "verify-and-stop"]
+rationale = "Block 'done' claims until fresh evidence exists in this message. Three near-identical skills; keep one."
+
+[[skill]]
+name = "check-my-ui"
+status = "merged"
+chosen = ""
+composed = ["browser-testing-with-devtools", "browse"]
+candidates = ["browse", "qa", "browser-testing-with-devtools", "agent-browser", "web-design-guidelines", "design-review", "qa-only", "design-html", "design-shotgun"]
+rationale = "Was `browse` alone (34,102 chars, craft 7.8, portability 4/10): mostly gstack scaffolding - preamble, plan-mode notes, model patches, telemetry - and 4 of its browser checks call helper scripts that are not installed, so they cannot run here. `browser-testing-with-devtools` scores 9.6 and does the job with real Chrome DevTools inspection and no host scaffolding. Composed: its setup, workflow, screenshot verification, a11y verification and red flags as the procedure, plus gstack's rules for driving a real browser as the only part worth keeping. Section includes rather than whole bodies because both sources contain literal example headings inside fenced blocks."
+
+[[skill]]
+name = "audit-the-whole-repo"
+status = "merged"
+chosen = ""
+composed = ["ponytail-audit", "review"]
+candidates = ["ponytail-audit", "health", "web-quality-audit", "code-optimizer"]
+rationale = "One-shot ranked report over a whole codebase. Changes nothing. Was ponytail-audit alone (craft 9.3, GATES 8/10): it maps, looks, reports, and its own Check-before-you-report section is the only gate - so a finding's evidence standard was never written down. Added review's finding template, which forces severity, location and a concrete consequence per finding. health was rejected outright: 43k chars of gstack preamble, telemetry and an interactive dashboard, wrong job and portability 1/10."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Restrain and compress ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "trim-my-output"
+status = "merged"
+chosen = ""
+composed = ["caveman", "caveman-compress", "verification-before-completion"]
+candidates = ["caveman", "ultracave", "caveman-compress", "cavecrew", "caveman-review", "caveman-stats", "caveman-learn", "caveman-optimize"]
+rationale = "Was `caveman` alone (4,678c, craft 9.0) with GATES 6/10: good rules, but the "what must survive" list was scattered across rule 6 and the pre-send check, so the failure mode of every terse mode - dropping a fact to save tokens - had no single checked list. Added the Remove and Preserve-EXACTLY tables from caveman-compress (9.4 craft) as two sections. Its Purpose/Trigger/Process were left out: those are about compressing a file on disk, a different job - taking the whole body produced a skill that told you to rewrite CLAUDE.md."
+
+[[skill]]
+name = "write-less-code"
+status = "merged"
+chosen = "ponytail"
+candidates = ["ponytail", "code-simplification", "karpathy-guidelines"]
+rationale = "The Code Necessity Ladder. ponytail owns it; code-simplification is the refactor-time view; karpathy-guidelines adds LLM-specific failure modes."
+
+[[skill]]
+name = "simplify-this-code"
+status = "merged"
+chosen = ""
+composed = ["code-simplification", "safe-refactor"]
+candidates = ["code-simplification", "safe-refactor", "deslopify", "last-20-percent"]
+rationale = "Behaviour-preserving restructure or clarity pass. Distinct from write-less-code (a constraint while writing). Was code-simplification alone (craft 9.3, GATES 8/10): it knows how to spot complexity and fix it, and has no language for the simplifications that are not simplifications - the ones that move difficulty instead of removing it. Added last-20-percent's Boundaries (where rewriting stops paying) and Why the 20% Gets Skipped (why the unglamorous tail is where clarity work actually completes). deslopify scored craft 10 and was rejected as the wrong job: it strips AI prose tells from writing, not code complexity. safe-refactor is the behaviour-preservation sibling and stays a candidate, not a source."
+
+[[skill]]
+name = "watch-my-context"
+status = "merged"
+chosen = ""
+candidates = ["context-canary", "context-engineering", "context-save", "context-restore", "handoff"]
+rationale = "Detect context rot and hand off cleanly. context-canary is the early-warning; handoff is the exit; context-engineering is setup."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Ship ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "ship-it"
+status = "merged"
+chosen = ""
+composed = ["finishing-a-development-branch", "git-workflow-and-versioning"]
+candidates = ["ship", "finishing-a-development-branch", "pr", "git-workflow-and-versioning", "land-and-deploy"]
+rationale = "Was `ship` alone (80,509c, craft 5.8, REFERENCES 0/10 - its body cites no files at all - and 20 uninstalled gstack helpers): the largest and worst-sourced entry in the hub. `finishing-a-development-branch` scores 9.3 and is the same workflow as numbered steps - verify tests, detect environment, determine base branch, present options, execute the chosen one - in 7,729c. Added atomic-commit and pre-commit-hygiene sections from git-workflow-and-versioning for the part it assumes."
+
+[[skill]]
+name = "write-the-docs"
+status = "merged"
+chosen = ""
+composed = ["write-docs", "context-engineering"]
+candidates = ["write-docs", "documentation-and-adrs", "writing-for-agents"]
+rationale = "Prose for humans; ADRs for decisions; AGENTS.md/CLAUDE.md for machines. Was write-docs alone (craft 9.3, GATES 8/10): three good stages - gather context, iterate structure, reader-test - and no way to tell whether the document actually works before publishing. Added context-engineering's Red Flags and Verification sections, which are exactly the pre-publish check list. The rest of context-engineering was rejected: it optimises an agent's context window, a different job from writing for a human reader."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Multi-agent and orchestration ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "split-across-agents"
+status = "merged"
+chosen = ""
+composed = ["dispatching-parallel-agents", "subagent-driven-development"]
+candidates = ["dispatching-parallel-agents", "subagent-driven-development"]
+rationale = "Fan work out across independent agents without shared state. Was dispatching-parallel-agents alone (craft 9.3) but GATES 8/10: it says how to dispatch and never says how to tell whether a delegate's report is trustworthy, which is the actual failure mode of delegation. subagent-driven-development is a worse base overall (procedure 4/10) but carries the one missing thing - per-task review gates: never accept a report missing either verdict, never dispatch a reviewer without a diff file, self-review never replaces the review. Only that section was taken."
+
+[[skill]]
+name = "isolate-this-branch"
+status = "merged"
+chosen = ""
+candidates = ["using-git-worktrees"]
+rationale = "Isolated workspace via worktree before parallel or risky work."
+
+[[skill]]
+name = "guard-the-dangerous-stuff"
+status = "merged"
+chosen = ""
+composed = ["careful", "migration", "deprecation-and-migration"]
+candidates = ["guard", "careful", "freeze", "unfreeze"]
+rationale = "Was `guard` alone (3,834c, craft 5.4) - EMPTY-BODY: its hooks call check-careful.sh from $HOME/.claude/skills/gstack/, which dsh does not install, so a skill named "guard" protected nothing. `careful` scores only 6.1 with portability 1/10 for the same dead-hook reason, but its BODY is pure prose worth keeping: the destructive-pattern table for POSIX shell, a second covering PowerShell/cmd, the safe-exception list, and the HIGH tier that denies outright. Composed those five sections as a checklist to apply by hand. freeze/unfreeze were rejected: they block all writes rather than warn on dangerous ones."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Quality bar and gates ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "set-the-quality-bar"
+status = "merged"
+chosen = ""
+candidates = ["constraint-driven-development", "best-practices"]
+rationale = "Write CONSTRAINTS.md and stop agents quietly lowering it. Distinct from review: this is the contract, review is the check."
+
+[[skill]]
+name = "polish-the-ui"
+status = "merged"
+chosen = ""
+composed = ["frontend-ui-engineering", "interface-kit"]
+candidates = ["interface-kit", "frontend-ui-engineering", "frontend-design", "make-interfaces-feel-better", "userinterface-wiki", "design-review", "last-20-percent"]
+rationale = "Was `interface-kit` alone (21,903 chars, craft 7.8): 61 headings and 83 bullets but only 4/10 on procedure - it narrates principles and never numbers a step, so it is a reference, not a workflow. `frontend-ui-engineering` scores 9.6 and covers the implementation side in order (component architecture, file structure, state, design-system adherence). Composed: the ordered procedure first, then interface-kit's craft detail as the reference to consult - which is what interface-kit is genuinely good at."
+
+[[skill]]
+name = "make-it-accessible"
+status = "merged"
+chosen = ""
+composed = ["accessibility", "frontend-ui-engineering"]
+candidates = ["accessibility", "web-design-guidelines"]
+rationale = "Was `accessibility` alone (12,836c, craft 9.0) with GATES 6/10: it lists WCAG criteria and never says how to confirm the fix landed - an a11y audit without a verification step is a checklist you tick while hoping. Added frontend-ui-engineering's evidence-and-contract section (craft 9.6), which is exactly the missing gate: collect reference evidence, write the decisions into a design contract, then verify against it. Only that section was taken; its full body builds UIs rather than auditing them, a different job. web-design-guidelines was rejected: 1,270c, gates 2/10."
+
+[[skill]]
+name = "make-it-fast"
+status = "merged"
+chosen = ""
+candidates = ["performance-optimization", "core-web-vitals", "react-best-practices", "code-optimizer"]
+rationale = "Profile, then fix the measured bottleneck. core-web-vitals is the narrow web subset."
+
+[[skill]]
+name = "make-it-observable"
+status = "merged"
+chosen = ""
+candidates = ["observability-and-instrumentation", "observability"]
+rationale = "Structured logs, health endpoints, failure-state persistence. Near-duplicate across two repos."
+
+[[skill]]
+name = "document-the-decision"
+status = "merged"
+chosen = ""
+candidates = ["documentation-and-adrs", "write-docs"]
+rationale = "ADR: date, decision, why, rejected alternatives. NOTE: possible overlap with write-the-docs ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â decide before merge."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Meta ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+
+[[skill]]
+name = "write-a-new-skill"
+status = "merged"
+chosen = ""
+composed = ["writing-for-agents", "writing-skills"]
+candidates = ["create-skill", "writing-skills", "writing-for-agents", "skillify"]
+rationale = "Was `create-skill` (6,434 chars, craft 7.8) with only 4/10 on procedure: 11 headings and 30 bullets, zero numbered steps - it discusses skills instead of walking through writing one. `skillify` is 7x larger but scores 7.8 (host preamble, portability 1/10). Composed from the two that score on craft: writing-for-agents (9.3) for how to write documents an agent can follow, and writing-skills (9.0) for structure and failure modes."
+
+[[skill]]
+name = "route-to-the-right-skill"
+status = "merged"
+chosen = ""
+candidates = ["using-agent-skills", "using-superpowers", "ask-matt"]
+rationale = "Meta-router. Mostly redundant once this hub has clean names ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â candidate for deletion."
+
+[[skill]]
+name = "hand-off-to-next-session"
+status = "merged"
+chosen = ""
+candidates = ["handoff", "context-save", "context-restore"]
+rationale = "Compact session state so tomorrow's agent resumes exactly."
+
+[[skill]]
+name = "finish-the-experience"
+status = "merged"
+chosen = "last-20-percent"
+candidates = ["last-20-percent"]
+rationale = "Product-finishing pass for the experiential layer agents skip: the magic moment, first-run and empty states, opinionated defaults, golden artifacts, and a cold walk-through before calling it done. Self-contained with its catalog. Distinct from polish-the-ui (visual craft) and prove-it-works (command evidence)."
+
+[[skill]]
+name = "deslop-the-writing"
+status = "merged"
+chosen = "deslopify"
+candidates = ["deslopify"]
+rationale = "Editing pass for prose: mechanical AI-tell scan, rewrite by meaning, re-scan until clean, register check. Self-contained with its tell catalog and register guide. Distinct from write-the-docs (authoring) and trim-my-output (terse agent replies)."
+
+[[skill]]
+name = "test-every-surface"
+status = "merged"
+chosen = ""
+composed = ["qa-only", "qa"]
+candidates = ["qa-only", "qa"]
+rationale = "Report-only QA across functional surfaces: API, CLI, job, worker, webhook. Composed from gstack's surface selector, functional contract map, report finalizer, and report-only rules. Browser UI stays with check-my-ui; this fills the non-browser gap without vendoring gstack's helper runtime."
+
+# ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Deliberately excluded ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+# Listed so harvest.ps1 stops proposing them. Each is either vendor tooling,
+# a duplicate of a canonical name above, or dead weight for solo work.
+#
+# caveman Cloud ops (vendor SaaS, not a capability):
+#   caveman-discover, caveman-evidence-review, caveman-manage, caveman-optimize,
+#   caveman-setup, caveman-stats, caveman-help, cavecrew
+# repo housekeeping / vendor-specific:
+#   setup-matt-pocock-skills, create-gsd-extension, forensics, diagnosing-superpowers,
+#   spike-wrap-up, ponytail-debt, ponytail-gain, ponytail-help, caveman-help,
+#   megacave, caveman-commit
+# folded into a canonical skill above:
+#   implement, implement-spec (build-in-small-steps)
+#   writing-plans, executing-plans (write-the-spec + break-into-tasks)
+#   wait-what, btw, teach, to-questionnaire, triage, wizard, prototype, retro
+#   (no canonical owner yet ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â revisit if a real need appears)
+#   shipping-and-launch (ship-it), deprecation-and-migration (write-the-spec)
+#   ci-cd-and-automation, github-workflows (out of scope: CI config, not a coding phase)
+#   dependency-upgrade, lint, test, create-mcp-server, create-workflow
+#   (generic tooling dsh already ships natively)
+#   doubt-driven-development (folded into review-the-plan)
+#   improve-codebase-architecture (folded into audit-the-whole-repo)
+#   migration (folded into write-the-spec)
+#
+# triaged 2026-10-23 (the 55 previously dropped):
+#   duplicate or subset of a shipped skill -> ignore.txt, grouped by canonical name.
+#   unique but not portable -> ignored with the blocker named:
+#     wayfinder (slash-only; calls upstream skill names), loop-factory (external CLI),
+#     land-and-deploy (72k, platform runtime), caveman-learn (Caveman Cloud),
+#     office-hours (product strategy, out of engineering scope).
+#   promoted instead:
+#     last-20-percent -> finish-the-experience
+#     deslopify -> deslop-the-writing
+#     code-review -> review-my-code (two-axis Spec/Standards gate)
+#     qa-only + qa sections -> test-every-surface
+

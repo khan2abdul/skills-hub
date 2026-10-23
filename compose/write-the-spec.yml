@@ -1,0 +1,32 @@
+# Compose spec: write-the-spec
+#
+# Shipped version was `to-spec` (mattpocock-skills): 3,118 chars, craft 8.4, and
+# it carried `disable-model-invocation: true`, so the model could never choose it
+# - only a human typing /write-the-spec reached it.
+#
+# Note on the manifest: `spec` (gstack, 56,410 chars) is the largest candidate by
+# far, but it scores craft 6.9, not 10 - 76 headings of host-specific preamble
+# (plan mode, AskUserQuestion format, model patches, voice) and portability 1/10.
+# Size alone would have picked the worst source here. `spec-driven-development`
+# scores 9.6 and is the same job without the gstack scaffolding.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "write-the-spec"
+title = "Write The Spec"
+description = "Turn intent into a precise, executable specification before any code is written. Use when starting a project, feature, or significant change and no spec exists, or when an ask is underspecified. Produces a spec with objectives, scope, boundaries, success criteria and open questions, and can also synthesise a spec straight from the current conversation."
+sources = ["addy-agent-skills", "mattpocock-skills"]
+
+# The base: the gated spec workflow, whole body, craft 9.6.
+[[include]]
+skill = "spec-driven-development"
+title = "The spec workflow"
+whole = true
+
+# to-spec's one distinct job: synthesise from the conversation that just
+# happened rather than interviewing. That is the case /write-the-spec is used
+# for most, so it is kept after the full procedure.
+[[include]]
+skill = "to-spec"
+title = "Synthesising a spec from the current conversation"
+whole = true

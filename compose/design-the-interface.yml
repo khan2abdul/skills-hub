@@ -1,0 +1,71 @@
+# Compose spec: design-the-interface
+#
+# Shipped version was `design-an-interface` + `codebase-design`: 8,886 chars,
+# craft 9.3, GATES 6/10. It generates several designs and compares them, then
+# simply stops - there is no checklist that says when a design is finished.
+# codebase-design's own sections score 0-2 gates each, so it cannot supply it.
+#
+# `api-and-interface-design` (addy-agent-skills) supplies the missing half: a
+# Verification checklist per endpoint - typed schemas, one error format,
+# validation at boundaries only, additive fields, idempotency - plus a Red Flags
+# list. That is what turns "here are three designs" into "here is the one that
+# passes".
+#
+# `documentation-and-adrs` contributes "When to Write an ADR": the list of
+# decisions that are expensive to reverse. The skill already ends on "capture the
+# decision"; this states which decisions are worth capturing, which is the
+# difference between a design note and a decision record.
+#
+# Its long worked example (Honouring an Idempotency Key, 3,070c, 4 gates) was
+# rejected: good content, but it teaches one pattern rather than gating a design.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "design-the-interface"
+title = "Design The Interface"
+description = "Produce several radically different designs for a module, API or interface, compare them against explicit criteria, and synthesize a recommendation - then check the winner against a design checklist and decide whether it warrants a recorded decision. Use when asked to design an interface, shape an API, design it twice, explore module boundaries, or when planning a new deep module and the first idea is unlikely to be the best."
+sources = ["julius-skills", "addy-agent-skills"]
+
+[[include]]
+skill = "codebase-design"
+title = "Design it twice"
+whole = true
+
+[[include]]
+skill = "design-an-interface"
+title = "Run the comparison"
+from = "## Step 4: Compare in prose"
+
+[[include]]
+skill = "design-an-interface"
+title = "Capture the decision"
+from = "## Step 6: Capture the decision"
+
+[[include]]
+skill = "api-and-interface-design"
+title = "Checklist before you commit"
+from = "## Verification"
+
+[[include]]
+skill = "api-and-interface-design"
+title = "Red flags"
+from = "## Red Flags"
+
+[[include]]
+skill = "documentation-and-adrs"
+title = "Is this decision worth recording?"
+from = "### When to Write an ADR"
+
+[[include]]
+skill = "documentation-and-adrs"
+title = "Check the prose before you commit the decision"
+from = "## Prose Review"
+
+# The skill compares designs and then commits. Nothing stated the condition under
+# which the comparison is finished rather than merely long - so this checklist
+# closes the loop: criteria specific and testable, boundaries named, the human has
+# approved. It is the last gate before the decision is written down.
+[[include]]
+skill = "spec-driven-development"
+title = "Is the design finished?"
+from = "## Verification"

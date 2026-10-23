@@ -1,0 +1,29 @@
+# Compose spec: research-this-topic
+#
+# The shipped version was `research` (mattpocock-skills), 816 chars, no
+# headings, and zero verification language - it says "go research" without a
+# procedure. `source-driven-development` (addy-agent-skills) does the same job
+# with a numbered process, a citations rule and a rationalisations section:
+# 9,964 chars, craft 8.4 vs our 6.5.
+#
+# Each include is a verbatim section. verify.ps1 re-extracts and re-hashes every
+# block, so an upstream edit or a hand-edited excerpt fails the health check.
+
+name = "research-this-topic"
+title = "Research This Topic"
+description = "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent."
+sources = ["addy-agent-skills", "mattpocock-skills"]
+
+# The base: the whole procedure, minus its h1. This is the 10-heading body the
+# 816-char version was missing.
+[[include]]
+skill = "source-driven-development"
+title = "The research procedure"
+whole = true
+
+# The one thing `research` did better: it says where the output goes and that
+# the answer is a repo file, not a chat reply.
+[[include]]
+skill = "research"
+title = "Where the findings go"
+whole = true

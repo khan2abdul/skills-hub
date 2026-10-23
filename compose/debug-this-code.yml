@@ -1,0 +1,50 @@
+# Compose spec: assembles a canonical skill body from verbatim excerpts.
+#
+# Nothing here is paraphrased. Each `include` copies a named section of an
+# upstream SKILL.md byte-for-byte and records its sha256. verify.ps1 re-extracts
+# and re-hashes every block, so an upstream edit or a hand-edited excerpt fails.
+#
+# Section matching: `from` is an exact heading line, e.g. "## Phase 1: Build a
+# feedback loop" or "### Phase 2: Pattern Analysis" (levels differ per repo).
+# Use `whole: true` to take the entire body (after frontmatter, h1 stripped).
+#
+# This spec is deliberately small. tools/evaluate.ps1 scores each candidate
+# against 16 debugging practices; diagnosing-bugs alone covers 30/37. The four
+# excerpts below are exactly the seven points it is missing, so nothing here is
+# padding.
+
+name = "debug-this-code"
+description = "Find and fix the real root cause instead of guessing. Builds a red-capable feedback loop before theorising, ranks hypotheses before testing them, refuses symptom fixes, and will not call a bug fixed without a regression test."
+sources = ["mattpocock-skills", "superpowers", "addy-agent-skills"]
+
+# Gap: the hard prohibition on symptom fixes, stated before any procedure so the
+# agent reads the law first (base has the loop; this states the line).
+[[include]]
+skill = "systematic-debugging"
+title = "The one rule"
+from = "## The Iron Law"
+
+# The 30/37 base, verbatim whole body. Its own h1 is stripped; the title below
+# replaces it so the heading sits under the law.
+[[include]]
+skill = "diagnosing-bugs"
+title = "The procedure"
+whole = true
+
+# Gap: a concrete symptom-vs-root-cause example, so the rule is actionable.
+[[include]]
+skill = "debugging-and-error-recovery"
+title = ""
+from = "### Step 4: Fix the Root Cause"
+
+# Gap: the excuses an agent uses to skip the process, answered.
+[[include]]
+skill = "debugging-and-error-recovery"
+title = ""
+from = "## Common Rationalizations"
+
+# Gap: error text is attacker-controlled data, not instructions.
+[[include]]
+skill = "debugging-and-error-recovery"
+title = ""
+from = "## Treating Error Output as Untrusted Data"

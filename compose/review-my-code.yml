@@ -1,0 +1,61 @@
+# Compose spec: review-my-code
+#
+# Shipped version was `code-review-and-quality` whole (20,889 chars, craft 9.2).
+# Two real problems: at 20.9k it is past the 20,000 size band, and it carries
+# advice-section bulk (Change Sizing, Dependency Discipline, Review Speed,
+# Multi-Model Pattern) that is good sense but not review procedure.
+#
+# This keeps the spine verbatim - the five axes with their checks, the numbered
+# review process, red flags, verification - and drops the advice sections.
+# Nothing about method is lost; the opining is what goes.
+#
+# Note the section names: take the PARENT ("## Review Process"), not a child
+# ("### Step 1"). Extracting a child truncates at the next heading of the same
+# level, which silently dropped steps 2-5 on the first attempt and scored 7.3.
+#
+# `review` was rejected as a base: all its headings live inside one fenced
+# template, so there is no structure to take. ponytail-review (9.3) is thin on
+# structure. Neither beats the five-axis spine for this job.
+#
+# Added 2026-10-23: `code-review` (mattpocock-skills) supplies the one question
+# the five axes never ask - did the diff implement the spec? Its Process adds a
+# fixed point, a spec source, repo standards, and parallel Standards/Spec
+# sub-agents; Why two axes explains why the reports must stay separate. The
+# five axes remain the "what to check"; this is the "against what" gate.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "review-my-code"
+title = "Review My Code"
+description = "Multi-axis code review before merging: correctness, readability and simplicity, architecture, security, and performance, plus a two-axis gate for repo standards and spec conformance. Use when reviewing a diff or pull request, your own work or another agent's, or when a change needs sign-off across several dimensions rather than one."
+sources = ["addy-agent-skills", "mattpocock-skills"]
+
+[[include]]
+skill = "code-review-and-quality"
+title = ""
+from = "## The Five-Axis Review"
+
+[[include]]
+skill = "code-review-and-quality"
+title = ""
+from = "## Review Process"
+
+[[include]]
+skill = "code-review"
+title = ""
+from = "## Why two axes"
+
+[[include]]
+skill = "code-review"
+title = ""
+from = "## Process"
+
+[[include]]
+skill = "code-review-and-quality"
+title = ""
+from = "## Red Flags"
+
+[[include]]
+skill = "code-review-and-quality"
+title = ""
+from = "## Verification"

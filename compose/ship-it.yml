@@ -1,0 +1,34 @@
+﻿# Compose spec: ship-it
+#
+# Shipped version was `ship` (gstack): 80,509 chars, craft 5.8, REFERENCES 0/10 -
+# its body cites no files at all - and 20 uninstalled gstack helpers. Largest and
+# worst-sourced entry in the hub.
+#
+# `finishing-a-development-branch` (superpowers) scores 9.3 and is the same
+# workflow as numbered steps: verify tests, detect environment, determine base
+# branch, present options, execute the chosen one. 7,729 chars vs 80,509.
+#
+# `git-workflow-and-versioning` adds what that assumes: clean atomic commits, and
+# a hygiene pass before pushing.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "ship-it"
+title = "Ship It"
+description = "Take finished work to the remote: verify the tests pass, detect the environment and base branch, choose between merging locally and opening a pull request, then commit, push and clean up. Use when implementation is complete and tests pass and you need to decide how to integrate the work."
+sources = ["superpowers", "addy-agent-skills"]
+
+[[include]]
+skill = "finishing-a-development-branch"
+title = "The ship workflow"
+whole = true
+
+[[include]]
+skill = "git-workflow-and-versioning"
+title = "Atomic commits"
+from = "### 2. Atomic Commits"
+
+[[include]]
+skill = "git-workflow-and-versioning"
+title = "Pre-commit hygiene"
+from = "## Pre-Commit Hygiene"

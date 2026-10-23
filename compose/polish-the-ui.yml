@@ -1,0 +1,30 @@
+# Compose spec: polish-the-ui
+#
+# Shipped version was `interface-kit` (julius-skills): 21,903 chars but craft 7.8
+# - 61 headings and 83 bullets, and only 4/10 on procedure because it narrates
+# principles without ever numbering a step. It is a reference, not a workflow.
+#
+# `frontend-ui-engineering` (addy-agent-skills) scores 9.6 and is the same job
+# from the implementation side: component architecture, file structure, state
+# management, design-system adherence. The two are complementary, not rivals -
+# one is the HOW in order, the other is the reference to consult.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "polish-the-ui"
+title = "Polish The UI"
+description = "Build and polish production-quality, accessible, responsive interfaces. Use when building or modifying UI, creating components, implementing layouts, or when the output must look and feel production-quality rather than AI-generated. Covers component architecture, state, animation, typography and colour, plus WCAG and review checklists."
+sources = ["addy-agent-skills", "julius-skills"]
+
+# The procedure half: numbered, ordered implementation work.
+[[include]]
+skill = "frontend-ui-engineering"
+title = "The implementation procedure"
+whole = true
+
+# The reference half: the craft detail interface-kit is actually good at. Its
+# whole body is kept, minus its own h1, after the procedure.
+[[include]]
+skill = "interface-kit"
+title = "The craft reference"
+whole = true

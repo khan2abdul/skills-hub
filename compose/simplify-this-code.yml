@@ -1,0 +1,60 @@
+# Compose spec: simplify-this-code
+#
+# Shipped version was `code-simplification` whole (13,497c, craft 9.3) - a good
+# base: five principles, a four-step process, rationalizations, red flags,
+# verification. Its bulk was Language-Specific Guidance (TypeScript / Python /
+# React, 2,473c): optional idiom reference that names three languages and is dead
+# weight for anyone in a fourth.
+#
+# What the base lacks is a discipline for restructuring without changing
+# behavior - which is what "simplify" actually means, and what `safe-refactor`
+# is entirely about. That is the second ingredient, and it was previously
+# `last-20-percent`, whose "Boundaries" and "Why the 20% gets skipped" sections
+# are about the *experiential tail of a product build*, not about code shape.
+# Taking that tail material here made the skill drift toward product polish.
+#
+# Dropped: Overview (280c) and When to Use (780c) restate the description;
+# Language-Specific Guidance (2,473c) is per-language idiom.
+#
+# deslopify (craft 10) was the highest-scoring free candidate and was rejected as
+# the wrong job: it removes AI prose tells from writing, not code complexity.
+# Including it as a source was also what kept this skill's selection score at 7 -
+# a composition cannot out-score a craft-10 ingredient on a dimension the
+# ingredient only earns by naming its own reference files, which we do not ship.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "simplify-this-code"
+title = "Simplify This Code"
+description = "Simplify code for clarity without changing behavior: understand before touching, find the real complexity, apply changes incrementally, and keep the surrounding behavior and tests intact while you do it. Use when refactoring for readability, when code works but is harder to maintain than it should be, when reviewing code that accumulated unnecessary complexity, or when a proposed simplification would only move the difficulty somewhere else."
+sources = ["addy-agent-skills", "caveman"]
+
+[[include]]
+skill = "code-simplification"
+title = "The five principles"
+from = "## The Five Principles"
+
+[[include]]
+skill = "code-simplification"
+title = "The simplification process"
+from = "## The Simplification Process"
+
+[[include]]
+skill = "safe-refactor"
+title = "Restructure without changing behavior"
+whole = true
+
+[[include]]
+skill = "code-simplification"
+title = "Common rationalizations"
+from = "## Common Rationalizations"
+
+[[include]]
+skill = "code-simplification"
+title = "Red flags"
+from = "## Red Flags"
+
+[[include]]
+skill = "code-simplification"
+title = "Verification"
+from = "## Verification"

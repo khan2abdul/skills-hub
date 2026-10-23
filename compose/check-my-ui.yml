@@ -1,0 +1,52 @@
+﻿# Compose spec: check-my-ui
+#
+# Shipped version was `browse` (gstack): 34,102 chars, craft 7.8, portability 4/10.
+# Most of its bulk is gstack scaffolding - preamble, plan-mode notes, model
+# patches, voice, telemetry - and 4 of its browser checks call helper scripts that
+# are not installed here, so they cannot run at all.
+#
+# `browser-testing-with-devtools` (addy-agent-skills) scores 9.6: same job, real
+# Chrome DevTools inspection, no host scaffolding.
+#
+# Section includes, not whole bodies: both sources contain literal example
+# headings inside fenced blocks, which breaks the blank-line-before-heading rule
+# when inlined whole.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "check-my-ui"
+title = "Check My UI"
+description = "Drive a real browser to verify a UI: open the page, read it, click through the flow, take screenshots, and inspect DOM, console errors, network requests and performance. Use when building or debugging anything that runs in a browser, or before shipping any change with a visible surface."
+sources = ["addy-agent-skills", "gstack"]
+
+[[include]]
+skill = "browser-testing-with-devtools"
+title = "The inspection procedure"
+from = "## Setting Up Chrome DevTools MCP"
+
+[[include]]
+skill = "browser-testing-with-devtools"
+title = ""
+from = "## The DevTools Debugging Workflow"
+
+[[include]]
+skill = "browser-testing-with-devtools"
+title = ""
+from = "## Screenshot-Based Verification"
+
+[[include]]
+skill = "browser-testing-with-devtools"
+title = ""
+from = "## Accessibility Verification with DevTools"
+
+[[include]]
+skill = "browser-testing-with-devtools"
+title = ""
+from = "## Red Flags"
+
+# gstack's one unique contribution: the rules for driving a real browser.
+[[include]]
+skill = "browse"
+title = "Rules for driving a real browser"
+from = "### Rules for driving a real browser"
+

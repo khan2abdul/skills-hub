@@ -1,0 +1,34 @@
+# Compose spec: review-the-plan
+#
+# Shipped version was `plan-eng-review` (gstack): 51,484 chars - the largest body
+# in the hub - craft 6.9, portability 1/10, and it calls 14 gstack helpers that
+# are not installed. Roughly 95% of it is gstack scaffolding: preamble, plan-mode
+# notes, AskUserQuestion format, telemetry, status footer, cache refresh.
+#
+# `junior-to-senior` (julius-skills) scores 10/10 on every dimension: 9,194 chars,
+# a five-phase adversarial review that treats the plan as junior work and builds
+# a senior reviewer to attack it. Same job, one fifth the context.
+#
+# Only one plan-eng-review section carries content junior-to-senior lacks: how an
+# eng manager actually thinks about a plan. Its "Step 0: Scope Challenge" was
+# dropped on a second pass - it is pure gstack scaffolding AND it tells the agent
+# to read ~/.claude/skills/gstack/plan-eng-review/sections/review-sections.md,
+# a file this hub does not ship. Shipping an instruction that cannot be followed
+# is worse than shipping nothing.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "review-the-plan"
+title = "Review The Plan"
+description = "Adversarial review of a plan, design or architecture before work starts. Treats the plan as junior work, constructs a senior reviewer for the domains it touches, checks the claims against what is actually true in the codebase, and promotes or blocks it. Use when a plan is ready for sign-off, when you want the assumptions attacked before they become code, or when a design needs a harder look than its author can give it."
+sources = ["julius-skills", "gstack"]
+
+[[include]]
+skill = "junior-to-senior"
+title = "The adversarial review"
+whole = true
+
+[[include]]
+skill = "plan-eng-review"
+title = "How great eng managers think"
+from = "## Cognitive Patterns — How Great Eng Managers Think"

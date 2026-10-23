@@ -1,0 +1,37 @@
+# Compose spec: discuss-on-new-idea
+#
+# Shipped version was `idea-refine` (addy-agent-skills): 8,516 chars, craft 8.7,
+# GATES 6/10. Its Process section (3,230c) is the heart and scores just 2 gate
+# markers - it explains three phases and never says what makes an idea ready to
+# leave the phase or when to stop diverging.
+#
+# `brainstorming` (superpowers, craft 9.6) supplies exactly that: "Size the
+# Work", "The Written Design", "Play It Back", "Red Flags". Its Red Flags and
+# Play It Back sections are the missing gates - what an idea must survive before
+# it becomes a plan.
+#
+# Its full body was considered as a replacement base and rejected: it is a
+# session protocol (visual companion, browser handoff) rather than an ideation
+# method, and the shipped base is the better ideation text.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "discuss-on-new-idea"
+title = "Discuss On New Idea"
+description = "Refine a raw idea into a sharp, actionable concept: diverge for options, stress-test the assumptions, then converge on one. Use when an idea is still vague, when you need to expand options before committing, when you want assumptions attacked before they become a plan, or on 'ideate', 'refine this idea', 'stress-test my plan'. Includes the readiness gates an idea must pass before it is worth planning."
+sources = ["addy-agent-skills", "superpowers"]
+
+[[include]]
+skill = "idea-refine"
+title = "Refine the idea"
+whole = true
+
+[[include]]
+skill = "brainstorming"
+title = "Play it back before you commit"
+from = "## Play It Back"
+
+[[include]]
+skill = "brainstorming"
+title = "Red flags"
+from = "## Red Flags"

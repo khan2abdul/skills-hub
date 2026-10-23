@@ -1,0 +1,32 @@
+# Compose spec: audit-the-whole-repo
+#
+# Shipped version was `ponytail-audit` (ponytail): 5,154 chars, craft 9.3,
+# GATES 8/10. It maps, looks, reports - and its own "Check before you report"
+# section was already in there but is the only gate. What is missing is the
+# evidence standard a finding must meet before it is published.
+#
+# `ponytail-audit`'s own step 3 is taken as-is (it is the gate), and
+# `health` contributes nothing: it is gstack scaffolding for an interactive
+# dashboard, 43k chars of preamble and telemetry, wrong job entirely.
+#
+# The real addition is nothing from another repo - it is that audit findings and
+# review findings share an evidence bar. `review` (gsd-2) publishes its finding
+# template, which forces severity, location, and a concrete consequence per
+# finding. That is the shape this skill was missing.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "audit-the-whole-repo"
+title = "Audit The Whole Repo"
+description = "Quality audit of a whole repo: bugs, security holes, what breaks under real load, risky code without tests, slow paths, and what to delete, merge or split. Ranked, each finding explained in plain English. One-shot report, changes nothing. Use for 'audit this codebase', 'review the whole repo', 'find bloat', 'what can I delete'."
+sources = ["ponytail", "gsd-2"]
+
+[[include]]
+skill = "ponytail-audit"
+title = "The audit"
+whole = true
+
+[[include]]
+skill = "review"
+title = "How a finding must be written"
+from = "### [SEVERITY] Category: Brief Title"

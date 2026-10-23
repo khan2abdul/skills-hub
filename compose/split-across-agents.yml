@@ -1,0 +1,34 @@
+# Compose spec: split-across-agents
+#
+# Shipped version was `dispatching-parallel-agents` (superpowers): 6,044 chars,
+# craft 9.3, GATES 8/10. It says how to fan work out and never says how to keep
+# a delegate honest - the failure mode of delegation.
+#
+# `subagent-driven-development` (same repo) is a worse base overall (procedure
+# 4/10) but carries the missing discipline: its Rationalizations table is the
+# acceptance gate for delegated work in practice - "reviewer found spec gaps =
+# not done", "unreviewed fixes are how regressions land", "silent discards are
+# forbidden". Every row is a way a delegate's report gets rubber-stamped.
+#
+# Its `### 3. Review the task` section has more gate markers (7 vs 6) and was the
+# first pick, but it points at `scripts/review-package` and
+# `references/cannot-verify.md` - neither is vendored here. Shipping an
+# instruction to read a missing file is worse than shipping a table that stands
+# on its own. Taken the standalone section instead.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "split-across-agents"
+title = "Split Across Agents"
+description = "Run independent tasks in parallel across subagents, then verify what comes back. Use when facing two or more tasks that need no shared state and no sequential dependency, when work can fan out, or when a large job can be dispatched instead of done inline. Includes the review gate that makes delegation safe: what a delegate's report must contain before you accept it."
+sources = ["superpowers"]
+
+[[include]]
+skill = "dispatching-parallel-agents"
+title = "How to fan the work out"
+whole = true
+
+[[include]]
+skill = "subagent-driven-development"
+title = "What a delegate's report must survive"
+from = "## Common Rationalizations"

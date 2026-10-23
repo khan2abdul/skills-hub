@@ -1,0 +1,40 @@
+# Compose spec: write-the-domain-glossary
+#
+# Shipped version was `domain-modeling` (addy-agent-skills): 4,196 chars, craft
+# 8.9, GATES 4/10 - the weakest gate score in the hub. It defines how to build a
+# glossary and an ADR, and never states a rule that stops you publishing a bad
+# one. Every section in the donor scores 0-2 gates.
+#
+# `documentation-and-adrs` (same repo) has a Prose Review section with 4 gate
+# markers: the checks to run on the written result - is the decision stated
+# before its reasoning, does each term earn its line, is it a decision record or
+# a diary entry. That is precisely the missing gate for a glossary or ADR.
+#
+# contract: `codebase-design`'s Glossary section was considered and rejected - a
+# different repo's vocabulary, 2 gates, overlaps the base.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "write-the-domain-glossary"
+title = "Write The Domain Glossary"
+description = "Build and sharpen a project's domain model: challenge the terms, record them in GLOSSARY.md, and write the decisions behind them as ADRs - then review the prose and check the result against a completion gate before it becomes the vocabulary everyone else has to live with. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording an architecture decision."
+sources = ["addy-agent-skills"]
+
+[[include]]
+skill = "domain-modeling"
+title = "Build the model"
+whole = true
+
+[[include]]
+skill = "documentation-and-adrs"
+title = "Review the prose before you publish"
+from = "## Prose Review"
+
+# The glossary skill defines what a good term is and never says when to stop
+# writing. This checklist is the completion gate: success criteria specific and
+# testable, boundaries named, the human has approved. It is the last section
+# because it is what you run before calling the glossary finished.
+[[include]]
+skill = "spec-driven-development"
+title = "Is it finished?"
+from = "## Verification"

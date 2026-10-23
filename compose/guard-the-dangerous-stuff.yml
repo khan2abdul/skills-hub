@@ -1,0 +1,73 @@
+# Compose spec: guard-the-dangerous-stuff
+#
+# Shipped version was `guard` (gstack): 3,834 chars, craft 5.4, and EMPTY-BODY -
+# its PreToolUse hooks call check-careful.sh via $HOME/.claude/skills/gstack/...,
+# which dsh does not install. The skill did literally nothing: a protection
+# skill that protects nothing is worse than no skill, because it is trusted.
+#
+# `careful` (same repo, 4,727c, craft 6.1) scores just 1/10 on portability for the
+# same reason - its hook is also gstack-bound - but its BODY is the part worth
+# keeping and is pure prose: a destructive-pattern table for POSIX shell, a
+# second one covering PowerShell/cmd, the safe-exception list, and the HIGH tier
+# that hard-denies. That table is the actual capability.
+#
+# So: take the knowledge as checkable prose, and drop the dead hook and the
+# analytics block. `freeze`/`unfreeze` are the state-snapshot pair and are not
+# a substitute - they block all writes rather than warn on dangerous ones.
+#
+# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+
+name = "guard-the-dangerous-stuff"
+title = "Guard The Dangerous Stuff"
+description = "Safety guardrails before running a destructive command: recursive deletes, DROP/TRUNCATE, force-push, git reset --hard, kubectl delete, docker prune, and the PowerShell/cmd equivalents. Use before any command that can destroy data, uncommitted work, or production state. Apply the checklist by hand - the upstream hook it shipped with is not installed here, so this is a written procedure, not an automatic intercept."
+sources = ["gstack", "caveman"]
+
+# `careful` is a table of dangerous shapes with no ordered procedure: it says what
+# will be caught, never what to do when it is. Two donors supply the missing
+# sequence. `migration` states the discipline in six lines - define the forwarding
+# and the rollback path, name destructive steps explicitly, keep partial failure
+# observable, do not perform a later destructive step implicitly.
+#
+# `deprecation-and-migration` supplies the ordered version of the same idea for
+# the most common irreversible command of all, deleting something: five questions
+# that establish whether removal is even warranted. Without a numbered procedure
+# the skill scores 4/10 on procedure no matter how good the pattern tables are,
+# because a table tells you what will be caught and never what to do in order.
+[[include]]
+skill = "migration"
+title = "Before you run it"
+whole = true
+
+[[include]]
+skill = "deprecation-and-migration"
+title = "Should this be deleted at all?"
+from = "## The Deprecation Decision"
+
+# The pattern tables: what is dangerous, on both shells. The core value.
+[[include]]
+skill = "careful"
+title = "What's protected"
+from = "## What's protected"
+
+[[include]]
+skill = "careful"
+title = "PowerShell and cmd (Windows)"
+from = "## PowerShell and cmd (Windows)"
+
+# What you may delete without asking - stops the guard crying wolf.
+[[include]]
+skill = "careful"
+title = "Safe exceptions"
+from = "## Safe exceptions"
+
+# The two shapes that are denied outright, not warned.
+[[include]]
+skill = "careful"
+title = "HIGH tier (hard deny)"
+from = "## HIGH tier (hard deny)"
+
+# Extend the rules with your own project patterns.
+[[include]]
+skill = "careful"
+title = "Project patterns (additive only)"
+from = "## Project patterns (additive only)"
