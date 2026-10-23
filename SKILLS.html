@@ -168,6 +168,16 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
         <code>disable-model-invocation</code>, so the agent may load any of them without being told to.
         You can also call any one by name, e.g. <code>/ship-it</code>.
       </p>
+      <p>
+        <strong>This is the whole non-bundled catalog.</strong> The retired 5-stack roots are
+        unconfigured: <code>D:/repo/setupskills/active_skills</code> (the addyosmani, caveman,
+        gstack and legacy repos) and <code>~/.agents/skills</code> (ponytail) are gone from
+        discovery, and <code>includeDefaultRoots: false</code> keeps them out. dsh's own 12
+        bundled skills &mdash; the <code>office*</code> set, the three cordis authoring skills,
+        <code>agent-experience</code>, <code>diagnose-windows-sandbox-acl</code> &mdash; are
+        still enabled and are not listed here, because they ship with the harness rather than
+        this hub.
+      </p>
     </div>
   </div>
 </header>

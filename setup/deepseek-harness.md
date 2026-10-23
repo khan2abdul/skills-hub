@@ -113,8 +113,9 @@ Then in `~/.dsh/profiles/<profile>/cordis.patch.yml`:
   name: "@deepseek-ai/dsh-skill-filesystem"
   disabled: false
   config:
+    includeDefaultRoots: false
     customSkillDirs:
-      - $hub/skills
+      - D:/repo/skills-hub/skills
 ```
 
 Back it up first — this one file affects every session in that profile:
@@ -123,6 +124,26 @@ Back it up first — this one file affects every session in that profile:
 $f = "$HOME/.dsh/profiles/<profile>/cordis.patch.yml"
 Copy-Item $f "$f.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
 ```
+
+### Two things that bite
+
+**`customSkillDirs` only adds a root — it never removes one.** Without
+`includeDefaultRoots: false`, `~/.dsh/skills`, `~/.agents/skills*` and the
+project-level `.dsh/skills` + `.agents/skills` roots are still scanned, so any
+skill already sitting there stays in the catalog alongside the hub's. Set the
+flag when the hub is meant to be the whole catalog.
+
+**Turning off that flag does not remove the bundled skills.** dsh's own skills
+(`office*`, the cordis authoring set, `agent-experience`,
+`diagnose-windows-sandbox-acl`) come from the `@deepseek-ai/dsh-agent-preset`
+plugin, whose *own* provider declaration swaps in the preset's `skills`
+directory as a custom root. They are not a default root and no
+`skill-filesystem` setting affects them. To retire one, disable that provider
+entry in the preset rather than editing this patch.
+
+`bundledSkillDir` is worth knowing for the same reason: the filesystem provider
+only reads it when `includeDefaultRoots` is true, so setting the flag to false
+also drops whatever that variable pointed at.
 
 ## Verify it actually indexed
 
@@ -136,6 +157,9 @@ entries. If the count does not match the hub, check in this order:
 4. Is `name:` kebab-case and equal to the directory name?
 5. Does the skill set `disable-model-invocation: true`? That hides it from the
    model catalog by design (still user-invocable).
+6. Does `description:` contain a colon followed by a space, unquoted? That is
+   invalid YAML and dsh drops the skill with only a logged warning. Quote the
+   value — `tools/compose.ps1` does this for composed skills.
 
 ## Optional: always-on routing
 

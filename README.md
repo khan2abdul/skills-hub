@@ -227,7 +227,7 @@ Reference-only repos use `status = "reference"` and are skipped by harvest.
 | Kiro | [setup/kiro.md](setup/kiro.md) | `.kiro/steering/` |
 | Cline | [setup/cline.md](setup/cline.md) | `.clinerules/` |
 | Kilo Code | [setup/kilo-code.md](setup/kilo-code.md) | `skills.paths` in `kilo.json` (native), or `.kilocode/rules-*/` (legacy) |
-| DeepSeek Harness | [setup/deepseek-harness.md](setup/deepseek-harness.md) | `customSkillDirs` |
+| DeepSeek Harness | [setup/deepseek-harness.md](setup/deepseek-harness.md) | `customSkillDirs` (+ `includeDefaultRoots: false` to retire the defaults) |
 | Gemini CLI | [setup/gemini-cli.md](setup/gemini-cli.md) | `GEMINI.md` |
 | Codex CLI | [setup/codex-cli.md](setup/codex-cli.md) | `AGENTS.md` |
 | Windsurf | [setup/windsurf.md](setup/windsurf.md) | `.windsurf/rules/` |
