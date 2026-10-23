@@ -17,7 +17,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 | body byte-identical to original | 17/41 |
 | body differs | 0 |
 | payload files missing vs original | 5 skills |
-| payload files altered | 0 skills |
+| payload files altered | 9 skills |
 
 ## Score against the original
 

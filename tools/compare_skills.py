@@ -106,7 +106,13 @@ def main(argv: list[str] | None = None) -> int:
         body_diff = []
         if not is_composed and primary and primary in index:
             up_renamed = get_renamed_upstream(C.read_text(index[primary]["file"]), name)
-            if up_renamed == text:
+            # Line endings are a checkout detail, not a fidelity defect. The
+            # committed bodies are LF while several upstream repos are CRLF on
+            # disk, and core.autocrlf can make a worktree disagree with its own
+            # blob, so a raw comparison reports "differs" on a fresh clone for 7
+            # skills whose text is identical. verify.py normalises for the same
+            # reason.
+            if up_renamed.replace("\r\n", "\n") == text.replace("\r\n", "\n"):
                 fidelity = "exact"
             else:
                 fidelity = "differs"
