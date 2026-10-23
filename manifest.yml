@@ -304,10 +304,10 @@ rationale = "Was `create-skill` (6,434 chars, craft 7.8) with only 4/10 on proce
 
 [[skill]]
 name = "route-to-the-right-skill"
-status = "merged"
+status = "authored"
 chosen = ""
 candidates = ["using-agent-skills", "using-superpowers", "ask-matt"]
-rationale = "Meta-router. Mostly redundant once this hub has clean names ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â candidate for deletion."
+rationale = "The parent skill: routes every request to the right skill, re-routes at phase boundaries and failed attempts, and blocks the rationalisations that skip a skill. Authored rather than vendored - all three candidates routed to skills this hub does not ship. The shipped copy was addy's using-agent-skills, whose tree named 30 retired skills and pointed at ../../references/definition-of-done.md, which does not exist. Discipline taken from using-superpowers (compulsory check, red-flag table), routing shape from using-agent-skills, every name rewritten to the 41 that ship. See skills/route-to-the-right-skill/PROVENANCE.md."
 
 [[skill]]
 name = "hand-off-to-next-session"

@@ -40,23 +40,24 @@
   },
   {
     "name": "route-to-the-right-skill",
-    "phase": "Understand",
-    "summary": "Meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify.",
+    "phase": "Always on",
+    "summary": "The parent skill. Every other skill is a phase it routes to: check for an applicable skill before you act, say which one you are using, and re-route when the phase changes, two attempts fail, the scope moves, or you are about to claim done.",
     "when": [
-      "Starting a session and deciding which skill or workflow applies",
-      "The ask is vague and you do not know what you want yet",
-      "A spec exists and you need the next phase (plan, build, test, review, ship)",
-      "Something broke and you need the debugging route",
-      "Committing, branching, CI or deploy work is next",
-      "A non-trivial task has no spec written down"
+      "Starting a session, before the first tool call",
+      "Crossing a phase boundary: spec approved, review passed, tests green",
+      "Two attempts on the same problem have failed, so it is a debug problem now",
+      "The user changes what they want and the spec is stale",
+      "About to say done, fixed or works",
+      "About to run a destructive or scope-expanding command",
+      "Unsure which of the 41 skills applies, or whether any does"
     ],
     "notWhen": [
-      "The applicable skill is already known or named, so call it directly instead of loading the router",
-      "A single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle",
-      "You want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown"
+      "Never skip it: the check is compulsory even when its conclusion is that no skill applies",
+      "It is not the work itself. If it is the only skill you used, you routed and never arrived",
+      "Not a substitute for reading the skill it names: routing without reading is the failure it exists to prevent"
     ],
-    "example": "\"Which skill applies here?\" \u2192 the agent names the development phase, maps it to a skill, and states its assumptions before starting.",
-    "gate": { "asks": true, "what": "Requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict." }
+    "example": "\"Fix the login redirect bug\" \u2192 the agent checks for a skill, names the phase (Debug), says \"Using debug-this-code\", reads that file, and re-checks once the fix lands, which is Verify \u2192 prove-it-works.",
+    "gate": { "asks": false, "what": "No approval gate of its own. It hands you to the skill that has one: guard-the-dangerous-stuff before a destructive command, review-the-plan before code." }
   },
   {
     "name": "interview-me-properly",

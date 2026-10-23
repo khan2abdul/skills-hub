@@ -3,6 +3,7 @@
 #
 # verbatim entries : rebuild upstream with only the name: line swapped, compare bytes
 # composed entries : re-extract each excerpt from its source and compare sha256
+# authored entries : no upstream, so compare the body against its recorded sha256
 #
 # Read-only. Exit 1 on any failure.
 $ErrorActionPreference = 'Stop'
@@ -13,7 +14,7 @@ $skillsDir = Join-Path $hub 'skills'
 $loaded = Read-Repos (Join-Path $hub 'repos.toml')
 $index = Get-SkillIndex $loaded.repos
 $manifest = Read-Manifest (Join-Path $hub 'manifest.yml')
-$merged = @($manifest | Where-Object { $_.status -eq 'merged' })
+$merged = @($manifest | Where-Object { $_.status -eq 'merged' -or $_.status -eq 'authored' })
 $fail = 0
 
 function Get-BodyText([string]$file) {
@@ -143,12 +144,35 @@ foreach ($s in $merged) {
         Write-Host "  EXCERPT DRIFT: $name <- $($b.skill) '$label' upstream changed, re-compose" -ForegroundColor Yellow
       }
       if ($text -notmatch [regex]::Escape($excerpt)) {
-        Write-Host "  EXCERPT ALTERED: $name <- $($b.skill) '$label' not found verbatim in the shipped body" -ForegroundColor Red
-        $bad++
+        # Upstream checkouts mix endings: the shipped bodies are LF (the * -text
+        # policy), but some harvested repos are CRLF on disk (gsd-2, karpathy).
+        # compose.ps1 normalized on the way in, so a CRLF excerpt can never match
+        # an LF body. Compare the other form before calling it drift.
+        $alt = if ($excerpt -match "`r`n") { $excerpt.Replace("`r`n", "`n") } else { $excerpt.Replace("`n", "`r`n") }
+        if ($text -notmatch [regex]::Escape($alt)) {
+          Write-Host "  EXCERPT ALTERED: $name <- $($b.skill) '$label' not found verbatim in the shipped body" -ForegroundColor Red
+          $bad++
+        }
       }
     }
     if ($bad -eq 0) { Write-Host "OK    $name (composed, $($blocks.Count) excerpts all verbatim)" -ForegroundColor Green }
     else { $fail++ }
+    continue
+  }
+
+  # ---- authored mode: no upstream, so the body is held to its own recorded hash ----
+  # One skill needs this: the parent router, whose every line is a routing decision
+  # about THIS hub. Vendoring it was what broke it - the copy named 30 skills that
+  # had been renamed or dropped. See its PROVENANCE.md.
+  $provText = [System.IO.File]::ReadAllText($provFile, [System.Text.Encoding]::UTF8)
+  if ($provText -match '(?m)^- mode:\s*authored') {
+    $h = ([regex]::Match($provText, '(?m)^- body sha256:\s*([0-9a-fA-F]{64})')).Groups[1].Value
+    if (-not $h) { Write-Host "NO body hash : $name (authored entry must record one)" -ForegroundColor Red; $fail++; continue }
+    $now = Get-Sha256 (Get-BodyText $bodyFile)
+    if ($now -ne $h.ToLower()) {
+      Write-Host "BODY DRIFT   : $name (authored body changed; update '- body sha256:' once reviewed)" -ForegroundColor Red
+      $fail++
+    } else { Write-Host "OK    $name (authored, body hash matches)" -ForegroundColor Green }
     continue
   }
 

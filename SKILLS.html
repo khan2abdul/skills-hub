@@ -141,8 +141,8 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     </p>
     <ul class="stat">
       <li><b>41</b> skills</li>
-      <li><b>11</b> stop and ask first</li>
-      <li><b>30</b> never interrupt</li>
+      <li><b>10</b> stop and ask first</li>
+      <li><b>31</b> never interrupt</li>
       <li><b>41</b> model-invocable</li>
       <li><b>13</b> phases</li>
     </ul>
@@ -196,7 +196,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
 
 <main class="wrap">
 <section class="phase" id="always-on">
-  <h2>Always on <span>2 skills</span></h2>
+  <h2>Always on <span>3 skills</span></h2>
   <p class="blurb">Apply on every task, not at one point in the pipeline.</p>
   <article class="card" id="skill-trim-my-output" data-gate="true" data-search="trim-my-output terse caveman-voice replies that keep every technical fact, code, path and number verbatim; stays on until &quot;stop caveman&quot; or &quot;normal mode&quot;. the user types /caveman or says &quot;caveman mode&quot;, &quot;be brief&quot; or &quot;less tokens&quot; every output token is billed and read in a terminal the answer needs to lead with the result, with ceremony and hedging removed a long session should stay compressed until the user says &quot;normal mode&quot; routine tool runs need one-line status instead of narration a security warning or irreversible action is involved; break the rules and use plain prose, confirming in full sentences first anything persisted outside chat (code, comments, commits, docs, issues, prs, tickets, memory files) must stay plain step order could be scrambled by a fragment, or the user is confused or repeating the question the user asks for /caveman ultra or /caveman wenyan; those route to the ultracave or megacave skill &quot;/caveman&quot; → the agent answers first in terse plain sentences, keeping code, paths, numbers and errors verbatim. always on irreversible actions require confirming in full sentences before proceeding, and security warnings drop the terseness.">
     <div class="head">
@@ -248,36 +248,36 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     <div class="ex"><h4>How to use it</h4><p>&quot;/write-less-code add retry to the upload call&quot; → the agent greps callers, reuses the existing retry helper, and changes one call site.</p></div>
     <p class="gateline"><b class="no">Does not interrupt:</b> Ultra level pushes back on the request before building, but no destructive action needs approval.</p>
   </article>
-</section>
-<section class="phase" id="understand">
-  <h2>Understand <span>3 skills</span></h2>
-  <p class="blurb">Turn a vague ask into a shared, explicit intent.</p>
-  <article class="card" id="skill-route-to-the-right-skill" data-gate="true" data-search="route-to-the-right-skill meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify. starting a session and deciding which skill or workflow applies the ask is vague and you do not know what you want yet a spec exists and you need the next phase (plan, build, test, review, ship) something broke and you need the debugging route committing, branching, ci or deploy work is next a non-trivial task has no spec written down the applicable skill is already known or named, so call it directly instead of loading the router a single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle you want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown &quot;which skill applies here?&quot; → the agent names the development phase, maps it to a skill, and states its assumptions before starting. understand requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict.">
+  <article class="card" id="skill-route-to-the-right-skill" data-gate="false" data-search="route-to-the-right-skill the parent skill. every other skill is a phase it routes to: check for an applicable skill before you act, say which one you are using, and re-route when the phase changes, two attempts fail, the scope moves, or you are about to claim done. starting a session, before the first tool call crossing a phase boundary: spec approved, review passed, tests green two attempts on the same problem have failed, so it is a debug problem now the user changes what they want and the spec is stale about to say done, fixed or works about to run a destructive or scope-expanding command unsure which of the 41 skills applies, or whether any does never skip it: the check is compulsory even when its conclusion is that no skill applies it is not the work itself. if it is the only skill you used, you routed and never arrived not a substitute for reading the skill it names: routing without reading is the failure it exists to prevent &quot;fix the login redirect bug&quot; → the agent checks for a skill, names the phase (debug), says &quot;using debug-this-code&quot;, reads that file, and re-checks once the fix lands, which is verify → prove-it-works. always on no approval gate of its own. it hands you to the skill that has one: guard-the-dangerous-stuff before a destructive command, review-the-plan before code.">
     <div class="head">
       <h3>route-to-the-right-skill</h3>
       <span class="badge auto">auto-invocable</span>
-      <span class="badge gate">stops and asks</span>
       <span class="score">rating 9.7 / A</span>
     </div>
-    <p class="summary">Meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify.</p>
+    <p class="summary">The parent skill. Every other skill is a phase it routes to: check for an applicable skill before you act, say which one you are using, and re-route when the phase changes, two attempts fail, the scope moves, or you are about to claim done.</p>
     <div class="cols">
       <div class="pos"><h4>When to use it</h4><ul>
-        <li>Starting a session and deciding which skill or workflow applies</li>
-        <li>The ask is vague and you do not know what you want yet</li>
-        <li>A spec exists and you need the next phase (plan, build, test, review, ship)</li>
-        <li>Something broke and you need the debugging route</li>
-        <li>Committing, branching, CI or deploy work is next</li>
-        <li>A non-trivial task has no spec written down</li>
+        <li>Starting a session, before the first tool call</li>
+        <li>Crossing a phase boundary: spec approved, review passed, tests green</li>
+        <li>Two attempts on the same problem have failed, so it is a debug problem now</li>
+        <li>The user changes what they want and the spec is stale</li>
+        <li>About to say done, fixed or works</li>
+        <li>About to run a destructive or scope-expanding command</li>
+        <li>Unsure which of the 41 skills applies, or whether any does</li>
       </ul></div>
       <div class="neg"><h4>When not to use it</h4><ul>
-        <li>The applicable skill is already known or named, so call it directly instead of loading the router</li>
-        <li>A single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle</li>
-        <li>You want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown</li>
+        <li>Never skip it: the check is compulsory even when its conclusion is that no skill applies</li>
+        <li>It is not the work itself. If it is the only skill you used, you routed and never arrived</li>
+        <li>Not a substitute for reading the skill it names: routing without reading is the failure it exists to prevent</li>
       </ul></div>
     </div>
-    <div class="ex"><h4>How to use it</h4><p>&quot;Which skill applies here?&quot; → the agent names the development phase, maps it to a skill, and states its assumptions before starting.</p></div>
-    <p class="gateline"><b>Stops and asks:</b> Requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict.</p>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Fix the login redirect bug&quot; → the agent checks for a skill, names the phase (Debug), says &quot;Using debug-this-code&quot;, reads that file, and re-checks once the fix lands, which is Verify → prove-it-works.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No approval gate of its own. It hands you to the skill that has one: guard-the-dangerous-stuff before a destructive command, review-the-plan before code.</p>
   </article>
+</section>
+<section class="phase" id="understand">
+  <h2>Understand <span>2 skills</span></h2>
+  <p class="blurb">Turn a vague ask into a shared, explicit intent.</p>
   <article class="card" id="skill-interview-me-properly" data-gate="false" data-search="interview-me-properly interviews the user one question at a time, each with a guess, until ~95% confidence, then restates intent for an explicit yes. the ask is missing who, why, what success looks like, or the binding constraint the request is conventional (&quot;build me x&quot;, &quot;make it faster&quot;) and needs unpacking the user says interview me, grill me, or stress-test my thinking you catch yourself about to fill in ambiguous requirements before any plan, spec or code the ask is unambiguous and self-contained (rename a variable, fix a typo) the user explicitly asked for speed over verification pure information requests such as how does x work, or mechanical renames, formats and file moves non-interactive contexts: ci pipelines, scheduled runs, /loop, autonomous loops &quot;/interview-me-properly build me a dashboard&quot; → the agent states a one-sentence hypothesis with a confidence number, then asks one question with its guess attached. understand no destructive action, but it requires an explicit yes on the restated intent before any spec, plan or downstream tool call.">
     <div class="head">
       <h3>interview-me-properly</h3>

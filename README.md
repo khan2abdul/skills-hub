@@ -10,7 +10,8 @@ excerpts with per-block sha256 proofs. `tools/verify.ps1` proves both on every r
 **Self-contained.** The 9 source repos live inside the hub at `repos/`, cloned
 from `repos.toml` URLs. No absolute paths in tools, specs, or docs. See [Paths](#paths).
 
-**Status:** all 41 capabilities shipped - 18 verbatim copies plus 23 compositions
+**Status:** all 41 capabilities shipped - 17 verbatim copies, 23 compositions, plus
+1 authored (`route-to-the-right-skill`, the parent router)
 (`debug-this-code` scores 37/37 on the rubric). `hub.ps1` reports `HUB HEALTHY`.
 
 ## Why
@@ -104,6 +105,13 @@ and its sha256 recorded. Headings and ordering are the only new material.
 pwsh tools/compose.ps1 -Name debug-this-code -WhatIf   # preview
 pwsh tools/compose.ps1 -Name debug-this-code
 ```
+
+**Authored** — written for this hub, quoting nothing. Used exactly once, for
+`route-to-the-right-skill`, because every upstream router named skills this hub
+does not ship and the repair was a rewrite rather than a name swap. The entry
+declares `mode: authored` and records the sha256 of its own body, so
+`verify.ps1` still catches drift. This is not a loophole: adding a second
+authored skill needs a reason of the same kind.
 
 ## Is a composed skill actually better?
 
@@ -243,7 +251,7 @@ a 2-3 skill always-on set for that reason.
 
 ## Design rules
 
-- **Skill text is immutable.** Verbatim, or verified excerpts. No exceptions.
+- **Skill text is immutable.** Verbatim, or verified excerpts. One named exception: `mode: authored`, which records its own body hash instead. `route-to-the-right-skill` is the only entry that uses it, and only because no upstream body could route to this hub's 41 names.
 - **One capability, one name.** If two names could fire on the same request, merge them.
 - **Verb-first names that say the job:** `debug-this-code`, `write-the-spec`.
 - **Provenance is mandatory.** A body with no PROVENANCE.md cannot be audited.

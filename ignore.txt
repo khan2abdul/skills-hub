@@ -33,6 +33,11 @@ doubt-driven-development
 improve-codebase-architecture
 ci-cd-and-automation
 github-workflows
+# using-agent-skills was the vendored body of route-to-the-right-skill. Its tree
+# named 30 skills this hub does not ship, so the router was rewritten as
+# mode: authored. The routing shape survives; the text does not. See manifest.yml
+# and skills/route-to-the-right-skill/PROVENANCE.md.
+using-agent-skills
 
 # --- generic tooling dsh already ships natively ---
 dependency-upgrade

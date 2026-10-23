@@ -1,192 +1,133 @@
 ---
 name: route-to-the-right-skill
-description: Discovers and invokes agent skills. Use when starting a session, or when you need to decide which skill or workflow applies to the piece of work at hand. This is the meta-skill that governs how all other skills are discovered and invoked.
+description: "The parent skill. Route any request to the right skill before acting, keep re-routing at every phase boundary, and block the rationalisations that skip a skill. Use at the start of every session and after every phase change, failed attempt, or scope change."
 ---
 
-# Using Agent Skills
+# Route to the Right Skill
 
-## Overview
+This is the parent skill. Every other skill in this hub is a phase it routes to.
+It does not do the work; it decides which skill does, and it keeps deciding as the
+work moves.
 
-Agent Skills is a collection of engineering workflow skills organized by development phase. Each skill encodes a specific process that senior engineers follow. This meta-skill helps you discover and apply the right skill for your current task.
+## The rule
 
-## Skill Discovery
+**Check for an applicable skill before you act.** Not before you finish thinking -
+before the first tool call, the first file read, the first edit.
 
-When a task arrives, identify the development phase and apply the corresponding skill:
+The check is compulsory. The invocation is conditional. Those are different
+obligations, and conflating them is why strict routing gets switched off:
 
-```
-Task arrives
-    │
-    ├── Don't know what you want yet? ──────→ interview-me
-    ├── Have a rough concept, need variants? → idea-refine
-    ├── New project/feature/change? ──→ spec-driven-development
-    ├── No quality bar written down? ──→ constraint-driven-development
-    ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
-    ├── Implementing code? ────────────→ incremental-implementation
-    │   ├── UI work? ─────────────────→ frontend-ui-engineering
-    │   ├── API work? ────────────────→ api-and-interface-design
-    │   ├── Need better context? ─────→ context-engineering
-    │   ├── Need doc-verified code? ───→ source-driven-development
-    │   └── Stakes high / unfamiliar code? ──→ doubt-driven-development
-    ├── Writing/running tests? ────────→ test-driven-development
-    │   └── Browser-based? ───────────→ browser-testing-with-devtools
-    ├── Something broke? ──────────────→ debugging-and-error-recovery
-    ├── Reviewing code? ───────────────→ code-review-and-quality
-    │   ├── Too complex? ─────────────→ code-simplification
-    │   ├── Security concerns? ───────→ security-and-hardening
-    │   └── Performance concerns? ────→ performance-optimization
-    ├── Committing/branching? ─────────→ git-workflow-and-versioning
-    ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
-    ├── Deprecating/migrating? ────────→ deprecation-and-migration
-    ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
-    ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
-    └── Deploying/launching? ─────────→ shipping-and-launch
-```
+- A 20-second check that concludes "no skill applies" is a pass, and it is cheap.
+- Acting first and checking later is a fail even when the right skill turns out
+  to be irrelevant, because you cannot tell that in advance.
 
-## Core Operating Behaviors
+When a skill applies, you do not have discretion. Read it, then follow it.
 
-These behaviors apply at all times, across all skills. They are non-negotiable.
+## How to check
 
-### 1. Surface Assumptions
+1. **Name the phase.** Understand, Research, Spec, Plan, Build, Debug, Review,
+   Verify, Finish, Docs, Ship. If you cannot name it, you are in Understand.
+2. **Read the matching line in the phase table below.** It names one to four
+   skills.
+3. **Read the skill file** at `D:/repo/skills-hub/skills/<name>/SKILL.md` before
+   running its procedure. Do not work from memory of what it probably says.
+4. **Say which skill you are using**, in one clause: "Using `fix-this-bug`, the
+   root-cause-first path." If the skill has a checklist, make a todo per item.
 
-Before implementing anything non-trivial, explicitly state your assumptions:
+## Phase table
 
-```
-ASSUMPTIONS I'M MAKING:
-1. [assumption about requirements]
-2. [assumption about architecture]
-3. [assumption about scope]
-→ Correct me now or I'll proceed with these.
-```
+Every skill in the hub appears exactly once. Two are always on.
 
-Don't silently fill in ambiguous requirements. The most common failure mode is making wrong assumptions and running with them unchecked. Surface uncertainty early — it's cheaper than rework.
+| Phase | Enter when | Skills |
+|---|---|---|
+| **Always on** | every coding task | `write-less-code` — smallest complete change |
+| **Always on** | every reply | `trim-my-output` — only when the user asks for it |
+| **Understand** | the ask is vague, or you are filling in requirements yourself | `interview-me-properly` first; `discuss-on-new-idea` when there are no options yet |
+| **Research** | you need facts you do not have, or a repo you do not know | `research-this-topic` for outside facts; `explore-this-repo` for this codebase |
+| **Spec** | work is non-trivial and nothing is written down | `write-the-spec`; `write-the-domain-glossary` for vocabulary; `document-the-decision` for an ADR |
+| **Plan** | a spec exists but the work is not sliced | `break-into-tasks`; `review-the-plan` to attack it; `design-the-interface` to compare designs |
+| **Build** | about to write code | `build-it-test-first`; `build-in-small-steps` for multi-file work; `isolate-this-branch` first if the tree must stay clean; `fix-this-bug` for a known defect |
+| **Debug** | something is broken and the cause is unknown | `debug-this-code`; escalate to `debug-the-stubborn-one` after two failed hypotheses |
+| **Review** | code exists and is not yet trusted | `review-my-code` is the gate; add `check-my-security` for auth, input, secrets, storage; `receive-code-review` when the feedback is someone else's; `audit-the-whole-repo` for a one-shot sweep |
+| **Verify** | about to claim it works | `prove-it-works` always; `test-every-surface` for API/CLI/job; `check-my-ui` for a browser surface; `make-it-accessible` before shipping UI |
+| **Finish** | it works but feels like a demo | `finish-the-experience`; `polish-the-ui`; `make-it-fast` only when measured; `make-it-observable` before production |
+| **Docs** | writing prose a stranger must act on | `write-the-docs`; `deslop-the-writing` as a final pass on any prose |
+| **Ship** | tests pass and it needs to reach the remote | `ship-it`; `guard-the-dangerous-stuff` before any destructive command |
+| **Meta** | changing the skill set, the bar, or the process | `simplify-this-code`, `write-a-new-skill`, `set-the-quality-bar`, `split-across-agents`, `hand-off-to-next-session`, `watch-my-context` |
 
-### 2. Manage Confusion Actively
+`route-to-the-right-skill` is the table itself, so it is listed here and nowhere
+else.
 
-When you encounter inconsistencies, conflicting requirements, or unclear specifications:
+## Re-route at these moments
 
-1. **STOP.** Do not proceed with a guess.
-2. Name the specific confusion.
-3. Present the tradeoff or ask the clarifying question.
-4. Wait for resolution before continuing.
+Routing once at the start is not enough. Re-check when any of these happens:
 
-**Bad:** Silently picking one interpretation and hoping it's right.
-**Good:** "I see X in the spec but Y in the existing code. Which takes precedence?"
+- **A phase boundary is crossed.** Spec approved means you are in Build, not Spec.
+- **Two attempts on the same problem failed.** That is `debug-this-code`, not a
+  third guess.
+- **The user changes what they want.** Back to Understand; the spec is stale.
+- **You are about to say "done", "fixed", or "works".** That is `prove-it-works`,
+  every time, before the words leave you.
+- **You are about to run a command that deletes, overwrites, force-pushes, or
+  resets.** That is `guard-the-dangerous-stuff`, before the command.
+- **You are about to touch a file outside the stated scope.** That is a scope
+  change; name it or stop.
 
-### 3. Push Back When Warranted
+## Gates
 
-You are not a yes-machine. When an approach has clear problems:
+A phase is not finished because it feels finished. It is finished when its gate
+passes.
 
-- Point out the issue directly
-- Explain the concrete downside (quantify when possible — "this adds ~200ms latency" not "this might be slower")
-- Propose an alternative
-- Accept the human's decision if they override with full information
+| Gate | Passes when |
+|---|---|
+| Spec locked | `.gsd/SPEC.md` exists, or the change is under ~10 lines |
+| Plan sliced | One slice named, with its own verification |
+| Test written | A test fails for the right reason before the fix |
+| Review passed | `review-my-code` ran on the actual diff, not from memory |
+| Verified | The verification command and its output are in the message |
+| Ship safe | `guard-the-dangerous-stuff` cleared the destructive step |
 
-Sycophancy is a failure mode. "Of course!" followed by implementing a bad idea helps no one. Honest technical disagreement is more valuable than false agreement.
+Name the gate that blocks you. Do not silently carry an unmet gate forward.
 
-### 4. Enforce Simplicity
+## Red flags
 
-Your natural tendency is to overcomplicate. Actively resist it.
+These thoughts mean stop. Each one is a rationalisation, and the reality column is
+why it is wrong.
 
-Before finishing any implementation, ask:
-- Can this be done in fewer lines?
-- Are these abstractions earning their complexity?
-- Would a staff engineer look at this and say "why didn't you just..."?
+| Thought | Reality |
+|---|---|
+| "This is just a simple question" | Then the check takes ten seconds and passes. Do it. |
+| "I need more context first" | The skill tells you how to gather it. Check first. |
+| "Let me just look at the code" | Skills define what to look for. Check first. |
+| "It's a one-line fix, no ceremony" | Possibly true. That is the check's conclusion, not its replacement. |
+| "I know this skill already" | Skills change. Read the current file. |
+| "The skill is overkill here" | Overkill is a conclusion you reach after reading it. |
+| "I'll invoke it once I'm sure it applies" | Certainty comes from reading it. |
+| "Reading it would slow me down" | Rework from the wrong approach is slower. |
+| "I already did the work, invoking now is theatre" | Then say so and run the gate; do not skip it. |
+| "The user wants speed, not process" | A wrong answer delivered fast is not fast. |
 
-If you build 1000 lines and 100 would suffice, you have failed. Prefer the boring, obvious solution. Cleverness is expensive.
+## Working with dsh's bundled skills
 
-### 5. Maintain Scope Discipline
+Twelve skills ship with the harness and are not part of this hub's 41. Route to
+them the same way; they are not competitors:
 
-Touch only what you're asked to touch.
+- `office`, `office-docx`, `office-xlsx`, `office-pptx`, `office-export-pdf`,
+  `office-recalculate`, `office-render` - document work. Any `.docx`, `.xlsx`,
+  `.pptx` or PDF request goes here first.
+- `cordis-plugin-development`, `cordis-composition-reference`,
+  `editing-cordis-compositions` - plugin and preset authoring in this harness.
+- `agent-experience` - writing the tool definitions, skills and context loaders
+  themselves.
+- `diagnose-windows-sandbox-acl` - a Windows sandbox denial that is not expected
+  confinement.
 
-Do NOT:
-- Remove comments you don't understand
-- "Clean up" code orthogonal to the task
-- Refactor adjacent systems as a side effect
-- Delete code that seems unused without explicit approval
-- Add features not in the spec because they "seem useful"
+## Failure modes
 
-Your job is surgical precision, not unsolicited renovation.
-
-### 6. Verify, Don't Assume
-
-Every skill includes a verification step. A task is not complete until verification passes. "Seems right" is never sufficient — there must be evidence (passing tests, build output, runtime data).
-
-Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. See `../../references/definition-of-done.md`. It complements each task's acceptance criteria rather than replacing them.
-
-## Failure Modes to Avoid
-
-These are the subtle errors that look like productivity but create problems:
-
-1. Making wrong assumptions without checking
-2. Not managing your own confusion — plowing ahead when lost
-3. Not surfacing inconsistencies you notice
-4. Not presenting tradeoffs on non-obvious decisions
-5. Being sycophantic ("Of course!") to approaches with clear problems
-6. Overcomplicating code and APIs
-7. Modifying code or comments orthogonal to the task
-8. Removing things you don't fully understand
-9. Building without a spec because "it's obvious"
-10. Skipping verification because "it looks right"
-
-## Skill Rules
-
-1. **Check for an applicable skill before starting work.** Skills encode processes that prevent common mistakes.
-
-2. **Skills are workflows, not suggestions.** Follow the steps in order. Don't skip verification steps.
-
-3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `spec-driven-development` → `planning-and-task-breakdown` → `incremental-implementation` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
-
-4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `spec-driven-development`.
-
-## Lifecycle Sequence
-
-For a complete feature, the typical skill sequence is:
-
-```
-1.  interview-me                → Extract what the user actually wants
-2.  idea-refine                 → Refine vague ideas
-3.  spec-driven-development     → Define what we're building
-4.  planning-and-task-breakdown → Break into verifiable chunks
-5.  context-engineering         → Load the right context
-6.  source-driven-development   → Verify against official docs
-7.  incremental-implementation  → Build slice by slice
-8.  observability-and-instrumentation → Instrument as you build (runs parallel with 7-9, not after)
-9.  doubt-driven-development    → Cross-examine non-trivial decisions in-flight
-10. test-driven-development     → Prove each slice works
-11. code-review-and-quality     → Review before merge
-12. code-simplification         → Reduce unnecessary complexity while preserving behavior
-13. git-workflow-and-versioning → Clean commit history
-14. documentation-and-adrs      → Document decisions
-15. deprecation-and-migration   → Retire old systems and move users safely when needed
-16. shipping-and-launch         → Deploy safely
-```
-
-Not every task needs every skill. A bug fix might only need: `debugging-and-error-recovery` → `test-driven-development` → `code-review-and-quality`.
-
-## Quick Reference
-
-| Phase | Skill | One-Line Summary |
-|-------|-------|-----------------|
-| Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
-| Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
-| Define | spec-driven-development | Requirements and acceptance criteria before code |
-| Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
-| Build | incremental-implementation | Thin vertical slices, test each before expanding |
-| Build | source-driven-development | Verify against official docs before implementing |
-| Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
-| Build | context-engineering | Right context at the right time |
-| Build | frontend-ui-engineering | Production-quality UI with accessibility |
-| Build | api-and-interface-design | Stable interfaces with clear contracts |
-| Verify | test-driven-development | Failing test first, then make it pass |
-| Verify | browser-testing-with-devtools | Chrome DevTools MCP for runtime verification |
-| Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
-| Review | code-review-and-quality | Five-axis review with quality gates |
-| Review | code-simplification | Preserve behavior while reducing unnecessary complexity |
-| Review | security-and-hardening | OWASP prevention, input validation, least privilege |
-| Review | performance-optimization | Measure first, optimize only what matters |
-| Ship | git-workflow-and-versioning | Atomic commits, clean history |
-| Ship | ci-cd-and-automation | Automated quality gates on every change |
-| Ship | deprecation-and-migration | Remove old systems and migrate users safely |
-| Ship | documentation-and-adrs | Document the why, not just the what |
-| Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
-| Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
+1. Checking after acting, then declaring the skill irrelevant.
+2. Routing to a skill and then not following it.
+3. Running a phase that was never entered - reviewing code no spec ever governed.
+4. Carrying an unmet gate into the next phase.
+5. Routing to a skill name that no longer exists. If a name here is missing from
+   the catalog, this file is stale: say so and route by phase instead.
+6. Treating this skill as the work. It is the map, not the territory.
