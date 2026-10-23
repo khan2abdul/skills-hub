@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: make-it-accessible
 - mode: composed
@@ -15,5 +15,6 @@
 | frontend-ui-engineering | ### Reference-led UI quality | 71e4a8bdc4f5f58661ea31cc4ce0338c0a66545684a0f3dacdb40bd3feb90ac7 | 894 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

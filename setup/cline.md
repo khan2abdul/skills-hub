@@ -24,11 +24,11 @@ This is the tool where over-installing hurts most. Cline concatenates rules, so
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -38,7 +38,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path ".clinerules" | Out-Null
 
 # keep this list small — these load on every request
@@ -55,7 +55,7 @@ foreach ($n in $always) {
 
 Add an index so Cline knows the rest exist without loading them:
 
-```powershell
+```bash
 $head = @(
   '# Available procedures'
   ''
@@ -78,7 +78,7 @@ Set-Content ".clinerules/_index.md" $idx -Encoding UTF8
 
 ## Verify
 
-```powershell
+```bash
 Get-ChildItem ".clinerules" | ForEach-Object {
   "{0,-32} {1,6} B" -f $_.Name, $_.Length
 }

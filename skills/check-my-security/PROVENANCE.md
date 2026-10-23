@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: check-my-security
 - mode: composed
@@ -22,5 +22,6 @@
 | security-and-hardening | ## Verification | 446d38f0b30e9fa1c46265ad7cd517f78149cb3613a9c1a72540072e52fbc13e | 1107 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

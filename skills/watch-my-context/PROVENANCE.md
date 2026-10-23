@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: watch-my-context
 - mode: verbatim

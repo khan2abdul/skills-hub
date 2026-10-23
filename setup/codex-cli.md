@@ -22,11 +22,11 @@ small core, and a path index for everything else.
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -36,7 +36,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-```powershell
+```bash
 $core = @('write-less-code','prove-it-works','trim-my-output')
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("# Procedures")
@@ -60,7 +60,7 @@ foreach ($n in $core) {
 
 Index the rest:
 
-```powershell
+```bash
 $idx = "`n## Available, not loaded`n`n"
 Get-ChildItem "$hub/skills" -Directory | Where-Object { $core -notcontains $_.Name } | ForEach-Object {
   $f = Join-Path $_.FullName 'SKILL.md'
@@ -74,7 +74,7 @@ Add-Content "./AGENTS.md" $idx
 
 ## Verify
 
-```powershell
+```bash
 "AGENTS.md exists: " + (Test-Path "./AGENTS.md")
 "size: " + (Get-Item "./AGENTS.md").Length + " B"
 ```
@@ -93,7 +93,7 @@ repo/
   packages/web/AGENTS.md    # frontend-only rules
 ```
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path "packages/api" | Out-Null
 @"
 # API package

@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: set-the-quality-bar
 - mode: verbatim

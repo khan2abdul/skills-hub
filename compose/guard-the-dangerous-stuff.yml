@@ -15,7 +15,7 @@
 # analytics block. `freeze`/`unfreeze` are the state-snapshot pair and are not
 # a substitute - they block all writes rather than warn on dangerous ones.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "guard-the-dangerous-stuff"
 title = "Guard The Dangerous Stuff"

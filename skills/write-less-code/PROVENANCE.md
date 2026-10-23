@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: write-less-code
 - mode: verbatim

@@ -1,7 +1,7 @@
 # Skill sources.
 #
 # The 9 harvested repos are cloned INSIDE the hub, at repos/, by
-# tools/clone-repos.ps1. That keeps the hub self-contained: one clone of this
+# tools/clone_repos.py. That keeps the hub self-contained: one clone of this
 # repo plus one command reproduces every source, with no external folder.
 #
 # Every `path` is RELATIVE to sources_root. Nothing here is machine-specific.
@@ -15,7 +15,7 @@
 # status = "cloned"    -> cloned into repos/, harvest scans it
 # status = "reference" -> catalogued only; not cloned, harvest skips it
 #
-# Run tools/clone-repos.ps1 to clone or refresh, then tools/harvest.ps1.
+# Run tools/clone_repos.py to clone or refresh, then tools/harvest.py.
 
 sources_root = "repos"
 
@@ -88,7 +88,7 @@ roots = ["skills"]
 
 # --- Reference catalog: candidates worth harvesting later -----------------
 # Not cloned. To promote one, git clone it, change status to "cloned",
-# add path and roots, then run tools/harvest.ps1.
+# add path and roots, then run tools/harvest.py.
 
 # 1. Core engineering methodologies
 [[repo]]
@@ -162,7 +162,7 @@ url = "https://github.com/reaatech/agents-md-kit"
 status = "reference"
 focus = "lint, validate, scaffold SKILL.md and AGENTS.md"
 compat = "CLI"
-note = "candidate validator for verify.ps1"
+note = "candidate validator for verify.py"
 
 [[repo]]
 name = "AOSSIE-Org-skills"

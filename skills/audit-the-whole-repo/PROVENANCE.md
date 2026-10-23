@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: audit-the-whole-repo
 - mode: composed
@@ -15,5 +15,6 @@
 | review | ### [SEVERITY] Category: Brief Title | fbf2adbdc0a9ddfcbdb33385f0d7bb2a07a70617b9d40299d7bfcbd8c966723a | 1445 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

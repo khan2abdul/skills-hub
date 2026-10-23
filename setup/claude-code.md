@@ -18,11 +18,11 @@ The `name:` in frontmatter must match the directory name. Claude Code also reads
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -34,7 +34,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 Pick one scope. User scope is best if you want these everywhere.
 
-```powershell
+```bash
 # --- user scope: available in every project ---
 $dst = "$HOME/.claude/skills"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
@@ -43,7 +43,7 @@ Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
 }
 ```
 
-```powershell
+```bash
 # --- project scope: committed with this repo only ---
 $dst = ".claude/skills"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
@@ -54,7 +54,7 @@ Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
 
 Symlink instead of copy if you want live updates (needs Developer Mode on Windows):
 
-```powershell
+```bash
 $dst = "$HOME/.claude/skills"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
 Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
@@ -64,7 +64,7 @@ Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
 
 ## Verify the install
 
-```powershell
+```bash
 Get-ChildItem "$HOME/.claude/skills" -Directory | ForEach-Object {
   $f = Join-Path $_.FullName 'SKILL.md'
   $n = if (Test-Path $f) { (Select-String -Path $f -Pattern '^name:' | Select-Object -First 1).Line } else { 'MISSING SKILL.md' }
@@ -79,7 +79,7 @@ Every row must show a `name:` equal to the directory. Then restart Claude Code
 
 Skills are on-demand. If you also want the router always loaded, copy:
 
-```powershell
+```bash
 Copy-Item "$hub/MASTER_ROUTING.md" -Destination "./CLAUDE.md" -Force
 ```
 
@@ -95,7 +95,7 @@ Claude Code handles a large catalog well, but start with these and add on demand
 
 ## Uninstall
 
-```powershell
+```bash
 Get-ChildItem "$HOME/.claude/skills" -Directory |
   Where-Object { Test-Path "$hub/skills/$($_.Name)" } |
   Remove-Item -Recurse -Force
@@ -103,7 +103,7 @@ Get-ChildItem "$HOME/.claude/skills" -Directory |
 
 ## Invoking it with `/`
 
-The hub's rule is that every skill is reachable as `/<name>`. `verify.ps1` fails the build when a skill cannot be invoked that way.
+The hub's rule is that every skill is reachable as `/<name>`. `verify.py` fails the build when a skill cannot be invoked that way.
 
 This tool has native skill discovery. `~/.claude/skills/<name>/SKILL.md` is exposed as `/<name>`; no wrapper needed.
 

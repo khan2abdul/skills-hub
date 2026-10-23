@@ -16,7 +16,7 @@
 # instruction to read a missing file is worse than shipping a table that stands
 # on its own. Taken the standalone section instead.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "split-across-agents"
 title = "Split Across Agents"

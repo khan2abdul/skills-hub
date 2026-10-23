@@ -14,7 +14,7 @@
 # template, which forces severity, location, and a concrete consequence per
 # finding. That is the shape this skill was missing.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "audit-the-whole-repo"
 title = "Audit The Whole Repo"

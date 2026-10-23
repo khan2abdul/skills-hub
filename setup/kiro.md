@@ -30,11 +30,11 @@ and `always` only for a tiny core.
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -44,7 +44,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path ".kiro/steering" | Out-Null
 
 # core: always in context (keep this to 2-4 skills)
@@ -72,7 +72,7 @@ This wraps the body in Kiro steering frontmatter. The body text is unchanged.
 Kiro's spec workflow expects project steering. These are not from the hub, but
 Kiro works far better with them:
 
-```powershell
+```bash
 @"
 ---
 inclusion: always
@@ -96,7 +96,7 @@ Stack, conventions, and the commands that must pass before "done"
 
 ## Verify
 
-```powershell
+```bash
 Get-ChildItem ".kiro/steering" -Filter *.md | ForEach-Object {
   $mode = (Select-String -Path $_.FullName -Pattern '^inclusion:' | Select-Object -First 1).Line
   "{0,-34} {1}" -f $_.Name, $mode

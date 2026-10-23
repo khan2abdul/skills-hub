@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: deslop-the-writing
 - mode: verbatim

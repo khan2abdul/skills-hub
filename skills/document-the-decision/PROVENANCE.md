@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: document-the-decision
 - mode: verbatim

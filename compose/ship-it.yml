@@ -1,4 +1,4 @@
-﻿# Compose spec: ship-it
+# Compose spec: ship-it
 #
 # Shipped version was `ship` (gstack): 80,509 chars, craft 5.8, REFERENCES 0/10 -
 # its body cites no files at all - and 20 uninstalled gstack helpers. Largest and
@@ -11,7 +11,7 @@
 # `git-workflow-and-versioning` adds what that assumes: clean atomic commits, and
 # a hygiene pass before pushing.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "ship-it"
 title = "Ship It"

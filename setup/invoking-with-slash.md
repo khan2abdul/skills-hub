@@ -5,7 +5,7 @@ invoked as `/<name>` is a defect, not a preference.
 
 ## What makes a skill slashable
 
-Two things, both enforced by `tools/verify.ps1`:
+Two things, both enforced by `tools/verify.py`:
 
 1. **`name:` must be kebab-case and equal the directory name.** Discovery only
    finds `<root>/<name>/SKILL.md`, and a name that is not kebab-case is dropped
@@ -14,9 +14,9 @@ Two things, both enforced by `tools/verify.ps1`:
    `user-invocable` **defaults to true**, so doing nothing is already correct.
    Only `user-invocable: false` removes the skill from `/`.
 
-```powershell
+```bash
 # fails the build if any shipped skill cannot be invoked as /<name>
-& "$hub/tools/verify.ps1"
+& "$hub/tools/verify.py"
 ```
 
 `disable-model-invocation: true` is fine and does **not** break `/` — it hides the
@@ -69,7 +69,7 @@ The DeepSeek Harness Web client caches the skill catalog per session, and a new
 So when `/` looks stale:
 
 1. Reload the page (`Ctrl+R`), or switch agent preset.
-2. If still missing, run `verify.ps1` — the frontmatter is the next suspect.
+2. If still missing, run `verify.py` — the frontmatter is the next suspect.
 3. Restart the app only if both of those fail.
 
 Restarting is the answer people reach for first and it is almost never the fix.

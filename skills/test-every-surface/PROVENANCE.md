@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: test-every-surface
 - mode: composed
@@ -26,5 +26,6 @@
 | qa-only | ## Additional Rules (qa-only specific) | c44837e44f48df9e56dbd57ca3cfd72aed544ae819b1291ee634d7a7a83425a2 | 1111 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

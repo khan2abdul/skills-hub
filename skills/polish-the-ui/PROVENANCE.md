@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: polish-the-ui
 - mode: composed
@@ -15,5 +15,6 @@
 | interface-kit |  | 13e9d75611e4610ab46292ca208fee1e2a6829e9c3983601d04b53acbd3ecc67 | 21151 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

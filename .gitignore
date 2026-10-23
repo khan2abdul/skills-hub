@@ -1,7 +1,11 @@
-# Cloned upstream sources. Reproduced with: pwsh tools/clone-repos.ps1
+# Cloned upstream sources. Reproduced with: python tools/clone_repos.py
 # Not committed: this folder is 1.5 GB+ and regenerable from repos.toml.
 repos/
 
 # Vendored upstream resources occasionally carry their own build output.
 **/node_modules/
 **/.venv/
+
+# Python cache
+__pycache__/
+*.pyc

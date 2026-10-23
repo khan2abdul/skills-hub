@@ -17,13 +17,13 @@
 # greppable, with the terminal `No match.` case. That is the one thing the
 # explorer body never specifies precisely and the thing its caller most needs.
 #
-# Composing also drops the host frontmatter by construction - compose.ps1 emits
+# Composing also drops the host frontmatter by construction - compose.py emits
 # only `name` and `description`.
 #
 # Only the Output contracts section is taken from cavecrew; its investigator /
 # builder / reviewer triage is a different job from cold-start exploration.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "explore-this-repo"
 title = "Explore This Repo"

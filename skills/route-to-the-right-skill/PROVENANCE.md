@@ -6,7 +6,7 @@
 - body sha256: a955a019dbab3e75d328c088022c24bb860c85567d66be4c0818a347d39786ba
 - published policy: skill text is immutable *except* for an entry that declares
   `mode: authored` here. Nothing upstream owns this text, so there is no excerpt
-  to re-hash; `verify.ps1` proves instead that the shipped body has not drifted
+  to re-hash; `verify.py` proves instead that the shipped body has not drifted
   from the hash above.
 
 ## Why this one is authored, not vendored

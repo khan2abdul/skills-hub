@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: isolate-this-branch
 - mode: verbatim

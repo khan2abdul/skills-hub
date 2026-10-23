@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: check-my-ui
 - mode: composed
@@ -19,5 +19,6 @@
 | browse | ### Rules for driving a real browser | 0bb5f2378f975304c4118a14c395606a8d71dca87e80ef912165a56abe07bf8d | 4141 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

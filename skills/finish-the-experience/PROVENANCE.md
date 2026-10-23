@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: finish-the-experience
 - mode: verbatim

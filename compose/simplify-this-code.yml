@@ -22,7 +22,7 @@
 # a composition cannot out-score a craft-10 ingredient on a dimension the
 # ingredient only earns by naming its own reference files, which we do not ship.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "simplify-this-code"
 title = "Simplify This Code"

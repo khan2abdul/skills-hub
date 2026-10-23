@@ -19,7 +19,7 @@
 # Its long worked example (Honouring an Idempotency Key, 3,070c, 4 gates) was
 # rejected: good content, but it teaches one pattern rather than gating a design.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "design-the-interface"
 title = "Design The Interface"

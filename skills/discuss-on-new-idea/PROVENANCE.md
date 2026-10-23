@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: discuss-on-new-idea
 - mode: composed
@@ -16,5 +16,6 @@
 | brainstorming | ## Red Flags | e924e2e4945879e00bcff97f6a9b75e3b08d49a4d4f6dfadd2145ce129f0028d | 712 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

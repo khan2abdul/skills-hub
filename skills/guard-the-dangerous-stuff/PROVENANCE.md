@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: guard-the-dangerous-stuff
 - mode: composed
@@ -20,5 +20,6 @@
 | careful | ## Project patterns (additive only) | edaf8de1042be573214df41f6a052ce7d59507bd95ab66cf9d7c862b6229b0d5 | 427 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

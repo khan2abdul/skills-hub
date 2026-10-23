@@ -1270,7 +1270,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
       <li>
         <strong>Guidance is derived, not quoted.</strong> The prose above condenses each skill's own
         text. The skill body is the authority; this page is an index. Skill bodies are immutable in
-        this repo and are proven against upstream with <code>tools/verify.ps1</code>.
+        this repo and are proven against upstream with <code>tools/verify.py</code>.
       </li>
       <li>
         <strong>Only 13 of the 41 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
@@ -1290,7 +1290,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     </ul>
     <h2>Rebuild this page</h2>
     <ul>
-      <li><code>powershell -File tools/build-skill-page.ps1</code> &mdash; reads
+      <li><code>python tools/build_skill_page.py</code> &mdash; reads
         <code>tools/skill-page-data.json</code> and <code>RATING.json</code>.</li>
       <li>Edit the JSON to change wording; edit the script only to change layout.</li>
     </ul>

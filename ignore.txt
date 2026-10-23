@@ -1,5 +1,5 @@
 # Upstream skills deliberately NOT selected into the hub.
-# One name per line. harvest.ps1 stays quiet about these.
+# One name per line. harvest.py stays quiet about these.
 # Reason for each exclusion is recorded in manifest.yml under "Deliberately excluded".
 
 # --- caveman Cloud vendor ops, not capabilities ---

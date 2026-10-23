@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: research-this-topic
 - mode: composed
@@ -15,5 +15,6 @@
 | research |  | fa42846e4d2794b4463658e198f81bebe3c65a8c71954dee63894475dcf572d3 | 523 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

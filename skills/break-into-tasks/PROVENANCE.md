@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: break-into-tasks
 - mode: verbatim

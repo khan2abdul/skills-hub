@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: prove-it-works
 - mode: verbatim

@@ -23,7 +23,7 @@
 # sub-agents; Why two axes explains why the reports must stay separate. The
 # five axes remain the "what to check"; this is the "against what" gate.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "review-my-code"
 title = "Review My Code"

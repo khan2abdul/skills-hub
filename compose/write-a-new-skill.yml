@@ -1,4 +1,4 @@
-﻿# Compose spec: write-a-new-skill
+# Compose spec: write-a-new-skill
 #
 # Shipped version was `create-skill` (gsd-2): 6,434 chars, craft 7.8, and only
 # 4/10 on procedure - 11 headings and 30 bullets, zero numbered steps.
@@ -8,7 +8,7 @@
 # keeps the higher-scoring base (writing-for-agents, 9.3) and adds only the
 # writing-skills sections it does not already cover.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "write-a-new-skill"
 title = "Write A New Skill"

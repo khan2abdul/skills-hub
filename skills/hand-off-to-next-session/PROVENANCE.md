@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: hand-off-to-next-session
 - mode: verbatim

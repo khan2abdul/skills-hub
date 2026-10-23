@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: split-across-agents
 - mode: composed
@@ -15,5 +15,6 @@
 | subagent-driven-development | ## Common Rationalizations | 453d382f6184ca976a5be321781c404d80f5f230624a650551559ff27845e389 | 1410 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

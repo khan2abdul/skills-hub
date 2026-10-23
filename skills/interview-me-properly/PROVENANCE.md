@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: interview-me-properly
 - mode: verbatim

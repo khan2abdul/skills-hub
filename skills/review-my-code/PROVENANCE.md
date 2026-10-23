@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: review-my-code
 - mode: composed
@@ -19,5 +19,6 @@
 | code-review-and-quality | ## Verification | be25bb55409ba42daa56ad72d3b22b0a7f5e86442a13d13799f7f8a047e7619d | 877 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

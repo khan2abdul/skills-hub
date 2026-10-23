@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: simplify-this-code
 - mode: composed
@@ -19,5 +19,6 @@
 | code-simplification | ## Verification | 05474ae816d13dbe25516c4f6492cab13f728478ab318279289c60b81b3806fb | 614 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

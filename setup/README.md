@@ -19,7 +19,7 @@ agent, so the agent can perform the setup itself.
 ## The `/` rule
 
 Every skill in this hub ships so it can be invoked as `/<name>`. A skill that
-cannot be invoked that way is a defect. `verify.ps1` fails the build on it.
+cannot be invoked that way is a defect. `verify.py` fails the build on it.
 
 Read [invoking-with-slash.md](invoking-with-slash.md) for what makes a skill
 slashable, the per-tool matrix, and what to do when `/<name>` does not appear.
@@ -31,14 +31,14 @@ documented but unverified.
 The source repos live inside the hub at `repos/`. If that folder is empty (a
 fresh clone), fetch the sources first:
 
-```powershell
-pwsh tools/clone-repos.ps1
+```bash
+python3 tools/clone_repos.py
 ```
 
 Then prove the hub is trustworthy:
 
-```powershell
-pwsh tools/verify.ps1
+```bash
+python3 tools/verify.py
 ```
 
 It must print `OK: every shipped body is proven against upstream`.
@@ -52,7 +52,7 @@ want and you trust the last verify run.
 
 **No skill text is ever edited.** A shipped skill is either a verbatim copy
 (only the `name:` line differs from upstream) or a composition of verbatim
-excerpts with per-block sha256 proofs. `verify.ps1` proves both on every run. If
+excerpts with per-block sha256 proofs. `verify.py` proves both on every run. If
 a tool requires a different file format (Cursor `.mdc`, Kiro steering), wrap the
 body — never rewrite it.
 

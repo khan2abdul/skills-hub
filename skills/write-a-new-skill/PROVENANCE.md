@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: write-a-new-skill
 - mode: composed
@@ -18,5 +18,6 @@
 | writing-skills | ## Skill Creation Checklist (TDD Adapted) | 206ba5efa2ee1a3216f39d8b6303a71326fdfa4d38186335eb3a765be4a45be7 | 1898 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

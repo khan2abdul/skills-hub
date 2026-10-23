@@ -5,14 +5,14 @@ One canonical skill per capability, harvested from 9 repos cloned into `repos/`
 
 **Core guarantee: no skill text is ever edited.** A shipped skill is either a
 verbatim copy (only the `name:` line changes) or a composition of verbatim
-excerpts with per-block sha256 proofs. `tools/verify.ps1` proves both on every run.
+excerpts with per-block sha256 proofs. `tools/verify.py` proves both on every run.
 
 **Self-contained.** The 9 source repos live inside the hub at `repos/`, cloned
 from `repos.toml` URLs. No absolute paths in tools, specs, or docs. See [Paths](#paths).
 
 **Status:** all 41 capabilities shipped - 17 verbatim copies, 23 compositions, plus
 1 authored (`route-to-the-right-skill`, the parent router)
-(`debug-this-code` scores 37/37 on the rubric). `hub.ps1` reports `HUB HEALTHY`.
+(`debug-this-code` scores 37/37 on the rubric). `hub.py` reports `HUB HEALTHY`.
 
 ## Why
 
@@ -42,15 +42,31 @@ were combined.
 
 ## Quick start
 
-```powershell
-pwsh tools/clone-repos.ps1      # clone/refresh the 9 sources into repos/
-pwsh tools/hub.ps1              # health: harvest + verify + coverage + rating + catalog
-pwsh tools/hub.ps1 -Tools       # list install pages
-pwsh tools/hub.ps1 -Setup cursor  # print a page to paste into that agent
+```bash
+python3 tools/clone_repos.py      # clone/refresh the 9 sources into repos/
+python3 tools/hub.py              # health: harvest + verify + coverage + rating + catalog
+python3 tools/hub.py --tools       # list install pages
+python3 tools/hub.py --setup cursor  # print a page to paste into that agent
 ```
 
-`clone-repos.ps1` is shallow by default (`--depth 1`): the hub only needs current
+`clone_repos.py` is shallow by default (`--depth 1`): the hub only needs current
 file contents to vendor from. Full history would be ~1.5 GB for gstack alone.
+
+### Requirements
+
+Python 3.11 or newer (dict ordering, `tomllib`, `X | None` annotations).
+Standard library only - nothing to `pip install`. Every tool starts with
+`#!/usr/bin/env python3`, so on Linux and macOS it also runs directly once the
+exec bit is set:
+
+```bash
+chmod +x tools/*.py
+./tools/hub.py
+```
+
+On Windows use `python tools/hub.py`, or `py -3 tools/hub.py` where `python` is
+not on `PATH`. The tools force stdout to UTF-8, so a cp1252 console will not
+crash on the arrows and box characters in the reports.
 
 ## Layout
 
@@ -72,17 +88,17 @@ skills-hub/
 │       └── PROVENANCE.md   # repo, path, commit, per-block sha256
 ├── setup/              # one install page per agent tool
 └── tools/
-    ├── hub.ps1         # entry point
-    ├── clone-repos.ps1 # clone/refresh repos/ from repos.toml
-    ├── harvest.ps1     # read-only drift report
-    ├── coverage.ps1    # write COVERAGE.md from PROVENANCE.md
-    ├── rate-skills.ps1 # score every skill /10 -> RATING.md + RATING.json
-    ├── catalog.ps1     # write SKILLS.md: what each skill does and where it came from
-    ├── apply-rating.ps1# apply body-preserving fixes, then verify
-    ├── vendor.ps1      # verbatim copy; name: line only
-    ├── compose.ps1     # build from compose/<name>.yml
-    ├── evaluate.ps1    # score skills against a rubric
-    └── verify.ps1      # prove every body against upstream
+    ├── hub.py         # entry point
+    ├── clone_repos.py # clone/refresh repos/ from repos.toml
+    ├── harvest.py     # read-only drift report
+    ├── coverage.py    # write COVERAGE.md from PROVENANCE.md
+    ├── rate_skills.py # score every skill /10 -> RATING.md + RATING.json
+    ├── catalog.py     # write SKILLS.md: what each skill does and where it came from
+    ├── apply_rating.py# apply body-preserving fixes, then verify
+    ├── vendor.py      # verbatim copy; name: line only
+    ├── compose.py     # build from compose/<name>.yml
+    ├── evaluate.py    # score skills against a rubric
+    └── verify.py      # prove every body against upstream
 ```
 
 `repos/` is 187 MB shallow-cloned, versus 1.9 GB in the old external folder
@@ -93,29 +109,29 @@ because it is regenerable from `repos.toml`.
 
 **Verbatim** — one upstream skill wins outright. Only `name:` changes.
 
-```powershell
-pwsh tools/vendor.ps1 -Skill write-the-spec
+```bash
+python3 tools/vendor.py --skill write-the-spec
 ```
 
 **Composed** - no single file is good enough, but several complement each other.
 `compose/<name>.yml` lists headings to lift; each excerpt is copied byte-for-byte
 and its sha256 recorded. Headings and ordering are the only new material.
 
-```powershell
-pwsh tools/compose.ps1 -Name debug-this-code -WhatIf   # preview
-pwsh tools/compose.ps1 -Name debug-this-code
+```bash
+python3 tools/compose.py --name debug-this-code --what-if   # preview
+python3 tools/compose.py --name debug-this-code
 ```
 
 **Authored** — written for this hub, quoting nothing. Used exactly once, for
 `route-to-the-right-skill`, because every upstream router named skills this hub
 does not ship and the repair was a rewrite rather than a name swap. The entry
 declares `mode: authored` and records the sha256 of its own body, so
-`verify.ps1` still catches drift. This is not a loophole: adding a second
+`verify.py` still catches drift. This is not a loophole: adding a second
 authored skill needs a reason of the same kind.
 
 ## Is a composed skill actually better?
 
-Don't take it on faith - score it. `tools/evaluate.ps1` checks 16 debugging
+Don't take it on faith - score it. `tools/evaluate.py` checks 16 debugging
 practices that separate a real procedure from vibes: a red-capable loop, ranked
 hypotheses, minimise the repro, non-deterministic handling, regression test,
 cleanup, injection-safe error handling, and so on.
@@ -146,25 +162,25 @@ Everything resolves at runtime:
 | Hub root | `$PSScriptRoot` of the running tool |
 | Sources root | `$env:SKILLS_HUB_SOURCES` -> `sources_root` in `repos.toml` (default `repos`) -> walk up for a sibling `setupskills`/`skills-sources` that actually holds repos |
 | Repo path | relative to the sources root, or absolute |
-| Docs | `$hub = $env:SKILLS_HUB`, else walk up for `skills-hub/tools/verify.ps1` |
+| Docs | `$hub = $env:SKILLS_HUB`, else walk up for `skills-hub/tools/verify.py` |
 
 The default is now `repos/`, inside the hub, so a fresh clone of this repo needs
 one command to become self-sufficient. The `setupskills` fallback is kept only so
 a pre-existing external checkout still resolves without re-downloading.
 
-`clone-repos.ps1` resolves strictly: it never falls back to a discovered folder,
+`clone_repos.py` resolves strictly: it never falls back to a discovered folder,
 because a write tool that guesses would clone 9 repos into the wrong tree. If the
 declared root is missing you get one clear message and exit code 2.
 
 ## The commands
 
-```powershell
-pwsh tools/harvest.ps1    # drift, broken refs, skills with no decision (read-only)
-pwsh tools/coverage.ps1   # write COVERAGE.md: 187 upstream -> shipped / rejected / dropped
-pwsh tools/catalog.ps1    # write SKILLS.md: what each skill does and where it came from
-pwsh tools/vendor.ps1 -All -WhatIf
-pwsh tools/evaluate.ps1   # rubric scores
-pwsh tools/verify.ps1     # the guarantee
+```bash
+python3 tools/harvest.py    # drift, broken refs, skills with no decision (read-only)
+python3 tools/coverage.py   # write COVERAGE.md: 187 upstream -> shipped / rejected / dropped
+python3 tools/catalog.py    # write SKILLS.md: what each skill does and where it came from
+python3 tools/vendor.py --all --what-if
+python3 tools/evaluate.py   # rubric scores
+python3 tools/verify.py     # the guarantee
 ```
 
 `COVERAGE.md` is the answer to "did we take the best skill from that repo?". It
@@ -178,15 +194,15 @@ not what the manifest proposed. Each upstream skill is exactly one of:
 | dropped | neither. **This is the gap** - it needs a decision |
 
 A skill that only appears in a manifest `candidates` list is *dropped*: it was
-proposed, lost, and nobody recorded why. `harvest.ps1` used to count those as
+proposed, lost, and nobody recorded why. `harvest.py` used to count those as
 claimed, which is how 72 upstream skills went missing while it reported zero.
 
 ## Rating: 0-10 per skill, and what to fix
 
-```powershell
-pwsh tools/rate-skills.ps1          # write RATING.md + RATING.json
-pwsh tools/apply-rating.ps1         # show which fixes it can apply
-pwsh tools/apply-rating.ps1 -Apply  # do it, then re-run verify.ps1
+```bash
+python3 tools/rate_skills.py          # write RATING.md + RATING.json
+python3 tools/apply_rating.py         # show which fixes it can apply
+python3 tools/apply_rating.py --apply  # do it, then re-run verify.py
 ```
 
 The score has two halves, because "is this a good skill" and "was this the best
@@ -201,12 +217,12 @@ Selection exists because a well-made copy of the wrong skill is still wrong:
 a wrong-but-well-made choice only shows up here. `RATING.md` prints the
 evidence behind every dimension.
 
-`apply-rating.ps1` can only do **body-preserving** fixes - copying a missing
-reference file from upstream, then re-running `verify.ps1`. It refuses to touch
+`apply_rating.py` can only do **body-preserving** fixes - copying a missing
+reference file from upstream, then re-running `verify.py`. It refuses to touch
 a `SKILL.md`, because that is the hub's core guarantee. Everything else is
 printed as a TODO for a human decision.
 
-`verify.ps1` runs two checks:
+`verify.py` runs two checks:
 
 1. **Verbatim** - rebuilds upstream with only the `name:` line swapped, compares
    bytes. Any edit fails, and the message names the line.
@@ -220,7 +236,7 @@ exit 1.
 ## Adding a tenth repo
 
 1. Append a `[[repo]]` to `repos.toml` with `status = "cloned"` and a relative `path`.
-2. `pwsh tools/harvest.ps1` - lists its skills that no entry claims.
+2. `python3 tools/harvest.py` - lists its skills that no entry claims.
 3. Map them to candidates, or add a `[[skill]]`.
 4. Rejected skills go in `ignore.txt` with a reason.
 
@@ -242,8 +258,8 @@ Reference-only repos use `status = "reference"` and are skipped by harvest.
 | Anything else | [setup/generic.md](setup/generic.md) | depends |
 
 Each page is self-contained: paste the whole file into that agent and say
-"set this up for me." All 48 PowerShell blocks are parse-checked, and the
-conversion snippet was run end-to-end to confirm the body survives unchanged.
+"set this up for me." Every shell example has been run, and the conversion
+snippet was executed end-to-end to confirm the body survives unchanged.
 
 Claude Code, dsh, Gemini and Kilo Code 7.8+ have real skill directories. Cursor,
 Kiro, Cline, Codex and Windsurf load *rules* - always-on text. Their pages name
@@ -255,6 +271,6 @@ a 2-3 skill always-on set for that reason.
 - **One capability, one name.** If two names could fire on the same request, merge them.
 - **Verb-first names that say the job:** `debug-this-code`, `write-the-spec`.
 - **Provenance is mandatory.** A body with no PROVENANCE.md cannot be audited.
-- **Score before you claim better.** `evaluate.ps1` exists so "improved" is a number.
+- **Score before you claim better.** `evaluate.py` exists so "improved" is a number.
 - **Ignore loudly.** Every rejected skill gets a line in `ignore.txt`.
 - **Always-on costs every turn.** Per tool, keep the always-loaded set to ~3 skills.

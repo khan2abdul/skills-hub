@@ -10,7 +10,7 @@
 # Size alone would have picked the worst source here. `spec-driven-development`
 # scores 9.6 and is the same job without the gstack scaffolding.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "write-the-spec"
 title = "Write The Spec"

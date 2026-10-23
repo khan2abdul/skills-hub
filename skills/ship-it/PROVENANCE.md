@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: ship-it
 - mode: composed
@@ -16,5 +16,6 @@
 | git-workflow-and-versioning | ## Pre-Commit Hygiene | ba6df417383a4b6b01af2740c67cbaf4264f99ddd2b05d901c025089286d7dfb | 508 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

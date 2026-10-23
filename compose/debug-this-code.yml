@@ -1,14 +1,14 @@
 # Compose spec: assembles a canonical skill body from verbatim excerpts.
 #
 # Nothing here is paraphrased. Each `include` copies a named section of an
-# upstream SKILL.md byte-for-byte and records its sha256. verify.ps1 re-extracts
+# upstream SKILL.md byte-for-byte and records its sha256. verify.py re-extracts
 # and re-hashes every block, so an upstream edit or a hand-edited excerpt fails.
 #
 # Section matching: `from` is an exact heading line, e.g. "## Phase 1: Build a
 # feedback loop" or "### Phase 2: Pattern Analysis" (levels differ per repo).
 # Use `whole: true` to take the entire body (after frontmatter, h1 stripped).
 #
-# This spec is deliberately small. tools/evaluate.ps1 scores each candidate
+# This spec is deliberately small. tools/evaluate.py scores each candidate
 # against 16 debugging practices; diagnosing-bugs alone covers 30/37. The four
 # excerpts below are exactly the seven points it is missing, so nothing here is
 # padding.

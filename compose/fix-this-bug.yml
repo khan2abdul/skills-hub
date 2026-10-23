@@ -21,7 +21,7 @@
 #     hub, so the instruction cannot be followed. Same defect class as the dead
 #     gstack hooks - shipped prose pointing at a missing dependency.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "fix-this-bug"
 title = "Fix This Bug"

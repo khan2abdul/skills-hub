@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: write-the-docs
 - mode: composed
@@ -16,5 +16,6 @@
 | context-engineering | ## Verification | 2990d8efd14c189e57bfeedcfd92c465ef4cfd24f0184e0e9ec6ce61c02bf705 | 614 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

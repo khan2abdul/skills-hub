@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: trim-my-output
 - mode: composed
@@ -17,5 +17,6 @@
 | verification-before-completion | ## The Gate Function | f70207ac270a107ede3ed42c823c67fef49712d93e99cab9665fa54cda938fdc | 429 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

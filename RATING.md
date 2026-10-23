@@ -1,7 +1,7 @@
 # Skill rating
 
-Every shipped skill scored out of 10 by `tools/rate-skills.ps1` (rubric v2).
-Wire: `tools/apply-rating.ps1`. Do not edit by hand - re-run the tool.
+Every shipped skill scored out of 10 by `tools/rate_skills.py` (rubric v2).
+Wire: `tools/apply_rating.py`. Do not edit by hand - re-run the tool.
 
 **Mean 9.77/10** over 41 skills. Grades: A 41.
 
@@ -29,51 +29,51 @@ where a wrong-but-well-made choice shows up.
 
 | # | skill | score | grade | craft | sel | struc | proc | gates | refs | port | size | chars |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | `deslop-the-writing` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 7755 |
-| 2 | `write-a-new-skill` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 16925 |
-| 3 | `debug-this-code` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 11814 |
-| 4 | `finish-the-experience` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 8437 |
-| 5 | `test-every-surface` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 17037 |
-| 6 | `watch-my-context` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 6607 |
-| 7 | `debug-the-stubborn-one` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 8647 |
-| 8 | `make-it-fast` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 16505 |
-| 9 | `check-my-security` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 19413 |
-| 10 | `review-the-plan` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10941 |
-| 11 | `ship-it` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 9112 |
-| 12 | `set-the-quality-bar` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 10 | 10 | 7 | 20946 |
-| 13 | `receive-code-review` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6163 |
-| 14 | `review-my-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 15325 |
-| 15 | `research-this-topic` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 10892 |
-| 16 | `route-to-the-right-skill` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7704 |
-| 17 | `write-the-docs` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7121 |
-| 18 | `write-the-domain-glossary` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5676 |
-| 19 | `write-the-spec` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 16237 |
-| 20 | `write-less-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 3554 |
-| 21 | `simplify-this-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11347 |
-| 22 | `split-across-agents` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 8178 |
-| 23 | `trim-my-output` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6927 |
-| 24 | `prove-it-works` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 3582 |
-| 25 | `discuss-on-new-idea` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11408 |
-| 26 | `design-the-interface` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13218 |
-| 27 | `fix-this-bug` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5588 |
-| 28 | `document-the-decision` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 10875 |
-| 29 | `build-in-small-steps` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 9323 |
-| 30 | `break-into-tasks` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7634 |
-| 31 | `check-my-ui` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11003 |
-| 32 | `build-it-test-first` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 16444 |
-| 33 | `audit-the-whole-repo` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7317 |
-| 34 | `make-it-accessible` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13788 |
-| 35 | `polish-the-ui` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 10 | 10 | 7 | 33339 |
-| 36 | `make-it-observable` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13875 |
-| 37 | `isolate-this-branch` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6803 |
-| 38 | `guard-the-dangerous-stuff` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5648 |
-| 39 | `hand-off-to-next-session` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6202 |
-| 40 | `interview-me-properly` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 15043 |
-| 41 | `explore-this-repo` | **9.6** | A | 9.4 | 10 | 10 | 9 | 10 | 8 | 10 | 10 | 3129 |
+| 1 | `check-my-security` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 19413 |
+| 2 | `debug-the-stubborn-one` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 8647 |
+| 3 | `debug-this-code` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 11662 |
+| 4 | `deslop-the-writing` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 7755 |
+| 5 | `finish-the-experience` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 8437 |
+| 6 | `make-it-fast` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 16505 |
+| 7 | `review-the-plan` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10808 |
+| 8 | `test-every-surface` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 16985 |
+| 9 | `watch-my-context` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 6607 |
+| 10 | `write-a-new-skill` | **10** | A | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 16925 |
+| 11 | `audit-the-whole-repo` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7317 |
+| 12 | `break-into-tasks` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7634 |
+| 13 | `build-in-small-steps` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 9323 |
+| 14 | `build-it-test-first` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 16444 |
+| 15 | `check-my-ui` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11003 |
+| 16 | `design-the-interface` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13041 |
+| 17 | `discuss-on-new-idea` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11408 |
+| 18 | `document-the-decision` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 10875 |
+| 19 | `fix-this-bug` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5588 |
+| 20 | `guard-the-dangerous-stuff` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5648 |
+| 21 | `hand-off-to-next-session` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6202 |
+| 22 | `interview-me-properly` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 15043 |
+| 23 | `isolate-this-branch` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6803 |
+| 24 | `make-it-accessible` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13788 |
+| 25 | `make-it-observable` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 13875 |
+| 26 | `polish-the-ui` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 10 | 10 | 7 | 32763 |
+| 27 | `prove-it-works` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 3582 |
+| 28 | `receive-code-review` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6163 |
+| 29 | `research-this-topic` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 10876 |
+| 30 | `review-my-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 15325 |
+| 31 | `route-to-the-right-skill` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7704 |
+| 32 | `set-the-quality-bar` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 10 | 10 | 7 | 20946 |
+| 33 | `ship-it` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 9112 |
+| 34 | `simplify-this-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11347 |
+| 35 | `split-across-agents` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 8178 |
+| 36 | `trim-my-output` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6927 |
+| 37 | `write-less-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 3554 |
+| 38 | `write-the-docs` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7121 |
+| 39 | `write-the-domain-glossary` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5676 |
+| 40 | `write-the-spec` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 16159 |
+| 41 | `explore-this-repo` | **9.6** | A | 9.4 | 10 | 10 | 9 | 10 | 8 | 10 | 10 | 3119 |
 
 ## How to improve
 
-Ranked by score gain. `auto` fixes are applied by `pwsh tools/apply-rating.ps1 -Apply`;
+Ranked by score gain. `auto` fixes are applied by `python tools/apply_rating.py --apply`;
 `no` ones need a decision from you.
 
 | # | skill | finding | gain | auto | what to do |

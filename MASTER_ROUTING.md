@@ -44,4 +44,4 @@ run the test covering the line you touched.
 ## Installing
 
 See `setup/<tool>.md`. Only the frontmatter `name:` line and the per-tool wrapper
-ever differ from upstream; `tools/verify.ps1` proves it.
+ever differ from upstream; `tools/verify.py` proves it.

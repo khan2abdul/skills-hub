@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: design-the-interface
 - mode: composed
@@ -21,5 +21,6 @@
 | spec-driven-development | ## Verification | 8811928f0dcf8908ec80cb5dfaef6df88a75f5b3fbc92efc6e8b52688a6f6e50 | 637 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

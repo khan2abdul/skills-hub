@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: build-in-small-steps
 - mode: verbatim

@@ -6,11 +6,11 @@
 
 Everything below uses `$hub`. Resolve it once:
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -32,7 +32,7 @@ docs, for which of these it supports:
 
 If the agent has a **skill directory**, you are done — just point at it:
 
-```powershell
+```bash
 # example: an agent that scans ~/.myagent/skills/
 $dst = "$HOME/.myagent/skills"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
@@ -44,7 +44,7 @@ Get-ChildItem "$hub/skills" -Directory |
 
 Every other mechanism reduces to this. **Never edit the body.**
 
-```powershell
+```bash
 function ConvertTo-AgentRule {
   param(
     [string]$SkillName,
@@ -86,7 +86,7 @@ Installing everything is the failure mode. Pick one per phase you actually use:
 
 ## Verify the result
 
-```powershell
+```bash
 Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
   $f = Join-Path $_.FullName 'SKILL.md'
   $ok = Test-Path $f

@@ -25,11 +25,11 @@ most common reason skills "don't appear".
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -42,7 +42,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 `~/.dsh/skills` is rank 400 and is scanned in every project, with no config edit.
 It does not exist by default, so create it:
 
-```powershell
+```bash
 $dst = "$HOME/.dsh/skills"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
 Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
@@ -68,13 +68,13 @@ send the same literal text; the host loads the skill either way.
 If `/<name>` never appears, the frontmatter is at fault, not the install. Run
 this and fix anything it names:
 
-```powershell
-& "$hub/tools/verify.ps1"
+```bash
+& "$hub/tools/verify.py"
 ```
 
 Both invocation keys default to permitting their surface, so an omitted
 `user-invocable` is already correct. Only `user-invocable: false` removes a skill
-from `/`, and `verify.ps1` now fails on it.
+from `/`, and `verify.py` now fails on it.
 
 **A skill added mid-session will not show in `/` until the page reloads.** The
 Web client caches the catalog per session, and a new `SKILL.md` on disk forwards
@@ -88,7 +88,7 @@ cordis_inspect_query platform=host provider=Config method=listConfigs
 
 or simply confirm each `SKILL.md` parses:
 
-```powershell
+```bash
 Get-ChildItem "$HOME/.dsh/skills" -Directory | ForEach-Object {
   $f = Join-Path $_.FullName 'SKILL.md'
   $state = if (Test-Path $f) { 'ok' } else { 'MISSING' }
@@ -102,7 +102,7 @@ Use this when you want the hub path recorded in the profile instead of copied.
 
 Edit the active profile patch — find the profile name first:
 
-```powershell
+```bash
 Get-ChildItem "$HOME/.dsh/profiles" -Directory | Select-Object Name
 ```
 
@@ -120,7 +120,7 @@ Then in `~/.dsh/profiles/<profile>/cordis.patch.yml`:
 
 Back it up first — this one file affects every session in that profile:
 
-```powershell
+```bash
 $f = "$HOME/.dsh/profiles/<profile>/cordis.patch.yml"
 Copy-Item $f "$f.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
 ```
@@ -159,14 +159,14 @@ entries. If the count does not match the hub, check in this order:
    model catalog by design (still user-invocable).
 6. Does `description:` contain a colon followed by a space, unquoted? That is
    invalid YAML and dsh drops the skill with only a logged warning. Quote the
-   value — `tools/compose.ps1` does this for composed skills.
+   value — `tools/compose.py` does this for composed skills.
 
 ## Optional: always-on routing
 
 dsh also loads `~/.dsh/AGENTS.md` globally and `AGENTS.md`/`CLAUDE.md` per
 project. Copy the router there if you want phase routing always present:
 
-```powershell
+```bash
 Copy-Item "$hub/MASTER_ROUTING.md" -Destination "./CLAUDE.md" -Force
 ```
 
@@ -177,7 +177,7 @@ only the phases you use and point `customSkillDirs` at a filtered directory.
 
 ## Uninstall
 
-```powershell
+```bash
 Get-ChildItem "$HOME/.dsh/skills" -Directory |
   Where-Object { Test-Path "$hub/skills/$($_.Name)" } |
   Remove-Item -Recurse -Force

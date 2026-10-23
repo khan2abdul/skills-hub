@@ -16,7 +16,7 @@
 # a file this hub does not ship. Shipping an instruction that cannot be followed
 # is worse than shipping nothing.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "review-the-plan"
 title = "Review The Plan"

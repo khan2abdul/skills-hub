@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: review-the-plan
 - mode: composed
@@ -15,5 +15,6 @@
 | plan-eng-review | ## Cognitive Patterns — How Great Eng Managers Think | b220a844244d3a657e9fe278b9cd1c9926ac78b9d374b3015484ac4e508245c8 | 1373 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

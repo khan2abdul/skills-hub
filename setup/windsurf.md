@@ -33,11 +33,11 @@ native skills directory — and it is exactly the contract a `SKILL.md`
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -47,7 +47,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path ".windsurf/rules" | Out-Null
 
 # always-on: keep tiny
@@ -73,7 +73,7 @@ This wraps the body in Windsurf frontmatter. The body text is unchanged.
 
 ## Verify
 
-```powershell
+```bash
 Get-ChildItem ".windsurf/rules" -Filter *.md | ForEach-Object {
   $t = (Select-String -Path $_.FullName -Pattern '^trigger:' | Select-Object -First 1).Line
   "{0,-32} {1}" -f $_.Name, $t

@@ -31,7 +31,7 @@ status = "merged"
 chosen = ""
 composed = ["caveman-explore", "cavecrew"]
 candidates = ["caveman-explore", "caveman-discover", "cavecrew"]
-rationale = "Read-only orientation across a cold repo, returning path:line only; keeps reads out of main context. Was caveman-explore shipped verbatim, which carried two defects: host frontmatter (tools: Read, Glob, Grep and model: haiku pin one vendor's tool names and a model alias - portability 7/10, and it also failed the minimum size band at 1,966 chars), and a body with zero headings and no numbered steps. Composing fixes the frontmatter by construction, since compose.ps1 emits only name and description. cavecrew adds the output contract the explorer never specified: the exact citation shape a caller can rely on, backticked symbols, and the terminal No match. case. Its full investigator/builder/reviewer triage was rejected as a different job."
+rationale = "Read-only orientation across a cold repo, returning path:line only; keeps reads out of main context. Was caveman-explore shipped verbatim, which carried two defects: host frontmatter (tools: Read, Glob, Grep and model: haiku pin one vendor's tool names and a model alias - portability 7/10, and it also failed the minimum size band at 1,966 chars), and a body with zero headings and no numbered steps. Composing fixes the frontmatter by construction, since compose.py emits only name and description. cavecrew adds the output contract the explorer never specified: the exact citation shape a caller can rely on, backticked symbols, and the terminal No match. case. Its full investigator/builder/reviewer triage was rejected as a different job."
 
 [[skill]]
 name = "research-this-topic"
@@ -114,7 +114,7 @@ status = "merged"
 chosen = ""
 composed = ["diagnosing-bugs", "systematic-debugging", "debugging-and-error-recovery"]
 candidates = ["diagnosing-bugs", "systematic-debugging", "debugging-and-error-recovery", "debug-like-expert", "investigate-first", "investigate"]
-rationale = "Scored 16 debugging practices (tools/evaluate.ps1). diagnosing-bugs scored 30/37 and is the base; the three debugging-and-error-recovery excerpts plus systematic-debugging's Iron Law cover the missing 7, reaching 37/37. Chosen over the single best file because no single file covers the loop, the law, the rationalisations and the injection warning together."
+rationale = "Scored 16 debugging practices (tools/evaluate.py). diagnosing-bugs scored 30/37 and is the base; the three debugging-and-error-recovery excerpts plus systematic-debugging's Iron Law cover the missing 7, reaching 37/37. Chosen over the single best file because no single file covers the loop, the law, the rationalisations and the injection warning together."
 
 [[skill]]
 name = "debug-the-stubborn-one"
@@ -339,7 +339,7 @@ candidates = ["qa-only", "qa"]
 rationale = "Report-only QA across functional surfaces: API, CLI, job, worker, webhook. Composed from gstack's surface selector, functional contract map, report finalizer, and report-only rules. Browser UI stays with check-my-ui; this fills the non-browser gap without vendoring gstack's helper runtime."
 
 # ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Deliberately excluded ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-# Listed so harvest.ps1 stops proposing them. Each is either vendor tooling,
+# Listed so harvest.py stops proposing them. Each is either vendor tooling,
 # a duplicate of a canonical name above, or dead weight for solo work.
 #
 # caveman Cloud ops (vendor SaaS, not a capability):

@@ -22,11 +22,11 @@ and point at the hub for the rest.
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -36,7 +36,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-```powershell
+```bash
 $core = @('write-less-code','prove-it-works','trim-my-output')
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("# Procedures")
@@ -60,7 +60,7 @@ foreach ($n in $core) {
 
 Add the index of everything else:
 
-```powershell
+```bash
 $idx = "`n## Available, not loaded`n`n"
 Get-ChildItem "$hub/skills" -Directory | Where-Object { $core -notcontains $_.Name } | ForEach-Object {
   $f = Join-Path $_.FullName 'SKILL.md'
@@ -74,7 +74,7 @@ Add-Content "./GEMINI.md" $idx
 
 ## Verify
 
-```powershell
+```bash
 "GEMINI.md exists: " + (Test-Path "./GEMINI.md")
 "size: " + (Get-Item "./GEMINI.md").Length + " B"
 Get-Content "./GEMINI.md" -TotalCount 8
@@ -87,7 +87,7 @@ In Gemini CLI, run `/memory show` to confirm it is loaded.
 If you want the hub distributed as an installable extension rather than a
 context file, create:
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path "$HOME/.gemini/extensions/skills-hub" | Out-Null
 @'
 {

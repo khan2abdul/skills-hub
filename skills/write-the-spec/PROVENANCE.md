@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: write-the-spec
 - mode: composed
@@ -15,5 +15,6 @@
 | to-spec |  | 4ff04d4701ec0378da61b4ff599fde2c1d3b9f75ffe6f5e11b04f6e5fb9358af | 2891 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

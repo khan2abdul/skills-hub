@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: build-it-test-first
 - mode: verbatim

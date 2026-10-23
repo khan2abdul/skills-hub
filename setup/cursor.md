@@ -27,11 +27,11 @@ alwaysApply: false
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -52,7 +52,7 @@ Two valid strategies:
 Keep the bodies out of `.cursor/rules`, and add one small index rule that tells
 Cursor to read a skill file when its topic comes up.
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path ".cursor/rules" | Out-Null
 
 $head = @(
@@ -83,7 +83,7 @@ Set-Content ".cursor/rules/skills-index.mdc" $index -Encoding UTF8
 
 Convert only the handful you want permanently in context:
 
-```powershell
+```bash
 $want = @('write-less-code','prove-it-works','trim-my-output','debug-this-code')
 New-Item -ItemType Directory -Force -Path ".cursor/rules" | Out-Null
 
@@ -102,7 +102,7 @@ This **wraps** the body in MDC frontmatter. It never edits the body text.
 
 ## Verify
 
-```powershell
+```bash
 Get-ChildItem ".cursor/rules" -Filter *.mdc | ForEach-Object {
   $head = Get-Content $_.FullName -TotalCount 4
   "{0,-34} {1}" -f $_.Name, ($head -match 'alwaysApply').Count

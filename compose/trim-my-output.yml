@@ -14,7 +14,7 @@
 # `caveman-learn` was rejected: about lowering an agent's token cost over time,
 # not about this reply.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "trim-my-output"
 title = "Trim My Output"

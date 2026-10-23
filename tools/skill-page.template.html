@@ -1,68 +1,3 @@
-<#
-.SYNOPSIS
-  Build SKILLS.html - one page describing every shipped skill.
-.DESCRIPTION
-  Reads tools/skill-page-data.json (hand-derived guidance) plus RATING.json
-  (scores) and emits a single self-contained HTML file. No dependencies, no
-  network, no build step beyond running this.
-.NOTES
-  The guidance text lives in skill-page-data.json, not here, so re-running after
-  a skill changes means editing the JSON, not this script.
-#>
-[CmdletBinding()]
-param(
-  [string]$HubRoot,
-  [string]$OutFile = 'SKILLS.html'
-)
-
-$ErrorActionPreference = 'Stop'
-
-# $PSScriptRoot is empty inside a param block, so resolve it here.
-$scriptDir = $PSScriptRoot
-if (-not $scriptDir) { $scriptDir = Split-Path $MyInvocation.MyCommand.Path -Parent }
-if (-not $HubRoot) { $HubRoot = Split-Path $scriptDir -Parent }
-
-$dataPath = Join-Path $scriptDir 'skill-page-data.json'
-if (-not (Test-Path $dataPath)) { throw "missing $dataPath" }
-
-# PS 5.1's ConvertFrom-Json already yields Object[]; wrapping it in @() would
-# nest the whole array as one element.
-$data = Get-Content $dataPath -Raw | ConvertFrom-Json
-if ($data -isnot [array]) { $data = @($data) }
-$ratings = @{}
-$ratingPath = Join-Path $HubRoot 'RATING.json'
-if (Test-Path $ratingPath) {
-  foreach ($s in (Get-Content $ratingPath -Raw | ConvertFrom-Json).skills) { $ratings[$s.name] = $s }
-}
-
-function Esc([string]$s) {
-  if ($null -eq $s) { return '' }
-  return $s.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;')
-}
-
-# Phases in the order a piece of work actually moves through them.
-$phaseOrder = @('Always on', 'Understand', 'Research', 'Spec', 'Plan', 'Build',
-                'Debug', 'Review', 'Verify', 'Finish', 'Docs', 'Ship', 'Meta')
-$phaseBlurb = @{
-  'Always on' = 'Apply on every task, not at one point in the pipeline.'
-  'Understand' = 'Turn a vague ask into a shared, explicit intent.'
-  'Research'  = 'Get the facts from primary sources before deciding anything.'
-  'Spec'      = 'Write down what will be built and why, before code exists.'
-  'Plan'      = 'Cut the work into slices and stress the plan while it is still cheap.'
-  'Build'     = 'Write the code, in tested increments.'
-  'Debug'     = 'Find the real cause instead of guessing at a symptom.'
-  'Review'    = 'Judge a change before it merges.'
-  'Verify'    = 'Produce evidence that it actually works.'
-  'Finish'    = 'Close the gap between working and good.'
-  'Docs'      = 'Write prose a stranger can act on.'
-  'Ship'      = 'Take it to the remote, or stop something destructive.'
-  'Meta'      = 'Change how the session itself runs.'
-}
-
-$sb = [System.Text.StringBuilder]::new()
-function Add([string]$s) { [void]$sb.AppendLine($s) }
-
-Add @'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -205,15 +140,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
       the wrong tool, how to invoke it, and whether the agent may reach for it on its own.
     </p>
     <ul class="stat">
-'@
-
-$gateCount = @($data | Where-Object { $_.gate.asks }).Count
-Add "      <li><b>$($data.Count)</b> skills</li>"
-Add "      <li><b>$gateCount</b> stop and ask first</li>"
-Add "      <li><b>$($data.Count - $gateCount)</b> never interrupt</li>"
-Add "      <li><b>$($data.Count)</b> model-invocable</li>"
-Add "      <li><b>$((@($data.phase | Sort-Object -Unique)).Count)</b> phases</li>"
-Add @'
+{{STAT_ITEMS}}
     </ul>
 
     <div class="note">
@@ -263,48 +190,7 @@ Add @'
   </div>
 </div>
 
-<main class="wrap">
-'@
-
-# nav-free: phase sections in pipeline order
-foreach ($phase in $phaseOrder) {
-  $items = @($data | Where-Object { $_.phase -eq $phase })
-  if ($items.Count -eq 0) { continue }
-  $phaseId = ($phase -replace '[^a-z0-9]+', '-').ToLower()
-  Add "<section class=""phase"" id=""$phaseId"">"
-  Add "  <h2>$phase <span>$($items.Count) skill$(if($items.Count -ne 1){'s'})</span></h2>"
-  if ($phaseBlurb.ContainsKey($phase)) { Add "  <p class=""blurb"">$(Esc $phaseBlurb[$phase])</p>" }
-  foreach ($s in $items) {
-    $r = $ratings[$s.name]
-    $score = if ($r) { "rating {0} / {1}" -f $r.score, $r.grade } else { '' }
-    $haystack = (@($s.name, $s.summary, ($s.when -join ' '), ($s.notWhen -join ' '), $s.example, $s.phase, $s.gate.what) -join ' ').ToLower()
-    $gateAttr = if ($s.gate.asks) { 'true' } else { 'false' }
-    Add "  <article class=""card"" id=""skill-$($s.name)"" data-gate=""$gateAttr"" data-search=""$(Esc $haystack)"">"
-    Add "    <div class=""head"">"
-    Add "      <h3>$($s.name)</h3>"
-    Add "      <span class=""badge auto"">auto-invocable</span>"
-    if ($s.gate.asks) { Add "      <span class=""badge gate"">stops and asks</span>" }
-    if ($score) { Add "      <span class=""score"">$(Esc $score)</span>" }
-    Add "    </div>"
-    Add "    <p class=""summary"">$(Esc $s.summary)</p>"
-    Add "    <div class=""cols"">"
-    Add "      <div class=""pos""><h4>When to use it</h4><ul>"
-    foreach ($w in $s.when) { Add "        <li>$(Esc $w)</li>" }
-    Add "      </ul></div>"
-    Add "      <div class=""neg""><h4>When not to use it</h4><ul>"
-    foreach ($n in $s.notWhen) { Add "        <li>$(Esc $n)</li>" }
-    Add "      </ul></div>"
-    Add "    </div>"
-    Add "    <div class=""ex""><h4>How to use it</h4><p>$(Esc $s.example)</p></div>"
-    $gateCls = if ($s.gate.asks) { '' } else { ' class="no"' }
-    $gateWord = if ($s.gate.asks) { 'Stops and asks:' } else { 'Does not interrupt:' }
-    Add "    <p class=""gateline""><b$gateCls>$(Esc $gateWord)</b> $(Esc $s.gate.what)</p>"
-    Add "  </article>"
-  }
-  Add "</section>"
-}
-
-Add @'
+<main class="wrap">{{PHASE_SECTIONS}}
   <p class="empty hidden" id="empty">No skill matches that filter.</p>
 </main>
 
@@ -315,7 +201,7 @@ Add @'
       <li>
         <strong>Guidance is derived, not quoted.</strong> The prose above condenses each skill's own
         text. The skill body is the authority; this page is an index. Skill bodies are immutable in
-        this repo and are proven against upstream with <code>tools/verify.ps1</code>.
+        this repo and are proven against upstream with <code>tools/verify.py</code>.
       </li>
       <li>
         <strong>Only 13 of the 41 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
@@ -335,7 +221,7 @@ Add @'
     </ul>
     <h2>Rebuild this page</h2>
     <ul>
-      <li><code>powershell -File tools/build-skill-page.ps1</code> &mdash; reads
+      <li><code>python tools/build_skill_page.py</code> &mdash; reads
         <code>tools/skill-page-data.json</code> and <code>RATING.json</code>.</li>
       <li>Edit the JSON to change wording; edit the script only to change layout.</li>
     </ul>
@@ -394,11 +280,3 @@ Add @'
 </script>
 </body>
 </html>
-'@
-
-$outPath = Join-Path $HubRoot $OutFile
-$enc = New-Object System.Text.UTF8Encoding($false)
-[System.IO.File]::WriteAllText($outPath, $sb.ToString(), $enc)
-
-$size = [math]::Round((Get-Item $outPath).Length / 1KB, 1)
-Write-Host "wrote $outPath ($size KB, $($data.Count) skills, $gateCount with a stop-and-ask gate)"

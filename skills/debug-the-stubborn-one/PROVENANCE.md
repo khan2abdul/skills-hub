@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: debug-the-stubborn-one
 - mode: verbatim

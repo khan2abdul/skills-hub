@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: receive-code-review
 - mode: verbatim

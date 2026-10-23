@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: fix-this-bug
 - mode: composed
@@ -18,5 +18,6 @@
 | systematic-debugging | ### Phase 1: Root Cause Investigation | 468a87bd0e1318487f46182b598380c6bd1bbee0b60c870f5ff6f336196b0610 | 2194 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

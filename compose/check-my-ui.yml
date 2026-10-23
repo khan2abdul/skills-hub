@@ -1,4 +1,4 @@
-﻿# Compose spec: check-my-ui
+# Compose spec: check-my-ui
 #
 # Shipped version was `browse` (gstack): 34,102 chars, craft 7.8, portability 4/10.
 # Most of its bulk is gstack scaffolding - preamble, plan-mode notes, model
@@ -12,7 +12,7 @@
 # headings inside fenced blocks, which breaks the blank-line-before-heading rule
 # when inlined whole.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "check-my-ui"
 title = "Check My UI"

@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: debug-this-code
 - mode: composed
@@ -18,5 +18,6 @@
 | debugging-and-error-recovery | ## Treating Error Output as Untrusted Data | 9e4ced19111a0edc18a7057e93717c4cd3cc7da831cec58bd3ae1d55a5b6e4d1 | 748 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

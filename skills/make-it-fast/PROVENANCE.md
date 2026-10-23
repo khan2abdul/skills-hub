@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: make-it-fast
 - mode: verbatim

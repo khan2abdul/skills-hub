@@ -19,7 +19,7 @@
 # sections. Those need gstack's runtime and belong to check-my-ui. The templates
 # are copied beside the skill so `templates/...` resolves.
 #
-# Every include is verbatim. verify.ps1 re-extracts and re-hashes each block.
+# Every include is verbatim. verify.py re-extracts and re-hashes each block.
 
 name = "test-every-surface"
 title = "Test Every Surface"

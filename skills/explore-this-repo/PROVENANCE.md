@@ -1,4 +1,4 @@
-﻿# Provenance
+# Provenance
 
 - canonical: explore-this-repo
 - mode: composed
@@ -15,5 +15,6 @@
 | cavecrew | ## Output contracts | cea398c6906350daa7f20e6a8a49a8e7f3ddcb2ef57972cdd2dbc748d4575dde | 646 |
 
 
-Each sha256 above is over the exact excerpt text. verify.ps1 re-extracts and
+Each sha256 above is over the exact excerpt text. verify.py re-extracts and
 re-hashes to prove the shipped body still matches upstream.
+

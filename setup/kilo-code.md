@@ -47,11 +47,11 @@ One to three per mode. The mode scoping does the real work - resist adding more.
 
 Everything below uses `$hub`. Resolve it once (idempotent - safe to re-run):
 
-```powershell
+```bash
 $hub = $env:SKILLS_HUB
 if (-not $hub) {
   $d = Get-Item .
-  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.ps1'))) { $d = $d.Parent }
+  while ($d -and -not (Test-Path (Join-Path $d.FullName 'skills-hub/tools/verify.py'))) { $d = $d.Parent }
   if ($d) { $hub = Join-Path $d.FullName 'skills-hub' }
 }
 if (-not $hub -or -not (Test-Path "$hub/skills")) { $hub = Read-Host 'Path to your skills-hub checkout' }
@@ -64,7 +64,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 Only for Kilo versions without `skills.paths`. With native skills, the JSON
 above is the whole install.
 
-```powershell
+```bash
 $map = @{
   'code'         = @('build-it-test-first','build-in-small-steps','finish-the-experience')
   'debug'        = @('debug-this-code','prove-it-works','test-every-surface')
@@ -88,7 +88,7 @@ foreach ($mode in $map.Keys) {
 
 Global baseline (all modes, every project):
 
-```powershell
+```bash
 New-Item -ItemType Directory -Force -Path "$HOME/.kilocode/rules" | Out-Null
 $src = "$hub/skills/write-less-code/SKILL.md"
 $raw = [System.IO.File]::ReadAllText($src)
@@ -98,7 +98,7 @@ Set-Content "$HOME/.kilocode/rules/write-less-code.md" $body -Encoding UTF8
 
 ## Verify
 
-```powershell
+```bash
 $j = Get-Content "$HOME/.config/kilo/kilo.json" -Raw | ConvertFrom-Json
 "skills path: $($j.skills.paths -join ', ')"
 $root = $j.skills.paths[0]
