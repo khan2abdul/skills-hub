@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-23T17:46:12Z",
+  "generated": "2026-10-23T17:50:50Z",
   "rubric_version": 2,
   "craft_share": 0.75,
   "weights": {
@@ -79,7 +79,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 7634,
+      "chars": 7496,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -106,7 +106,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "7634 chars - in range"
+          "7496 chars - in range"
         ]
       },
       "findings": [],
@@ -279,7 +279,7 @@
       "craft": 10,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 8647,
+      "chars": 8417,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -306,7 +306,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "8647 chars - in range"
+          "8417 chars - in range"
         ]
       },
       "findings": [],
@@ -399,7 +399,7 @@
       "craft": 10,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 7755,
+      "chars": 7669,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -426,7 +426,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "7755 chars - in range"
+          "7669 chars - in range"
         ]
       },
       "findings": [],
@@ -559,7 +559,7 @@
       "craft": 10,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 8437,
+      "chars": 8346,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -586,7 +586,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "8437 chars - in range"
+          "8346 chars - in range"
         ]
       },
       "findings": [],
@@ -679,7 +679,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 6202,
+      "chars": 6082,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -706,7 +706,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "6202 chars - in range"
+          "6082 chars - in range"
         ]
       },
       "findings": [],
@@ -1439,7 +1439,7 @@
       "craft": 10,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 6607,
+      "chars": 6544,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -1466,7 +1466,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "6607 chars - in range"
+          "6544 chars - in range"
         ]
       },
       "findings": [],
@@ -1519,7 +1519,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 3554,
+      "chars": 3503,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -1546,7 +1546,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "3554 chars - in range"
+          "3503 chars - in range"
         ]
       },
       "findings": [],

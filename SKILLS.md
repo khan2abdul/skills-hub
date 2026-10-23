@@ -132,7 +132,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `gsd-2` / `decompose-into-slices` - verbatim, name line only
 
-**Size:** 7634 chars | **Score:** 9.7/10 | **Provenance:** `skills/break-into-tasks/PROVENANCE.md`
+**Size:** 7496 chars | **Score:** 9.7/10 | **Provenance:** `skills/break-into-tasks/PROVENANCE.md`
 
 ### `review-the-plan`
 
@@ -179,7 +179,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `ponytail` / `ponytail` - verbatim, name line only
 
-**Size:** 3554 chars | **Score:** 9.7/10 | **Provenance:** `skills/write-less-code/PROVENANCE.md`
+**Size:** 3503 chars | **Score:** 9.7/10 | **Provenance:** `skills/write-less-code/PROVENANCE.md`
 
 ### `simplify-this-code`
 
@@ -223,7 +223,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `julius-skills` / `last-20-percent` - verbatim, name line only
 
-**Size:** 8437 chars | **Score:** 10/10 | **Provenance:** `skills/finish-the-experience/PROVENANCE.md`
+**Size:** 8346 chars | **Score:** 10/10 | **Provenance:** `skills/finish-the-experience/PROVENANCE.md`
 
 ## Debug
 
@@ -247,7 +247,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `gsd-2` / `debug-like-expert` - verbatim, name line only
 
-**Size:** 8647 chars | **Score:** 10/10 | **Provenance:** `skills/debug-the-stubborn-one/PROVENANCE.md`
+**Size:** 8417 chars | **Score:** 10/10 | **Provenance:** `skills/debug-the-stubborn-one/PROVENANCE.md`
 
 ### `fix-this-bug`
 
@@ -425,7 +425,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `gsd-2` / `handoff` - verbatim, name line only
 
-**Size:** 6202 chars | **Score:** 9.7/10 | **Provenance:** `skills/hand-off-to-next-session/PROVENANCE.md`
+**Size:** 6082 chars | **Score:** 9.7/10 | **Provenance:** `skills/hand-off-to-next-session/PROVENANCE.md`
 
 ## Meta
 
@@ -435,7 +435,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `julius-skills` / `context-canary` - verbatim, name line only
 
-**Size:** 6607 chars | **Score:** 10/10 | **Provenance:** `skills/watch-my-context/PROVENANCE.md`
+**Size:** 6544 chars | **Score:** 10/10 | **Provenance:** `skills/watch-my-context/PROVENANCE.md`
 
 ### `trim-my-output`
 
@@ -478,7 +478,7 @@ hand. Exact commits and per-block sha256 are in `skills/<name>/PROVENANCE.md`.
 
 **Source:** `julius-skills` / `deslopify` - verbatim, name line only
 
-**Size:** 7755 chars | **Score:** 10/10 | **Provenance:** `skills/deslop-the-writing/PROVENANCE.md`
+**Size:** 7669 chars | **Score:** 10/10 | **Provenance:** `skills/deslop-the-writing/PROVENANCE.md`
 
 ## Source repos
 

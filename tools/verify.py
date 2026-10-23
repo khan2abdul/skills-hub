@@ -234,13 +234,24 @@ def main(argv: list[str] | None = None) -> int:
                     + m.group(3)
                     + src_raw[m.end():]
                 )
-                if expected != text:
-                    at = min(len(expected), len(text))
+                # Compare line endings modulo CRLF. The shipped bodies are stored
+                # as LF, but the *upstream* checkouts vary: gsd-2 and karpathy are
+                # CRLF on disk, others are LF. Which one a given machine has
+                # depends on how that repo was cloned, and core.autocrlf can make
+                # the worktree CRLF while the committed blob is LF. A raw byte
+                # comparison therefore passes on the machine that vendored the
+                # skill and fails on a fresh clone of the same commit - which is
+                # exactly what happened to 7 skills. Everything except the line
+                # endings must still match byte for byte.
+                if expected.replace("\r\n", "\n") != text.replace("\r\n", "\n"):
+                    exp_n = expected.replace("\r\n", "\n")
+                    txt_n = text.replace("\r\n", "\n")
+                    at = min(len(exp_n), len(txt_n))
                     for i in range(at):
-                        if expected[i] != text[i]:
+                        if exp_n[i] != txt_n[i]:
                             at = i
                             break
-                    line = expected[:at].count("\n") + 1
+                    line = exp_n[:at].count("\n") + 1
                     print(f"{RED}BODY MODIFIED: {name} differs from upstream '{upstream_name}' at line ~{line}{RESET}")
                     fail += 1
                 else:
