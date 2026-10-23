@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>skills-hub &mdash; all 41 skills</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#fff; --ink:#1c1b19; --muted:#6b6862; --line:#e3ded6;
+  --accent:#8a5a2b; --accent-soft:#f3ece1; --ok:#2f6b3f; --ok-soft:#e8f2ea;
+  --stop:#8c3a2b; --stop-soft:#f8ebe7; --code:#f4f1ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16150f; --panel:#1e1d17; --ink:#ece7db; --muted:#a5a094; --line:#33312a;
+    --accent:#d9a15f; --accent-soft:#2a2419; --ok:#7cc08f; --ok-soft:#1c2b20;
+    --stop:#e09079; --stop-soft:#2e1f1a; --code:#26241d;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.6 ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+header.top{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}
+.sub{color:var(--muted);max-width:70ch;margin:0}
+.stat{display:flex;gap:28px;flex-wrap:wrap;margin:22px 0 0;padding:0;list-style:none}
+.stat li{font-size:.9rem;color:var(--muted)}
+.stat b{display:block;font-size:1.5rem;color:var(--ink);font-weight:650;line-height:1.2}
+
+/* approval explainer */
+.note{
+  margin:30px 0 0;padding:18px 20px;border:1px solid var(--line);border-left:3px solid var(--accent);
+  background:var(--panel);border-radius:0 8px 8px 0;
+}
+.note h2{font-size:.95rem;margin:0 0 8px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.note p{margin:0 0 8px;font-size:.92rem;color:var(--muted)}
+.note p:last-child{margin:0}
+.note strong{color:var(--ink)}
+
+/* controls */
+.controls{
+  position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 0;margin-top:0;
+}
+.controls .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.search{position:relative;flex:1 1 260px;min-width:200px}
+.search label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.search input{
+  width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:7px;
+  background:var(--panel);color:var(--ink);font:inherit;font-size:.92rem;
+}
+.search input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.chip{
+  padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+  color:var(--muted);font:inherit;font-size:.84rem;cursor:pointer;
+}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:600}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-size:.84rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+/* phase blocks */
+main{padding:8px 0 80px}
+.phase{margin-top:44px;scroll-margin-top:70px}
+.phase > h2{
+  font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+  margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:10px;
+}
+.phase > h2 span{font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:400}
+.phase > p.blurb{margin:10px 0 0;color:var(--muted);font-size:.9rem;max-width:75ch}
+
+/* cards */
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:20px 22px;margin-top:16px;scroll-margin-top:70px;
+}
+.card:target{outline:2px solid var(--accent);outline-offset:2px}
+.card h3{
+  margin:0;font-size:1.18rem;letter-spacing:-.01em;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.card .head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.badge{
+  font-size:.72rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);
+  color:var(--muted);white-space:nowrap;font-weight:600;
+}
+.badge.auto{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.badge.gate{background:var(--stop-soft);border-color:transparent;color:var(--stop)}
+.score{margin-left:auto;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.summary{margin:0 0 16px;font-size:.96rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.cols h4{
+  margin:0 0 6px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);font-weight:650;
+}
+.cols ul{margin:0;padding-left:18px}
+.cols li{font-size:.9rem;margin-bottom:5px}
+.cols.neg h4{color:var(--stop)}
+.cols > div{min-width:0}
+.ex{margin:20px 0 0}
+.ex h4{margin:0 0 6px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:650}
+.ex p{
+  margin:0;padding:10px 13px;background:var(--code);border-radius:7px;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.85rem;
+  border:1px solid var(--line);white-space:pre-wrap;word-break:break-word;
+}
+.gateline{
+  margin:12px 0 0;padding-top:11px;border-top:1px dashed var(--line);
+  font-size:.85rem;color:var(--muted);
+}
+.gateline b{color:var(--stop);font-weight:650}
+.gateline b.no{color:var(--ok)}
+.hidden{display:none!important}
+
+footer{border-top:1px solid var(--line);padding:34px 0 70px;color:var(--muted);font-size:.88rem}
+footer h2{font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+footer ul{padding-left:18px;margin:0 0 22px}
+footer li{margin-bottom:6px;max-width:85ch}
+footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.85em}
+.empty{padding:60px 0;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>All 41 skills</h1>
+    <p class="sub">
+      Every skill shipped by <code>skills-hub</code>, what each one is for, when it is
+      the wrong tool, how to invoke it, and whether the agent may reach for it on its own.
+    </p>
+    <ul class="stat">
+      <li><b>41</b> skills</li>
+      <li><b>11</b> stop and ask first</li>
+      <li><b>30</b> never interrupt</li>
+      <li><b>41</b> model-invocable</li>
+      <li><b>13</b> phases</li>
+    </ul>
+
+    <div class="note">
+      <h2>How &ldquo;auto-approved&rdquo; actually works</h2>
+      <p>
+        <strong>A skill has no approval flag of its own.</strong> dsh decides approval from the
+        session permission preset, not from the skill: <code>read-only</code> asks before every write,
+        <code>workspace-write</code> asks before writes outside the workspace, and
+        <code>danger-full-access</code> never asks. This profile runs
+        <code>danger-full-access</code> with <code>approval: never</code>, so
+        <strong>no skill triggers a permission prompt here</strong>.
+      </p>
+      <p>
+        What a skill <em>can</em> do is carry its own written gate: a step that tells the agent to
+        stop and get your consent before a destructive or irreversible act. Those are marked
+        <span class="badge gate">stop and ask</span> below, and it is the only per-skill
+        approval signal that exists. Everything else is the preset's call.
+      </p>
+      <p>
+        All 41 are <span class="badge auto">auto-invocable</span>: no skill sets
+        <code>disable-model-invocation</code>, so the agent may load any of them without being told to.
+        You can also call any one by name, e.g. <code>/ship-it</code>.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="search">
+      <label for="q">Filter skills</label>
+      <input id="q" type="search" placeholder="Filter by name, use case, or keyword&hellip;" autocomplete="off">
+    </div>
+    <button class="chip" id="onlyGate" aria-pressed="false">Only skills that stop and ask</button>
+    <button class="chip" id="onlyAuto" aria-pressed="false">Only reversible</button>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+</div>
+
+<main class="wrap">
+<section class="phase" id="always-on">
+  <h2>Always on <span>2 skills</span></h2>
+  <p class="blurb">Apply on every task, not at one point in the pipeline.</p>
+  <article class="card" id="skill-trim-my-output" data-gate="true" data-search="trim-my-output terse caveman-voice replies that keep every technical fact, code, path and number verbatim; stays on until &quot;stop caveman&quot; or &quot;normal mode&quot;. the user types /caveman or says &quot;caveman mode&quot;, &quot;be brief&quot; or &quot;less tokens&quot; every output token is billed and read in a terminal the answer needs to lead with the result, with ceremony and hedging removed a long session should stay compressed until the user says &quot;normal mode&quot; routine tool runs need one-line status instead of narration a security warning or irreversible action is involved; break the rules and use plain prose, confirming in full sentences first anything persisted outside chat (code, comments, commits, docs, issues, prs, tickets, memory files) must stay plain step order could be scrambled by a fragment, or the user is confused or repeating the question the user asks for /caveman ultra or /caveman wenyan; those route to the ultracave or megacave skill &quot;/caveman&quot; → the agent answers first in terse plain sentences, keeping code, paths, numbers and errors verbatim. always on irreversible actions require confirming in full sentences before proceeding, and security warnings drop the terseness.">
+    <div class="head">
+      <h3>trim-my-output</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Terse caveman-voice replies that keep every technical fact, code, path and number verbatim; stays on until &quot;stop caveman&quot; or &quot;normal mode&quot;.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>The user types /caveman or says &quot;caveman mode&quot;, &quot;be brief&quot; or &quot;less tokens&quot;</li>
+        <li>Every output token is billed and read in a terminal</li>
+        <li>The answer needs to lead with the result, with ceremony and hedging removed</li>
+        <li>A long session should stay compressed until the user says &quot;normal mode&quot;</li>
+        <li>Routine tool runs need one-line status instead of narration</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>A security warning or irreversible action is involved; break the rules and use plain prose, confirming in full sentences first</li>
+        <li>Anything persisted outside chat (code, comments, commits, docs, issues, PRs, tickets, memory files) must stay plain</li>
+        <li>Step order could be scrambled by a fragment, or the user is confused or repeating the question</li>
+        <li>The user asks for /caveman ultra or /caveman wenyan; those route to the ultracave or megacave skill</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/caveman&quot; → the agent answers first in terse plain sentences, keeping code, paths, numbers and errors verbatim.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Irreversible actions require confirming in full sentences before proceeding, and security warnings drop the terseness.</p>
+  </article>
+  <article class="card" id="skill-write-less-code" data-gate="false" data-search="write-less-code lazy senior dev mode: smallest complete change that solves the task, shortest working diff, no unrequested abstraction, plus a reply a busy human reads once. any coding task: writing, fixing, refactoring, reviewing, choosing dependencies the user says ponytail, be lazy, simplest solution, or yagni the user complains about over-engineering or bloat a vague build request needs the smallest version that does the core job deciding whether a new dependency or abstraction is warranted being smaller would mean cutting validation at trust boundaries, error handling that prevents data loss, security, accessibility, or something the user asked for the user explicitly wants options, flexibility, or extensibility nobody has asked to skip the work is a spec, plan, or prose document rather than a coding change &quot;/write-less-code add retry to the upload call&quot; → the agent greps callers, reuses the existing retry helper, and changes one call site. always on ultra level pushes back on the request before building, but no destructive action needs approval.">
+    <div class="head">
+      <h3>write-less-code</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Lazy senior dev mode: smallest complete change that solves the task, shortest working diff, no unrequested abstraction, plus a reply a busy human reads once.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Any coding task: writing, fixing, refactoring, reviewing, choosing dependencies</li>
+        <li>The user says ponytail, be lazy, simplest solution, or yagni</li>
+        <li>The user complains about over-engineering or bloat</li>
+        <li>A vague build request needs the smallest version that does the core job</li>
+        <li>Deciding whether a new dependency or abstraction is warranted</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Being smaller would mean cutting validation at trust boundaries, error handling that prevents data loss, security, accessibility, or something the user asked for</li>
+        <li>The user explicitly wants options, flexibility, or extensibility nobody has asked to skip</li>
+        <li>The work is a spec, plan, or prose document rather than a coding change</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/write-less-code add retry to the upload call&quot; → the agent greps callers, reuses the existing retry helper, and changes one call site.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Ultra level pushes back on the request before building, but no destructive action needs approval.</p>
+  </article>
+</section>
+<section class="phase" id="understand">
+  <h2>Understand <span>3 skills</span></h2>
+  <p class="blurb">Turn a vague ask into a shared, explicit intent.</p>
+  <article class="card" id="skill-route-to-the-right-skill" data-gate="true" data-search="route-to-the-right-skill meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify. starting a session and deciding which skill or workflow applies the ask is vague and you do not know what you want yet a spec exists and you need the next phase (plan, build, test, review, ship) something broke and you need the debugging route committing, branching, ci or deploy work is next a non-trivial task has no spec written down the applicable skill is already known or named, so call it directly instead of loading the router a single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle you want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown &quot;which skill applies here?&quot; → the agent names the development phase, maps it to a skill, and states its assumptions before starting. understand requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict.">
+    <div class="head">
+      <h3>route-to-the-right-skill</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Starting a session and deciding which skill or workflow applies</li>
+        <li>The ask is vague and you do not know what you want yet</li>
+        <li>A spec exists and you need the next phase (plan, build, test, review, ship)</li>
+        <li>Something broke and you need the debugging route</li>
+        <li>Committing, branching, CI or deploy work is next</li>
+        <li>A non-trivial task has no spec written down</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The applicable skill is already known or named, so call it directly instead of loading the router</li>
+        <li>A single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle</li>
+        <li>You want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Which skill applies here?&quot; → the agent names the development phase, maps it to a skill, and states its assumptions before starting.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict.</p>
+  </article>
+  <article class="card" id="skill-interview-me-properly" data-gate="false" data-search="interview-me-properly interviews the user one question at a time, each with a guess, until ~95% confidence, then restates intent for an explicit yes. the ask is missing who, why, what success looks like, or the binding constraint the request is conventional (&quot;build me x&quot;, &quot;make it faster&quot;) and needs unpacking the user says interview me, grill me, or stress-test my thinking you catch yourself about to fill in ambiguous requirements before any plan, spec or code the ask is unambiguous and self-contained (rename a variable, fix a typo) the user explicitly asked for speed over verification pure information requests such as how does x work, or mechanical renames, formats and file moves non-interactive contexts: ci pipelines, scheduled runs, /loop, autonomous loops &quot;/interview-me-properly build me a dashboard&quot; → the agent states a one-sentence hypothesis with a confidence number, then asks one question with its guess attached. understand no destructive action, but it requires an explicit yes on the restated intent before any spec, plan or downstream tool call.">
+    <div class="head">
+      <h3>interview-me-properly</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Interviews the user one question at a time, each with a guess, until ~95% confidence, then restates intent for an explicit yes.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>The ask is missing who, why, what success looks like, or the binding constraint</li>
+        <li>The request is conventional (&quot;build me X&quot;, &quot;make it faster&quot;) and needs unpacking</li>
+        <li>The user says interview me, grill me, or stress-test my thinking</li>
+        <li>You catch yourself about to fill in ambiguous requirements before any plan, spec or code</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The ask is unambiguous and self-contained (rename a variable, fix a typo)</li>
+        <li>The user explicitly asked for speed over verification</li>
+        <li>Pure information requests such as how does X work, or mechanical renames, formats and file moves</li>
+        <li>Non-interactive contexts: CI pipelines, scheduled runs, /loop, autonomous loops</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/interview-me-properly build me a dashboard&quot; → the agent states a one-sentence hypothesis with a confidence number, then asks one question with its guess attached.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No destructive action, but it requires an explicit yes on the restated intent before any spec, plan or downstream tool call.</p>
+  </article>
+  <article class="card" id="skill-discuss-on-new-idea" data-gate="false" data-search="discuss-on-new-idea refines a vague idea through divergent variations, convergent assumption stress-testing, and a one-pager with an explicit not doing list. idea is still vague and needs shaping before it can become a plan you want options expanded before converging on one you want assumptions attacked before they become a plan user says ideate, refine this idea, or stress-test my plan a one-pager with mvp scope and a not doing list is the deliverable the user is unsure what they want at all — use interview-me a direction is already chosen and needs a spec — use spec-driven-development the task is fixing existing behaviour rather than shaping a new idea &quot;help me refine this idea: an internal wiki&quot; → the agent restates it as a how might we, asks 3-5 sharpening questions, then proposes variations. understand nothing destructive is gated.">
+    <div class="head">
+      <h3>discuss-on-new-idea</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Refines a vague idea through divergent variations, convergent assumption stress-testing, and a one-pager with an explicit Not Doing list.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Idea is still vague and needs shaping before it can become a plan</li>
+        <li>You want options expanded before converging on one</li>
+        <li>You want assumptions attacked before they become a plan</li>
+        <li>User says ideate, refine this idea, or stress-test my plan</li>
+        <li>A one-pager with MVP scope and a Not Doing list is the deliverable</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The user is unsure what they want at all — use interview-me</li>
+        <li>A direction is already chosen and needs a spec — use spec-driven-development</li>
+        <li>The task is fixing existing behaviour rather than shaping a new idea</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Help me refine this idea: an internal wiki&quot; → the agent restates it as a How Might We, asks 3-5 sharpening questions, then proposes variations.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="research">
+  <h2>Research <span>2 skills</span></h2>
+  <p class="blurb">Get the facts from primary sources before deciding anything.</p>
+  <article class="card" id="skill-research-this-topic" data-gate="false" data-search="research-this-topic researches a question against official primary sources and writes cited findings to a markdown file, with a background agent doing the reading. the user wants a topic researched, or docs and api facts gathered you are about to write framework-specific code from memory the user wants reading legwork delegated to a background agent a pattern must be confirmed against the exact pinned version the user asks for documented, verified, or &quot;correct&quot; implementation correctness does not depend on version — renames, typo fixes, moving files pure logic identical across all versions — loops, conditionals, data structures the user explicitly wants speed over verification (&quot;just do it quickly&quot;) you cannot fetch sources and would answer from training data anyway &quot;research react 19 form handling and write it up&quot; → the agent detects versions in package.json, then fetches react.dev pages. research stopping points are questions on ambiguous versions or doc-versus-code conflicts; writing the findings file is not destructive.">
+    <div class="head">
+      <h3>research-this-topic</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Researches a question against official primary sources and writes cited findings to a Markdown file, with a background agent doing the reading.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>The user wants a topic researched, or docs and API facts gathered</li>
+        <li>You are about to write framework-specific code from memory</li>
+        <li>The user wants reading legwork delegated to a background agent</li>
+        <li>A pattern must be confirmed against the exact pinned version</li>
+        <li>The user asks for documented, verified, or &quot;correct&quot; implementation</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Correctness does not depend on version — renames, typo fixes, moving files</li>
+        <li>Pure logic identical across all versions — loops, conditionals, data structures</li>
+        <li>The user explicitly wants speed over verification (&quot;just do it quickly&quot;)</li>
+        <li>You cannot fetch sources and would answer from training data anyway</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Research React 19 form handling and write it up&quot; → the agent detects versions in package.json, then fetches react.dev pages.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Stopping points are questions on ambiguous versions or doc-versus-code conflicts; writing the findings file is not destructive.</p>
+  </article>
+  <article class="card" id="skill-explore-this-repo" data-gate="false" data-search="explore-this-repo read-only explorer that fans out broad searches and returns only path:line citations of where relevant code lives, keeping reads out of main context. cold-start orientation in an unfamiliar repo broad cross-file localization across many files a direct search already failed you need to know where code lives, not have it changed delegating localization so the reads stay out of main context the exact file or symbol is already named you want an edit or a proposed solution — this agent never edits, runs commands, or proposes fixes you already know the path and just need the file read &quot;where does model routing happen?&quot; → the agent fires parallel glob, grep and read calls, then replies with only path:line citations. research read-only; nothing destructive is gated.">
+    <div class="head">
+      <h3>explore-this-repo</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.6 / A</span>
+    </div>
+    <p class="summary">Read-only explorer that fans out broad searches and returns only path:line citations of where relevant code lives, keeping reads out of main context.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Cold-start orientation in an unfamiliar repo</li>
+        <li>Broad cross-file localization across many files</li>
+        <li>A direct search already failed</li>
+        <li>You need to know where code lives, not have it changed</li>
+        <li>Delegating localization so the reads stay out of main context</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The exact file or symbol is already named</li>
+        <li>You want an edit or a proposed solution — this agent never edits, runs commands, or proposes fixes</li>
+        <li>You already know the path and just need the file read</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Where does model routing happen?&quot; → the agent fires parallel Glob, Grep and Read calls, then replies with only path:line citations.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Read-only; nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="spec">
+  <h2>Spec <span>3 skills</span></h2>
+  <p class="blurb">Write down what will be built and why, before code exists.</p>
+  <article class="card" id="skill-write-the-spec" data-gate="true" data-search="write-the-spec turns intent into a gated, executable spec covering objectives, commands, structure, code style, testing, boundaries and success criteria before any code is written. starting a new project or feature requirements are ambiguous or incomplete the change touches multiple files or modules you are about to make an architectural decision the task would take more than 30 minutes to implement one request bundles several independently testable capabilities and needs a capability map first single-line fixes, typo corrections, or changes that are unambiguous and self-contained a spec already exists and you need to slice it into tasks; planning-and-task-breakdown owns that the work is already coded and only needs documentation &quot;/write-the-spec add team billing&quot; → the agent first lists its assumptions, then asks clarifying questions before writing the spec file. spec after saving the spec the agent must end its turn and get human approval before any planning or code.">
+    <div class="head">
+      <h3>write-the-spec</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Turns intent into a gated, executable spec covering objectives, commands, structure, code style, testing, boundaries and success criteria before any code is written.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Starting a new project or feature</li>
+        <li>Requirements are ambiguous or incomplete</li>
+        <li>The change touches multiple files or modules</li>
+        <li>You are about to make an architectural decision</li>
+        <li>The task would take more than 30 minutes to implement</li>
+        <li>One request bundles several independently testable capabilities and needs a capability map first</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Single-line fixes, typo corrections, or changes that are unambiguous and self-contained</li>
+        <li>A spec already exists and you need to slice it into tasks; planning-and-task-breakdown owns that</li>
+        <li>The work is already coded and only needs documentation</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/write-the-spec add team billing&quot; → the agent first lists its assumptions, then asks clarifying questions before writing the spec file.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> After saving the spec the agent must end its turn and get human approval before any planning or code.</p>
+  </article>
+  <article class="card" id="skill-write-the-domain-glossary" data-gate="false" data-search="write-the-domain-glossary sharpens a project's domain model: challenges terms, records them in glossary.md, offers adrs for hard-to-reverse decisions, and reviews the prose. discussing or challenging codebase terminology writing or editing a glossary.md recording an architecture decision as an adr the user's term conflicts with the existing glossary definition the user uses vague or overloaded terms that need one canonical term domain relationships need stress-testing with concrete scenarios merely reading glossary.md to pick up vocabulary; that is a one-line habit, not this skill the decision is easy to reverse, unsurprising without context, or involved no real trade-off: skip the adr you need to store specs, scratch notes, or implementation details; glossary.md must hold none of those the user says &quot;account&quot; → the agent asks whether that means the customer or the user, then writes the resolved term into glossary.md. spec it calls out conflicts inline and only offers adrs, with no approval gate on a destructive action.">
+    <div class="head">
+      <h3>write-the-domain-glossary</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Sharpens a project's domain model: challenges terms, records them in GLOSSARY.md, offers ADRs for hard-to-reverse decisions, and reviews the prose.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Discussing or challenging codebase terminology</li>
+        <li>Writing or editing a GLOSSARY.md</li>
+        <li>Recording an architecture decision as an ADR</li>
+        <li>The user's term conflicts with the existing glossary definition</li>
+        <li>The user uses vague or overloaded terms that need one canonical term</li>
+        <li>Domain relationships need stress-testing with concrete scenarios</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Merely reading GLOSSARY.md to pick up vocabulary; that is a one-line habit, not this skill</li>
+        <li>The decision is easy to reverse, unsurprising without context, or involved no real trade-off: skip the ADR</li>
+        <li>You need to store specs, scratch notes, or implementation details; GLOSSARY.md must hold none of those</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>The user says &quot;account&quot; → the agent asks whether that means the Customer or the User, then writes the resolved term into GLOSSARY.md.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It calls out conflicts inline and only offers ADRs, with no approval gate on a destructive action.</p>
+  </article>
+  <article class="card" id="skill-document-the-decision" data-gate="false" data-search="document-the-decision records the why behind decisions as adrs, api docs, readme and changelog, matching existing project convention before its own template. a significant architectural decision needs its rationale written choosing between competing approaches adding or changing a public api shipping a feature that changes user-facing behaviour you keep explaining the same decision repeatedly documenting obvious code or restating what the code already says throwaway prototypes leaving todo comments or commented-out code instead of doing or deleting it &quot;document the decision to use postgresql&quot; → the agent inspects the existing adr convention, then writes context, alternatives and consequences. spec documentation-only; nothing destructive is gated.">
+    <div class="head">
+      <h3>document-the-decision</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Records the why behind decisions as ADRs, API docs, README and changelog, matching existing project convention before its own template.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>A significant architectural decision needs its rationale written</li>
+        <li>Choosing between competing approaches</li>
+        <li>Adding or changing a public API</li>
+        <li>Shipping a feature that changes user-facing behaviour</li>
+        <li>You keep explaining the same decision repeatedly</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Documenting obvious code or restating what the code already says</li>
+        <li>Throwaway prototypes</li>
+        <li>Leaving TODO comments or commented-out code instead of doing or deleting it</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Document the decision to use PostgreSQL&quot; → the agent inspects the existing ADR convention, then writes context, alternatives and consequences.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Documentation-only; nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="plan">
+  <h2>Plan <span>3 skills</span></h2>
+  <p class="blurb">Cut the work into slices and stress the plan while it is still cheap.</p>
+  <article class="card" id="skill-break-into-tasks" data-gate="true" data-search="break-into-tasks decomposes an approved plan into thin vertical slices with demo lines and dependency order in m###-roadmap.md, or github issues after confirmation. break this into slices decompose the plan vertical slices break into issues the roadmap's slices are too thick, too few or badly ordered scope is not signed off yet; it runs only once m###-context.md is stable the deliverable is a document or a spike rather than working code, which it explicitly calls not-a-slice you want github issues filed automatically — that needs explicit confirmation every time &quot;/break-into-tasks on the checkout milestone&quot; → the agent reads m###-context.md and the codebase seams, drafts vertical slices with risk and depends, then asks about granularity. plan filing github issues (outward, irreversible) needs explicit confirmation, and m###-roadmap.md is only written after the user approves the breakdown.">
+    <div class="head">
+      <h3>break-into-tasks</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Decomposes an approved plan into thin vertical slices with demo lines and dependency order in M###-ROADMAP.md, or GitHub issues after confirmation.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>break this into slices</li>
+        <li>decompose the plan</li>
+        <li>vertical slices</li>
+        <li>break into issues</li>
+        <li>the roadmap's slices are too thick, too few or badly ordered</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Scope is not signed off yet; it runs only once M###-CONTEXT.md is stable</li>
+        <li>The deliverable is a document or a spike rather than working code, which it explicitly calls not-a-slice</li>
+        <li>You want GitHub issues filed automatically — that needs explicit confirmation every time</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/break-into-tasks on the checkout milestone&quot; → the agent reads M###-CONTEXT.md and the codebase seams, drafts vertical slices with risk and depends, then asks about granularity.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Filing GitHub issues (outward, irreversible) needs explicit confirmation, and M###-ROADMAP.md is only written after the user approves the breakdown.</p>
+  </article>
+  <article class="card" id="skill-review-the-plan" data-gate="false" data-search="review-the-plan adversarially reviews a plan or design as junior work, grounds findings in codebase and current sources, then writes a promoted rewrite. a plan is ready for sign-off you want the assumptions attacked before they become code a design needs a harder look than its author can give it an agent-generated plan is fog (no interfaces) or tunnel (no product vision) the plan's factual claims need checking against the actual repo the code is already written and only the diff needs reviewing — use review-my-code no plan artifact exists yet — the skill says do not review thin air a one-line fix or typo with no design decisions behind it you need a product direction decided — the skill refuses to invent one &quot;/review-the-plan on the caching plan i just wrote&quot; → the agent freezes the artifact, extracts 2-5 domains, then researches the codebase and current docs. plan it produces a review plus rewrite and surfaces product decisions as open questions; it never applies the rewrite silently.">
+    <div class="head">
+      <h3>review-the-plan</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Adversarially reviews a plan or design as junior work, grounds findings in codebase and current sources, then writes a promoted rewrite.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>A plan is ready for sign-off</li>
+        <li>You want the assumptions attacked before they become code</li>
+        <li>A design needs a harder look than its author can give it</li>
+        <li>An agent-generated plan is fog (no interfaces) or tunnel (no product vision)</li>
+        <li>The plan's factual claims need checking against the actual repo</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The code is already written and only the diff needs reviewing — use review-my-code</li>
+        <li>No plan artifact exists yet — the skill says do not review thin air</li>
+        <li>A one-line fix or typo with no design decisions behind it</li>
+        <li>You need a product direction decided — the skill refuses to invent one</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/review-the-plan on the caching plan I just wrote&quot; → the agent freezes the artifact, extracts 2-5 domains, then researches the codebase and current docs.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It produces a review plus rewrite and surfaces product decisions as open questions; it never applies the rewrite silently.</p>
+  </article>
+  <article class="card" id="skill-design-the-interface" data-gate="false" data-search="design-the-interface produces several radically different interface designs, compares them on depth and seam placement, then synthesizes and records a recommendation. asked to design an interface or shape an api planning a new deep module where the first idea is unlikely to be best exploring module boundaries and where the seam belongs choosing between competing interface shapes before writing implementation for a public api the work is implementation detail — file paths, call graphs, internal data structures (implementation creep) you want a build-effort ranking; &quot;easiest to build&quot; is explicitly not an interface argument nothing actually varies across the seam — one adapter means a hypothetical seam &quot;design the interface for our repo storage layer&quot; → the agent drafts three genuinely different shapes, each with a usage example, before comparing. plan design-only; nothing destructive is gated.">
+    <div class="head">
+      <h3>design-the-interface</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Produces several radically different interface designs, compares them on depth and seam placement, then synthesizes and records a recommendation.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Asked to design an interface or shape an API</li>
+        <li>Planning a new deep module where the first idea is unlikely to be best</li>
+        <li>Exploring module boundaries and where the seam belongs</li>
+        <li>Choosing between competing interface shapes</li>
+        <li>Before writing implementation for a public API</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The work is implementation detail — file paths, call graphs, internal data structures (implementation creep)</li>
+        <li>You want a build-effort ranking; &quot;easiest to build&quot; is explicitly not an interface argument</li>
+        <li>Nothing actually varies across the seam — one adapter means a hypothetical seam</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Design the interface for our repo storage layer&quot; → the agent drafts three genuinely different shapes, each with a usage example, before comparing.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Design-only; nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="build">
+  <h2>Build <span>4 skills</span></h2>
+  <p class="blurb">Write the code, in tested increments.</p>
+  <article class="card" id="skill-isolate-this-branch" data-gate="false" data-search="isolate-this-branch creates an isolated git worktree through a native tool or git fallback, then installs dependencies and verifies a clean test baseline. starting feature work that must be isolated from the current workspace before executing an implementation plan you may already be in a worktree or submodule and need step 0 detection you need a verified clean test baseline before implementing you are already in a linked worktree — the skill says do not create another the user declined worktree consent — work in place instead you are inside a submodule — treat it as a normal repo, not a worktree the sandbox denied git worktree add — fall back to working in the current directory &quot;/isolate-this-branch start the auth refactor in a worktree&quot; → the agent runs step 0 detection, asks consent, then creates the worktree. build it asks consent before creating a worktree and asks the human whether to proceed when baseline tests fail.">
+    <div class="head">
+      <h3>isolate-this-branch</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Creates an isolated git worktree through a native tool or git fallback, then installs dependencies and verifies a clean test baseline.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Starting feature work that must be isolated from the current workspace</li>
+        <li>Before executing an implementation plan</li>
+        <li>You may already be in a worktree or submodule and need Step 0 detection</li>
+        <li>You need a verified clean test baseline before implementing</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You are already in a linked worktree — the skill says do not create another</li>
+        <li>The user declined worktree consent — work in place instead</li>
+        <li>You are inside a submodule — treat it as a normal repo, not a worktree</li>
+        <li>The sandbox denied git worktree add — fall back to working in the current directory</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/isolate-this-branch start the auth refactor in a worktree&quot; → the agent runs Step 0 detection, asks consent, then creates the worktree.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It asks consent before creating a worktree and asks the human whether to proceed when baseline tests fail.</p>
+  </article>
+  <article class="card" id="skill-build-it-test-first" data-gate="false" data-search="build-it-test-first drives changes with a red-green-refactor test loop and reproduces every bug in a failing test before fixing it. implementing any new logic or behavior a bug report arrives modifying existing functionality adding edge case handling asked to add tests to a function that has none pure configuration changes documentation, static content or other updates with no behavioral impact — its own stated exclusions &quot;fix this bug: completedat is never set&quot; → the agent writes a failing test that reproduces the missing timestamp, runs the repo's test command, then makes the minimal fix. build no approval gate; it writes the failing test, fixes, and runs the full suite autonomously.">
+    <div class="head">
+      <h3>build-it-test-first</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Drives changes with a red-green-refactor test loop and reproduces every bug in a failing test before fixing it.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Implementing any new logic or behavior</li>
+        <li>A bug report arrives</li>
+        <li>Modifying existing functionality</li>
+        <li>Adding edge case handling</li>
+        <li>Asked to add tests to a function that has none</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Pure configuration changes</li>
+        <li>Documentation, static content or other updates with no behavioral impact — its own stated exclusions</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Fix this bug: completedAt is never set&quot; → the agent writes a failing test that reproduces the missing timestamp, runs the repo's test command, then makes the minimal fix.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No approval gate; it writes the failing test, fixes, and runs the full suite autonomously.</p>
+  </article>
+  <article class="card" id="skill-build-in-small-steps" data-gate="false" data-search="build-in-small-steps implements a change in thin vertical slices, testing, verifying and committing each one before starting the next. implementing any multi-file change building a new feature from a task breakdown refactoring existing code you are about to write more than ~100 lines before testing picking up the next task from a plan a single-file, single-function change whose scope is already minimal — its own stated exclusion there is no breakdown yet and the work still needs spec and slicing first &quot;let's implement task 3 from the plan&quot; → the agent changes only the schema and api, runs the repo's tests and build, commits, and leaves the ui for the next increment. build it commits each slice without asking and only notes out-of-scope issues instead of fixing them.">
+    <div class="head">
+      <h3>build-in-small-steps</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Implements a change in thin vertical slices, testing, verifying and committing each one before starting the next.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Implementing any multi-file change</li>
+        <li>Building a new feature from a task breakdown</li>
+        <li>Refactoring existing code</li>
+        <li>You are about to write more than ~100 lines before testing</li>
+        <li>Picking up the next task from a plan</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>A single-file, single-function change whose scope is already minimal — its own stated exclusion</li>
+        <li>There is no breakdown yet and the work still needs spec and slicing first</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Let's implement Task 3 from the plan&quot; → the agent changes only the schema and API, runs the repo's tests and build, commits, and leaves the UI for the next increment.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It commits each slice without asking and only notes out-of-scope issues instead of fixing them.</p>
+  </article>
+  <article class="card" id="skill-fix-this-bug" data-gate="false" data-search="fix-this-bug fixes a known bug at the narrowest layer responsible, with regression proof and no unrelated cleanup or refactoring. a specific defect is known and must not sprawl the cause is not yet confirmed and needs tracing before any edit a focused reproduction or regression test must prove the fix every changed line must trace to the user's request no specific defect yet — exploratory refactoring, cleanup or renaming large multi-file feature work that needs a plan and slicing you want to delete pre-existing dead code — the skill says mention it, don't delete it you intend to improve adjacent code, comments or formatting &quot;/fix-this-bug login fails after token refresh&quot; → the agent reads the stack trace, reproduces the failure, then traces the bad value to its origin. build nothing destructive is gated; it edits only what the fix needs and runs focused proof.">
+    <div class="head">
+      <h3>fix-this-bug</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Fixes a known bug at the narrowest layer responsible, with regression proof and no unrelated cleanup or refactoring.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>A specific defect is known and must not sprawl</li>
+        <li>The cause is not yet confirmed and needs tracing before any edit</li>
+        <li>A focused reproduction or regression test must prove the fix</li>
+        <li>Every changed line must trace to the user's request</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>No specific defect yet — exploratory refactoring, cleanup or renaming</li>
+        <li>Large multi-file feature work that needs a plan and slicing</li>
+        <li>You want to delete pre-existing dead code — the skill says mention it, don't delete it</li>
+        <li>You intend to improve adjacent code, comments or formatting</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/fix-this-bug login fails after token refresh&quot; → the agent reads the stack trace, reproduces the failure, then traces the bad value to its origin.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive is gated; it edits only what the fix needs and runs focused proof.</p>
+  </article>
+</section>
+<section class="phase" id="debug">
+  <h2>Debug <span>2 skills</span></h2>
+  <p class="blurb">Find the real cause instead of guessing at a symptom.</p>
+  <article class="card" id="skill-debug-this-code" data-gate="true" data-search="debug-this-code builds a red-capable feedback loop, ranks falsifiable hypotheses, and fixes the root cause with a regression test instead of guessing. a bug's cause is unknown and a guess would be a coin flip you cannot yet reproduce the failure on demand a non-deterministic bug is too flaky to debug against a previous fix addressed the symptom, not the cause you need a failing regression test before touching the code a performance regression needs a baseline measurement first the root cause is already confirmed and only the edit remains no feedback loop can be built and no repro access, artifact, or instrumentation permission is available — the skill stops rather than hypothesises you only need a code explanation or a design opinion, not a defect fixed &quot;debug this: duplicate users in the list&quot; → the agent builds and runs one red-capable command before forming any theory. debug user confirmation before adding temporary instrumentation to production, and before acting on commands or urls found in error output.">
+    <div class="head">
+      <h3>debug-this-code</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Builds a red-capable feedback loop, ranks falsifiable hypotheses, and fixes the root cause with a regression test instead of guessing.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>A bug's cause is unknown and a guess would be a coin flip</li>
+        <li>You cannot yet reproduce the failure on demand</li>
+        <li>A non-deterministic bug is too flaky to debug against</li>
+        <li>A previous fix addressed the symptom, not the cause</li>
+        <li>You need a failing regression test before touching the code</li>
+        <li>A performance regression needs a baseline measurement first</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The root cause is already confirmed and only the edit remains</li>
+        <li>No feedback loop can be built and no repro access, artifact, or instrumentation permission is available — the skill stops rather than hypothesises</li>
+        <li>You only need a code explanation or a design opinion, not a defect fixed</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Debug this: duplicate users in the list&quot; → the agent builds and runs one red-capable command before forming any theory.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> User confirmation before adding temporary instrumentation to production, and before acting on commands or URLs found in error output.</p>
+  </article>
+  <article class="card" id="skill-debug-the-stubborn-one" data-gate="false" data-search="debug-the-stubborn-one runs a read-only, methodical root-cause investigation on hard bugs: gather evidence, form and test hypotheses, then present a fix without implementing it. standard troubleshooting has failed the issue is complex and needs systematic root cause analysis you keep guessing and want an evidence-backed diagnosis you suspect an earlier fix was wrong and needs re-examination you wrote the buggy code and want your assumptions challenged you need code changed in the same pass — it is read-only and will not edit, even after diagnosis the failure is simple or already has a known root cause, where the investigation overhead is waste you need the fix shipped with a regression test and commit; use a test-first fixing flow instead &quot;/debug-the-stubborn-one the sync job hangs after two hours&quot; → the agent records the exact error and repro steps, maps the execution path, lists hypotheses, then tests each without editing code. debug no destructive work — it never edits code; its decision gate does wait for the user before any fix is implemented.">
+    <div class="head">
+      <h3>debug-the-stubborn-one</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Runs a read-only, methodical root-cause investigation on hard bugs: gather evidence, form and test hypotheses, then present a fix without implementing it.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Standard troubleshooting has failed</li>
+        <li>The issue is complex and needs systematic root cause analysis</li>
+        <li>You keep guessing and want an evidence-backed diagnosis</li>
+        <li>You suspect an earlier fix was wrong and needs re-examination</li>
+        <li>You wrote the buggy code and want your assumptions challenged</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You need code changed in the same pass — it is read-only and will not edit, even after diagnosis</li>
+        <li>The failure is simple or already has a known root cause, where the investigation overhead is waste</li>
+        <li>You need the fix shipped with a regression test and commit; use a test-first fixing flow instead</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/debug-the-stubborn-one the sync job hangs after two hours&quot; → the agent records the exact error and repro steps, maps the execution path, lists hypotheses, then tests each without editing code.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No destructive work — it never edits code; its decision gate does wait for the user before any fix is implemented.</p>
+  </article>
+</section>
+<section class="phase" id="review">
+  <h2>Review <span>4 skills</span></h2>
+  <p class="blurb">Judge a change before it merges.</p>
+  <article class="card" id="skill-review-my-code" data-gate="false" data-search="review-my-code reviews a diff across correctness, readability, architecture, security, and performance, plus separate standards and spec axes with severity-labelled findings. reviewing a diff or pull request before merge reviewing your own work or another agent's a change needs sign-off across several dimensions rather than one checking whether the tests would catch a regression reviewing a dependency bump or a lockfile change the plan is under review before any code exists — use review-the-plan a codebase-wide bug, bloat, or security audit rather than one diff — use the audit skill a deep security pass needing threat modelling and exploit detail — use security-and-hardening &quot;review my branch against main&quot; → the agent pins the fixed point, confirms the diff is non-empty, then finds spec and standards files. review nothing destructive is gated; it asks for the fixed point or the spec path when they are not given.">
+    <div class="head">
+      <h3>review-my-code</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Reviews a diff across correctness, readability, architecture, security, and performance, plus separate Standards and Spec axes with severity-labelled findings.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Reviewing a diff or pull request before merge</li>
+        <li>Reviewing your own work or another agent's</li>
+        <li>A change needs sign-off across several dimensions rather than one</li>
+        <li>Checking whether the tests would catch a regression</li>
+        <li>Reviewing a dependency bump or a lockfile change</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The plan is under review before any code exists — use review-the-plan</li>
+        <li>A codebase-wide bug, bloat, or security audit rather than one diff — use the audit skill</li>
+        <li>A deep security pass needing threat modelling and exploit detail — use security-and-hardening</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Review my branch against main&quot; → the agent pins the fixed point, confirms the diff is non-empty, then finds spec and standards files.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive is gated; it asks for the fixed point or the spec path when they are not given.</p>
+  </article>
+  <article class="card" id="skill-check-my-security" data-gate="true" data-search="check-my-security runs a stride and owasp threat-model review of the code, then reports each finding with a concrete exploit, severity and remediation. before shipping anything that touches auth, input handling, secrets or data storage review this for security is this login flow safe we added file uploads, cors or a new external integration check dependency and supply-chain risk via the native audit the change touches no auth, input handling, secrets or stored data, so there is no trust boundary to review you want the whole repo audited for bugs, load and bloat rather than security alone you want forced dependency remediation applied for you — it never runs npm audit fix --force automatically &quot;/check-my-security on the new upload endpoint&quot; → the agent maps trust boundaries, walks stride and the owasp checklist over the actual code, then triages findings by severity x exploitability. review adding auth flows, storing new pii, changing cors, adding upload handlers, altering rate limits or granting roles needs human approval; findings stay private until the user agrees to file them.">
+    <div class="head">
+      <h3>check-my-security</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Runs a STRIDE and OWASP threat-model review of the code, then reports each finding with a concrete exploit, severity and remediation.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Before shipping anything that touches auth, input handling, secrets or data storage</li>
+        <li>Review this for security</li>
+        <li>Is this login flow safe</li>
+        <li>We added file uploads, CORS or a new external integration</li>
+        <li>Check dependency and supply-chain risk via the native audit</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The change touches no auth, input handling, secrets or stored data, so there is no trust boundary to review</li>
+        <li>You want the whole repo audited for bugs, load and bloat rather than security alone</li>
+        <li>You want forced dependency remediation applied for you — it never runs npm audit fix --force automatically</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/check-my-security on the new upload endpoint&quot; → the agent maps trust boundaries, walks STRIDE and the OWASP checklist over the actual code, then triages findings by severity x exploitability.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Adding auth flows, storing new PII, changing CORS, adding upload handlers, altering rate limits or granting roles needs human approval; findings stay private until the user agrees to file them.</p>
+  </article>
+  <article class="card" id="skill-receive-code-review" data-gate="true" data-search="receive-code-review handles incoming code review feedback with verification and technical pushback instead of performative agreement, clarifying unclear items before implementing. review feedback has arrived and you are about to implement it some feedback items are unclear or seem technically questionable an external reviewer made a suggestion you cannot easily verify multi-item feedback such as &quot;fix 1-6&quot; a reviewer asks to &quot;implement properly&quot; something you suspect is unused you are the one writing the review — that is review-my-code no feedback exists yet; this is new code with no reviewer the request is a product or architecture direction that belongs to the human partner — the skill says stop and discuss, not implement &quot;reviewer says remove the legacy compat shim&quot; → the agent checks the codebase for real callers before editing anything. review it halts and asks before implementing anything when any feedback item is unclear or conflicts with the human partner's prior decisions.">
+    <div class="head">
+      <h3>receive-code-review</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Handles incoming code review feedback with verification and technical pushback instead of performative agreement, clarifying unclear items before implementing.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Review feedback has arrived and you are about to implement it</li>
+        <li>Some feedback items are unclear or seem technically questionable</li>
+        <li>An external reviewer made a suggestion you cannot easily verify</li>
+        <li>Multi-item feedback such as &quot;fix 1-6&quot;</li>
+        <li>A reviewer asks to &quot;implement properly&quot; something you suspect is unused</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You are the one writing the review — that is review-my-code</li>
+        <li>No feedback exists yet; this is new code with no reviewer</li>
+        <li>The request is a product or architecture direction that belongs to the human partner — the skill says stop and discuss, not implement</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Reviewer says remove the legacy compat shim&quot; → the agent checks the codebase for real callers before editing anything.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> It halts and asks before implementing anything when any feedback item is unclear or conflicts with the human partner's prior decisions.</p>
+  </article>
+  <article class="card" id="skill-audit-the-whole-repo" data-gate="false" data-search="audit-the-whole-repo audits a whole repo for bugs, security holes, load failures, untested risky code, slowness and bloat, then returns a ranked plain-english report without changing code. audit this codebase review the whole repo find bloat what can i delete you inherited a repo and need to know what is wrong with it you want something changed: it is a one-shot report and changes no code the scope is one diff or pull request, not a folder, package or repo you need real load or profiling evidence; this only judges the expected load from the code and says which load it assumed &quot;audit this repo before i take it over&quot; → the agent reads readme, build config, dependencies, entry points and tests, states the assumed load, then traces the main data flows. review read-only: it greps whole-tree references, reads files and reports, but never edits or deletes code.">
+    <div class="head">
+      <h3>audit-the-whole-repo</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Audits a whole repo for bugs, security holes, load failures, untested risky code, slowness and bloat, then returns a ranked plain-English report without changing code.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Audit this codebase</li>
+        <li>Review the whole repo</li>
+        <li>Find bloat</li>
+        <li>What can I delete</li>
+        <li>You inherited a repo and need to know what is wrong with it</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You want something changed: it is a one-shot report and changes no code</li>
+        <li>The scope is one diff or pull request, not a folder, package or repo</li>
+        <li>You need real load or profiling evidence; this only judges the expected load from the code and says which load it assumed</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Audit this repo before I take it over&quot; → the agent reads README, build config, dependencies, entry points and tests, states the assumed load, then traces the main data flows.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Read-only: it greps whole-tree references, reads files and reports, but never edits or deletes code.</p>
+  </article>
+</section>
+<section class="phase" id="verify">
+  <h2>Verify <span>4 skills</span></h2>
+  <p class="blurb">Produce evidence that it actually works.</p>
+  <article class="card" id="skill-prove-it-works" data-gate="false" data-search="prove-it-works blocks any claim that work is complete, fixed, or passing until a fresh verification command has been run and its output read. about to claim tests pass, a bug is fixed, or a build succeeds about to commit, push, or open a pr about to move to the next task a subagent or agent reports success you catch yourself writing &quot;should&quot;, &quot;probably&quot;, or &quot;seems to&quot; no status claim is being made — a question, a read, or a design discussion no verification command exists for the claim, so there is nothing fresh to run and the limitation must be stated instead relying on a partial check, a previous run, or a linter in place of the compiler &quot;is the fix done?&quot; → the agent runs the full test command, reads exit code and failure count, then answers. verify it is a self-imposed evidence gate before claims; it asks no one for approval.">
+    <div class="head">
+      <h3>prove-it-works</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Blocks any claim that work is complete, fixed, or passing until a fresh verification command has been run and its output read.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>About to claim tests pass, a bug is fixed, or a build succeeds</li>
+        <li>About to commit, push, or open a PR</li>
+        <li>About to move to the next task</li>
+        <li>A subagent or agent reports success</li>
+        <li>You catch yourself writing &quot;should&quot;, &quot;probably&quot;, or &quot;seems to&quot;</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>No status claim is being made — a question, a read, or a design discussion</li>
+        <li>No verification command exists for the claim, so there is nothing fresh to run and the limitation must be stated instead</li>
+        <li>Relying on a partial check, a previous run, or a linter in place of the compiler</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Is the fix done?&quot; → the agent runs the full test command, reads exit code and failure count, then answers.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It is a self-imposed evidence gate before claims; it asks no one for approval.</p>
+  </article>
+  <article class="card" id="skill-test-every-surface" data-gate="true" data-search="test-every-surface report-only qa for api, cli, job, worker and webhook surfaces: isolated fixtures, a contract map, retained evidence and a reproducible report. never fixes bugs. testing an http api, cli, job, worker or webhook rather than a browser ui coverage must include invalid input, auth, exit codes, timeouts, retries, idempotency or partial failure on a feature branch without explicit scope, using diff-aware testing of changed and adjacent behavior replaying a prior functional report in regression mode a reproducible evidence report is required, with findings separated from hypotheses browser flows: the description routes those to check-my-ui you want the bug fixed or product tests written; this run never edits product code, tests, config or tracked state production access, destruction or external mutation without permission naming the target, operation and effect a browser target has no documented test framework; report the gap instead of installing anything &quot;/test-every-surface the checkout api&quot; → the agent selects the functional surface, sets up isolated fixtures and announces target, tools and permitted writes. verify production access, destruction or external mutation needs explicit permission naming the target, operation and effect; unknown ownership blocks the probe.">
+    <div class="head">
+      <h3>test-every-surface</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Report-only QA for API, CLI, job, worker and webhook surfaces: isolated fixtures, a contract map, retained evidence and a reproducible report. Never fixes bugs.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Testing an HTTP API, CLI, job, worker or webhook rather than a browser UI</li>
+        <li>Coverage must include invalid input, auth, exit codes, timeouts, retries, idempotency or partial failure</li>
+        <li>On a feature branch without explicit scope, using diff-aware testing of changed and adjacent behavior</li>
+        <li>Replaying a prior functional report in regression mode</li>
+        <li>A reproducible evidence report is required, with findings separated from hypotheses</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Browser flows: the description routes those to check-my-ui</li>
+        <li>You want the bug fixed or product tests written; this run never edits product code, tests, config or tracked state</li>
+        <li>Production access, destruction or external mutation without permission naming the target, operation and effect</li>
+        <li>A browser target has no documented test framework; report the gap instead of installing anything</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/test-every-surface the checkout API&quot; → the agent selects the functional surface, sets up isolated fixtures and announces target, tools and permitted writes.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Production access, destruction or external mutation needs explicit permission naming the target, operation and effect; unknown ownership blocks the probe.</p>
+  </article>
+  <article class="card" id="skill-check-my-ui" data-gate="true" data-search="check-my-ui drives a real browser to open the page, click the flow, screenshot it and inspect dom, console, network and performance. building or debugging anything that runs in a browser before shipping a change with a visible surface a ui bug needs reproducing in a real browser console errors or failed network requests need checking page load, layout shift or interaction performance needs measuring the problem lives in a cli, job, worker, webhook or api with no browser surface the behaviour is pure logic that a unit test covers faster you need the source code changed: this is a see-and-verify pass, not an implementation skill &quot;check the checkout page after my css change&quot; → the agent opens it in its own tab, screenshots before and after, clicks the flow and inspects console, network and accessibility. verify on a non-local site any mutating action (submit, create, delete, purchase, change settings) needs explicit consent once per run before the first one.">
+    <div class="head">
+      <h3>check-my-ui</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Drives a real browser to open the page, click the flow, screenshot it and inspect DOM, console, network and performance.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Building or debugging anything that runs in a browser</li>
+        <li>Before shipping a change with a visible surface</li>
+        <li>A UI bug needs reproducing in a real browser</li>
+        <li>Console errors or failed network requests need checking</li>
+        <li>Page load, layout shift or interaction performance needs measuring</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The problem lives in a CLI, job, worker, webhook or API with no browser surface</li>
+        <li>The behaviour is pure logic that a unit test covers faster</li>
+        <li>You need the source code changed: this is a see-and-verify pass, not an implementation skill</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Check the checkout page after my CSS change&quot; → the agent opens it in its own tab, screenshots before and after, clicks the flow and inspects console, network and accessibility.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> On a non-local site any mutating action (submit, create, delete, purchase, change settings) needs explicit consent once per run before the first one.</p>
+  </article>
+  <article class="card" id="skill-make-it-accessible" data-gate="false" data-search="make-it-accessible audits and fixes web accessibility to wcag 2.1: alt text, contrast, keyboard paths, focus, labels, motion and aria. running an a11y audit or wcag 2.1 compliance pass keyboard navigation, focus order or visible focus problems screen-reader semantics, form labels or colour contrast are wrong before shipping any user-facing surface non-web ui with no html/css or aria surface — the guidance targets web pages and components nothing user-facing changes, e.g. a backend-only edit you only want an automated lighthouse/axe score — the skill still requires manual keyboard, screen-reader, zoom and reduced-motion checks reference-led design where you plan to copy another product's branding, text, imagery or exact layout — the skill forbids it &quot;/make-it-accessible audit the signup form for wcag 2.1&quot; → the agent checks labels, alt text, contrast, keyboard path and focus order first. verify nothing destructive or irreversible; it edits markup, css and js without an approval gate.">
+    <div class="head">
+      <h3>make-it-accessible</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Audits and fixes web accessibility to WCAG 2.1: alt text, contrast, keyboard paths, focus, labels, motion and ARIA.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Running an a11y audit or WCAG 2.1 compliance pass</li>
+        <li>Keyboard navigation, focus order or visible focus problems</li>
+        <li>Screen-reader semantics, form labels or colour contrast are wrong</li>
+        <li>Before shipping any user-facing surface</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Non-web UI with no HTML/CSS or ARIA surface — the guidance targets web pages and components</li>
+        <li>Nothing user-facing changes, e.g. a backend-only edit</li>
+        <li>You only want an automated Lighthouse/axe score — the skill still requires manual keyboard, screen-reader, zoom and reduced-motion checks</li>
+        <li>Reference-led design where you plan to copy another product's branding, text, imagery or exact layout — the skill forbids it</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/make-it-accessible audit the signup form for WCAG 2.1&quot; → the agent checks labels, alt text, contrast, keyboard path and focus order first.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive or irreversible; it edits markup, CSS and JS without an approval gate.</p>
+  </article>
+</section>
+<section class="phase" id="finish">
+  <h2>Finish <span>4 skills</span></h2>
+  <p class="blurb">Close the gap between working and good.</p>
+  <article class="card" id="skill-finish-the-experience" data-gate="false" data-search="finish-the-experience finds and finishes the experiential last 20%: the magic moment, page shapes, empty states and defaults, before a build is called done. planning a build so the magic is specced as concretely as the plumbing the solution works but feels like a demo user says last 20%, finish this, make it actually good, is this done the output reads like filler, or the first run feels dead before declaring any build done adding features — the last 20% is depth on the core scene, never breadth rewriting working infrastructure to be prettier inside (gold-plating the plumbing) the walk already delivers the magic moment — a solution is allowed to pass &quot;is this wiki actually done?&quot; → the agent writes the magic-moment scene and scene list, then walks the wiki cold as a first-time user. finish nothing destructive is gated.">
+    <div class="head">
+      <h3>finish-the-experience</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Finds and finishes the experiential last 20%: the magic moment, page shapes, empty states and defaults, before a build is called done.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Planning a build so the magic is specced as concretely as the plumbing</li>
+        <li>The solution works but feels like a demo</li>
+        <li>User says last 20%, finish this, make it actually good, is this done</li>
+        <li>The output reads like filler, or the first run feels dead</li>
+        <li>Before declaring any build done</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Adding features — the last 20% is depth on the core scene, never breadth</li>
+        <li>Rewriting working infrastructure to be prettier inside (gold-plating the plumbing)</li>
+        <li>The walk already delivers the magic moment — a solution is allowed to pass</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Is this wiki actually done?&quot; → the agent writes the magic-moment scene and scene list, then walks the wiki cold as a first-time user.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive is gated.</p>
+  </article>
+  <article class="card" id="skill-polish-the-ui" data-gate="false" data-search="polish-the-ui builds and polishes accessible, responsive ui: component structure, state, design tokens, typography, colour, motion, and wcag 2.1 aa checks before delivery. building new ui components or pages modifying existing user-facing interfaces implementing responsive layouts adding interactivity or state management fixing visual or ux issues the output must not look ai-generated no rendered surface at all — backend, api, cli, or data-layer work copying another product's branding, proprietary text, imagery, or exact layout — the skill forbids it colour, spacing, or type decisions already fixed by a design.md token spec you were told to follow verbatim &quot;/polish-the-ui the settings page looks ai-generated&quot; → the agent first collects 2-3 reference screens and writes a short design contract. finish it edits ui code and defers to an existing design.md; nothing destructive or irreversible.">
+    <div class="head">
+      <h3>polish-the-ui</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Builds and polishes accessible, responsive UI: component structure, state, design tokens, typography, colour, motion, and WCAG 2.1 AA checks before delivery.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Building new UI components or pages</li>
+        <li>Modifying existing user-facing interfaces</li>
+        <li>Implementing responsive layouts</li>
+        <li>Adding interactivity or state management</li>
+        <li>Fixing visual or UX issues</li>
+        <li>The output must not look AI-generated</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>No rendered surface at all — backend, API, CLI, or data-layer work</li>
+        <li>Copying another product's branding, proprietary text, imagery, or exact layout — the skill forbids it</li>
+        <li>Colour, spacing, or type decisions already fixed by a DESIGN.md token spec you were told to follow verbatim</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/polish-the-ui the settings page looks AI-generated&quot; → the agent first collects 2-3 reference screens and writes a short design contract.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It edits UI code and defers to an existing DESIGN.md; nothing destructive or irreversible.</p>
+  </article>
+  <article class="card" id="skill-make-it-fast" data-gate="false" data-search="make-it-fast measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression. performance requirements exist: load-time budgets or response-time slas users or monitoring report slow behavior core web vitals are below thresholds you suspect a change introduced a performance regression n+1 queries or index problems show up in the query log there is no evidence of a problem yet — premature optimization adds complexity for nothing the re-measured gain sits inside run-to-run noise — that is a revert, not a keep the win requires changing, skipping or deleting a test to land you plan to raise the connection pool without finding what holds connections &quot;/make-it-fast checkout lcp is 4.2s&quot; → the agent captures a lighthouse baseline, profiles the waterfall, and fixes only the largest bottleneck. finish nothing destructive or irreversible; it profiles, edits, and reverts unproven changes itself.">
+    <div class="head">
+      <h3>make-it-fast</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Performance requirements exist: load-time budgets or response-time SLAs</li>
+        <li>Users or monitoring report slow behavior</li>
+        <li>Core Web Vitals are below thresholds</li>
+        <li>You suspect a change introduced a performance regression</li>
+        <li>N+1 queries or index problems show up in the query log</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>There is no evidence of a problem yet — premature optimization adds complexity for nothing</li>
+        <li>The re-measured gain sits inside run-to-run noise — that is a revert, not a keep</li>
+        <li>The win requires changing, skipping or deleting a test to land</li>
+        <li>You plan to raise the connection pool without finding what holds connections</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/make-it-fast checkout LCP is 4.2s&quot; → the agent captures a Lighthouse baseline, profiles the waterfall, and fixes only the largest bottleneck.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive or irreversible; it profiles, edits, and reverts unproven changes itself.</p>
+  </article>
+  <article class="card" id="skill-make-it-observable" data-gate="false" data-search="make-it-observable instruments production code with structured logs, red/use metrics, opentelemetry traces and symptom-based alerts so incidents can be diagnosed from telemetry. building any feature that will run in production adding a new service, endpoint, background job, or external integration a production incident took too long to diagnose setting up or reviewing alerting rules reviewing a pr that adds i/o, retries, queues, or cross-service calls diagnosing a failure happening right now — use debugging-and-error-recovery instead profiling and optimizing measured slowness — use performance-optimization instead launch-day monitoring checklists and rollback triggers — that is shipping-and-launch you cannot name 2-4 on-call questions the telemetry must answer, so you would just log everything &quot;/make-it-observable, we're shipping the payment retry&quot; → the agent first writes the 2-4 questions on-call will ask. finish instrumentation only. it halts if you cannot name the on-call questions, but that is a readiness bar, not an approval.">
+    <div class="head">
+      <h3>make-it-observable</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Instruments production code with structured logs, RED/USE metrics, OpenTelemetry traces and symptom-based alerts so incidents can be diagnosed from telemetry.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Building any feature that will run in production</li>
+        <li>Adding a new service, endpoint, background job, or external integration</li>
+        <li>A production incident took too long to diagnose</li>
+        <li>Setting up or reviewing alerting rules</li>
+        <li>Reviewing a PR that adds I/O, retries, queues, or cross-service calls</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Diagnosing a failure happening right now — use debugging-and-error-recovery instead</li>
+        <li>Profiling and optimizing measured slowness — use performance-optimization instead</li>
+        <li>Launch-day monitoring checklists and rollback triggers — that is shipping-and-launch</li>
+        <li>You cannot name 2-4 on-call questions the telemetry must answer, so you would just log everything</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/make-it-observable, we're shipping the payment retry&quot; → the agent first writes the 2-4 questions on-call will ask.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Instrumentation only. It halts if you cannot name the on-call questions, but that is a readiness bar, not an approval.</p>
+  </article>
+</section>
+<section class="phase" id="docs">
+  <h2>Docs <span>2 skills</span></h2>
+  <p class="blurb">Write prose a stranger can act on.</p>
+  <article class="card" id="skill-write-the-docs" data-gate="false" data-search="write-the-docs authors documentation a cold reader can act on: gather context, agree the outline before prose, reader-test, then link it from an entry point. the user asks to write or rewrite a piece of documentation drafting a proposal, technical spec, decision record, rfc, readme section, or pr description before shipping a feature that adds user-facing behavior and needs doc updates a document must be understandable without this session's context writing anything that lives under docs/, mintlify-docs/, or gitbook/ gsd template-scaffolded artifacts (m###-context.md, s##-summary.md, decisions.md, knowledge.md), which are out of scope by design producing a spec that drives implementation, which needs the spec gates a quick summary of what was done in this conversation rather than a document for a reader &quot;/write-the-docs document the auth flow for new contributors&quot; → the agent first names the reader and the single action they must be able to take. docs it shows the outline to the user and offers a cold-reader subagent, but gates no destructive action.">
+    <div class="head">
+      <h3>write-the-docs</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Authors documentation a cold reader can act on: gather context, agree the outline before prose, reader-test, then link it from an entry point.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>The user asks to write or rewrite a piece of documentation</li>
+        <li>Drafting a proposal, technical spec, decision record, RFC, README section, or PR description</li>
+        <li>Before shipping a feature that adds user-facing behavior and needs doc updates</li>
+        <li>A document must be understandable without this session's context</li>
+        <li>Writing anything that lives under docs/, mintlify-docs/, or gitbook/</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>GSD template-scaffolded artifacts (M###-CONTEXT.md, S##-SUMMARY.md, DECISIONS.md, KNOWLEDGE.md), which are out of scope by design</li>
+        <li>Producing a spec that drives implementation, which needs the spec gates</li>
+        <li>A quick summary of what was done in this conversation rather than a document for a reader</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/write-the-docs document the auth flow for new contributors&quot; → the agent first names the reader and the single action they must be able to take.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It shows the outline to the user and offers a cold-reader subagent, but gates no destructive action.</p>
+  </article>
+  <article class="card" id="skill-deslop-the-writing" data-gate="false" data-search="deslop-the-writing scans text for ai-writing fingerprints, rewrites by meaning, re-scans until clean, then checks the register fits its genre. user says deslop, deslopify, or remove the ai tells draft has &quot;not x but y&quot; contrasts, em-dash density, or rule-of-three lists text reads uniformly cadenced, puffery-laden, or hedged both ways before publishing any agent-drafted prose the text must fit a genre: academic, tweet, reddit, email, blog, docs, marketing facts or claims are wrong — this is a style pass; flag, do not silently fix you want manufactured voice: fake typos, forced slang, humanizer-tool output precision-critical academic or technical text where adding attitude makes it worse &quot;deslopify this blog post&quot; → the agent confirms genre and the claim, runs the tell scan, and reports a findings table before rewriting. docs style pass only; nothing destructive is gated.">
+    <div class="head">
+      <h3>deslop-the-writing</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Scans text for AI-writing fingerprints, rewrites by meaning, re-scans until clean, then checks the register fits its genre.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>User says deslop, deslopify, or remove the AI tells</li>
+        <li>Draft has &quot;not X but Y&quot; contrasts, em-dash density, or rule-of-three lists</li>
+        <li>Text reads uniformly cadenced, puffery-laden, or hedged both ways</li>
+        <li>Before publishing any agent-drafted prose</li>
+        <li>The text must fit a genre: academic, tweet, reddit, email, blog, docs, marketing</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Facts or claims are wrong — this is a style pass; flag, do not silently fix</li>
+        <li>You want manufactured voice: fake typos, forced slang, humanizer-tool output</li>
+        <li>Precision-critical academic or technical text where adding attitude makes it worse</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Deslopify this blog post&quot; → the agent confirms genre and the claim, runs the tell scan, and reports a findings table before rewriting.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Style pass only; nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="ship">
+  <h2>Ship <span>2 skills</span></h2>
+  <p class="blurb">Take it to the remote, or stop something destructive.</p>
+  <article class="card" id="skill-ship-it" data-gate="true" data-search="ship-it verifies tests, detects the git environment and base branch, offers merge, pull request or keep, then commits, pushes and cleans up. implementation is complete and the full test suite passes you need to decide between merging locally and opening a pull request the branch lives in a worktree and cleanup rules must be applied on a detached head and need the reduced push-as-new-branch menu you want the base branch confirmed before merging pre-commit hygiene: staged-diff check, secrets grep, tests, lint, typecheck tests are failing: the skill reports the failures and stops, it does not fix them you want to discard the work: that path exists only on an explicit human request, never as a menu option the push was rejected: investigate; force-push only on explicit request a worktree holds uncommitted files only it has: removal is refused, never force it on your own initiative &quot;/ship-it&quot; → the agent runs the full suite, detects the git environment and base branch, then presents the merge/pr/keep menu. ship it waits for the human's menu choice before merging or pushing, and permanent deletion of a branch and worktree needs the human to type &quot;discard&quot;.">
+    <div class="head">
+      <h3>ship-it</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Verifies tests, detects the git environment and base branch, offers merge, pull request or keep, then commits, pushes and cleans up.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Implementation is complete and the full test suite passes</li>
+        <li>You need to decide between merging locally and opening a pull request</li>
+        <li>The branch lives in a worktree and cleanup rules must be applied</li>
+        <li>On a detached HEAD and need the reduced push-as-new-branch menu</li>
+        <li>You want the base branch confirmed before merging</li>
+        <li>Pre-commit hygiene: staged-diff check, secrets grep, tests, lint, typecheck</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Tests are failing: the skill reports the failures and stops, it does not fix them</li>
+        <li>You want to discard the work: that path exists only on an explicit human request, never as a menu option</li>
+        <li>The push was rejected: investigate; force-push only on explicit request</li>
+        <li>A worktree holds uncommitted files only it has: removal is refused, never force it on your own initiative</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/ship-it&quot; → the agent runs the full suite, detects the git environment and base branch, then presents the merge/PR/keep menu.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> It waits for the human's menu choice before merging or pushing, and permanent deletion of a branch and worktree needs the human to type &quot;discard&quot;.</p>
+  </article>
+  <article class="card" id="skill-guard-the-dangerous-stuff" data-gate="true" data-search="guard-the-dangerous-stuff hand-applied checklist before destructive commands: recursive deletes, drop/truncate, force-push, reset --hard, kubectl delete, docker prune, and powershell equivalents. before rm -rf, drop table/database, truncate, force-push or git reset --hard before any command that can destroy data, uncommitted work or production state before kubectl delete, docker rm -f or docker system prune before powershell/cmd equivalents: ri -r -fo, rd /s, clear-disk, irm | iex before the destructive contract step of a migration deleting node_modules, dist, .next, __pycache__, build, coverage or .turbo — listed as safe exceptions read-only inspection, builds or ordinary test runs you expect an automatic intercept — the upstream hook is not installed, this is a written procedure only deciding whether to deprecate a system at all — that is a product call, answered by the deprecation questions &quot;/guard-the-dangerous-stuff i'm about to git push --force&quot; → the agent checks the pattern table, confirms it targets a non-default branch, and asks for separate authorization. ship destructive steps must be made explicit and separately authorized (recursive delete, drop/truncate, force-push, reset --hard, kubectl delete, docker prune); high-tier shapes are hard-denied.">
+    <div class="head">
+      <h3>guard-the-dangerous-stuff</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="badge gate">stops and asks</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Hand-applied checklist before destructive commands: recursive deletes, DROP/TRUNCATE, force-push, reset --hard, kubectl delete, docker prune, and PowerShell equivalents.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Before rm -rf, DROP TABLE/DATABASE, TRUNCATE, force-push or git reset --hard</li>
+        <li>Before any command that can destroy data, uncommitted work or production state</li>
+        <li>Before kubectl delete, docker rm -f or docker system prune</li>
+        <li>Before PowerShell/cmd equivalents: ri -r -fo, rd /s, Clear-Disk, irm | iex</li>
+        <li>Before the destructive contract step of a migration</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Deleting node_modules, dist, .next, __pycache__, build, coverage or .turbo — listed as safe exceptions</li>
+        <li>Read-only inspection, builds or ordinary test runs</li>
+        <li>You expect an automatic intercept — the upstream hook is not installed, this is a written procedure only</li>
+        <li>Deciding whether to deprecate a system at all — that is a product call, answered by the deprecation questions</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/guard-the-dangerous-stuff I'm about to git push --force&quot; → the agent checks the pattern table, confirms it targets a non-default branch, and asks for separate authorization.</p></div>
+    <p class="gateline"><b>Stops and asks:</b> Destructive steps must be made explicit and separately authorized (recursive delete, DROP/TRUNCATE, force-push, reset --hard, kubectl delete, docker prune); HIGH-tier shapes are hard-denied.</p>
+  </article>
+</section>
+<section class="phase" id="meta">
+  <h2>Meta <span>6 skills</span></h2>
+  <p class="blurb">Change how the session itself runs.</p>
+  <article class="card" id="skill-simplify-this-code" data-gate="false" data-search="simplify-this-code simplifies code for clarity without changing behavior, one tested change at a time, following project conventions and scoping to recently modified code. refactoring for readability without changing behavior code works but is harder to maintain than it should be reviewing code that accumulated unnecessary complexity a proposed simplification would only move the difficulty somewhere else deep nesting, long functions, nested ternaries, generic names or duplicated logic need cleanup you are about to simplify code whose original purpose you do not yet understand you are also adding a feature or fixing a bug in the same change; refactors must be separate prs the simplification requires modifying tests to pass, which means behavior changed the code is outside the scope of the current task and you were not asked to broaden scope you cannot answer what the code is responsible for, what calls it, or why it exists (chesterton's fence) &quot;simplify this function&quot; → the agent checks git blame, callers and the defining tests, then makes one change and runs the suite. meta no destructive action is gated; it reverts a change when tests fail rather than asking for approval.">
+    <div class="head">
+      <h3>simplify-this-code</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Simplifies code for clarity without changing behavior, one tested change at a time, following project conventions and scoping to recently modified code.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Refactoring for readability without changing behavior</li>
+        <li>Code works but is harder to maintain than it should be</li>
+        <li>Reviewing code that accumulated unnecessary complexity</li>
+        <li>A proposed simplification would only move the difficulty somewhere else</li>
+        <li>Deep nesting, long functions, nested ternaries, generic names or duplicated logic need cleanup</li>
+        <li>You are about to simplify code whose original purpose you do not yet understand</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You are also adding a feature or fixing a bug in the same change; refactors must be separate PRs</li>
+        <li>The simplification requires modifying tests to pass, which means behavior changed</li>
+        <li>The code is outside the scope of the current task and you were not asked to broaden scope</li>
+        <li>You cannot answer what the code is responsible for, what calls it, or why it exists (Chesterton's Fence)</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Simplify this function&quot; → the agent checks git blame, callers and the defining tests, then makes one change and runs the suite.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No destructive action is gated; it reverts a change when tests fail rather than asking for approval.</p>
+  </article>
+  <article class="card" id="skill-write-a-new-skill" data-gate="false" data-search="write-a-new-skill writes and refines skill.md files: frontmatter, context pointers, information hierarchy and progressive disclosure, leading words, pruning, plus tdd pressure-testing of skill wording. authoring a new skill improving an existing skill a skill keeps being ignored or misapplied a skill description or pointer does not reliably trigger when its material is needed a skill document is sprawling and needs reference pushed behind pointers closing the rationalizations found when agents run the skill writing human-facing prose docs, readmes, rfcs or proposals: that is a document for a fresh reader, not an agent-consumed skill writing a spec or plan before code you only need to find and invoke an existing skill &quot;/write-a-new-skill i want a skill that stops agents skipping tests&quot; → the agent first runs the pressure scenario without the skill and records the baseline. meta it requires baseline and post-skill test runs, but no human approval gate.">
+    <div class="head">
+      <h3>write-a-new-skill</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Writes and refines SKILL.md files: frontmatter, context pointers, information hierarchy and progressive disclosure, leading words, pruning, plus TDD pressure-testing of skill wording.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Authoring a new skill</li>
+        <li>Improving an existing skill</li>
+        <li>A skill keeps being ignored or misapplied</li>
+        <li>A skill description or pointer does not reliably trigger when its material is needed</li>
+        <li>A skill document is sprawling and needs reference pushed behind pointers</li>
+        <li>Closing the rationalizations found when agents run the skill</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Writing human-facing prose docs, READMEs, RFCs or proposals: that is a document for a fresh reader, not an agent-consumed skill</li>
+        <li>Writing a spec or plan before code</li>
+        <li>You only need to find and invoke an existing skill</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/write-a-new-skill I want a skill that stops agents skipping tests&quot; → the agent first runs the pressure scenario without the skill and records the baseline.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It requires baseline and post-skill test runs, but no human approval gate.</p>
+  </article>
+  <article class="card" id="skill-set-the-quality-bar" data-gate="false" data-search="set-the-quality-bar turns a project's quality bar into a written constraints.md with numbers and tools, then guards the diff against quietly weakened checks. starting a project or feature and no quality bar is written down the user says &quot;set up constraints&quot;, &quot;define our standards&quot; or &quot;add quality gates&quot; an agent is producing volume nobody reads line by line ci has checks but nobody knows which ones block a merge coverage, performance or accessibility numbers get re-argued per pr about to run an autonomous loop where only the agent-written test suite stands before main the project already has constraints.md and the user is not changing it; read and follow it instead one-off scripts, spikes or throwaway prototypes the user wants a code review now (code-review-and-quality) or a ci pipeline built (ci-cd-and-automation) non-interactive contexts such as ci, /loop or autonomous runs: the interview needs a live user &quot;set up quality gates for this repo&quot; → the agent reads package.json, lint and ci config, reports what it found in two lines, then asks q1. meta nothing destructive is gated; it does stop for a four-question interview with a live user.">
+    <div class="head">
+      <h3>set-the-quality-bar</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Turns a project's quality bar into a written CONSTRAINTS.md with numbers and tools, then guards the diff against quietly weakened checks.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Starting a project or feature and no quality bar is written down</li>
+        <li>The user says &quot;set up constraints&quot;, &quot;define our standards&quot; or &quot;add quality gates&quot;</li>
+        <li>An agent is producing volume nobody reads line by line</li>
+        <li>CI has checks but nobody knows which ones block a merge</li>
+        <li>Coverage, performance or accessibility numbers get re-argued per PR</li>
+        <li>About to run an autonomous loop where only the agent-written test suite stands before main</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The project already has CONSTRAINTS.md and the user is not changing it; read and follow it instead</li>
+        <li>One-off scripts, spikes or throwaway prototypes</li>
+        <li>The user wants a code review now (code-review-and-quality) or a CI pipeline built (ci-cd-and-automation)</li>
+        <li>Non-interactive contexts such as CI, /loop or autonomous runs: the interview needs a live user</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Set up quality gates for this repo&quot; → the agent reads package.json, lint and CI config, reports what it found in two lines, then asks Q1.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> Nothing destructive is gated; it does stop for a four-question interview with a live user.</p>
+  </article>
+  <article class="card" id="skill-split-across-agents" data-gate="false" data-search="split-across-agents runs independent tasks in parallel subagents with focused, self-contained prompts, then reviews, integrates and runs the full suite on what returns. 3+ test files fail with different root causes multiple subsystems are broken independently each problem can be understood without context from the others no shared state between investigations a large job can be dispatched instead of done inline each dispatched agent can get one scope, one goal, constraints and an expected output failures are related, so fixing one might fix others; investigate together first understanding the problem requires seeing the full system state exploratory debugging where you do not yet know what is broken agents would interfere by editing the same files or using the same resources &quot;/split-across-agents&quot; → the agent groups the failures into independent domains and dispatches one focused subagent per domain in one response. meta no destructive action is gated; returned work goes through a review-and-integrate gate instead.">
+    <div class="head">
+      <h3>split-across-agents</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Runs independent tasks in parallel subagents with focused, self-contained prompts, then reviews, integrates and runs the full suite on what returns.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>3+ test files fail with different root causes</li>
+        <li>Multiple subsystems are broken independently</li>
+        <li>Each problem can be understood without context from the others</li>
+        <li>No shared state between investigations</li>
+        <li>A large job can be dispatched instead of done inline</li>
+        <li>Each dispatched agent can get one scope, one goal, constraints and an expected output</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Failures are related, so fixing one might fix others; investigate together first</li>
+        <li>Understanding the problem requires seeing the full system state</li>
+        <li>Exploratory debugging where you do not yet know what is broken</li>
+        <li>Agents would interfere by editing the same files or using the same resources</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/split-across-agents&quot; → the agent groups the failures into independent domains and dispatches one focused subagent per domain in one response.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No destructive action is gated; returned work goes through a review-and-integrate gate instead.</p>
+  </article>
+  <article class="card" id="skill-hand-off-to-next-session" data-gate="false" data-search="hand-off-to-next-session writes a tight continue.md in the active slice and refreshes state.md and summaries so a fresh session resumes in one minute. user says pause, hand off, bookmark this, or i'll come back later context budget is running low mid-task before a risky operation such as a dependency upgrade or major refactor end of a long multi-day session with unfinished work the work is finished — a slice summary is the artifact, not a handoff you want a chat recap of the journey — the next agent doesn't need it nothing is in flight and no concrete next action exists &quot;/hand-off-to-next-session i'm out of context&quot; → the agent writes the last action, one concrete next action, and what not to do into continue.md. meta it updates summaries, cancels or waits for background jobs, and stops cleanly without an approval gate.">
+    <div class="head">
+      <h3>hand-off-to-next-session</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.7 / A</span>
+    </div>
+    <p class="summary">Writes a tight continue.md in the active slice and refreshes STATE.md and summaries so a fresh session resumes in one minute.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>User says pause, hand off, bookmark this, or I'll come back later</li>
+        <li>Context budget is running low mid-task</li>
+        <li>Before a risky operation such as a dependency upgrade or major refactor</li>
+        <li>End of a long multi-day session with unfinished work</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The work is finished — a slice summary is the artifact, not a handoff</li>
+        <li>You want a chat recap of the journey — the next agent doesn't need it</li>
+        <li>Nothing is in flight and no concrete next action exists</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/hand-off-to-next-session I'm out of context&quot; → the agent writes the last action, one concrete next action, and what not to do into continue.md.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It updates summaries, cancels or waits for background jobs, and stops cleanly without an approval gate.</p>
+  </article>
+  <article class="card" id="skill-watch-my-context" data-gate="false" data-search="watch-my-context installs a per-turn canary line (name, turn counter, self-check) so context degradation shows immediately, and runs a checkpoint-and-re-anchor recovery protocol when it trips. starting a long or high-stakes session and wanting an early-warning signal the user mentions a canary, context canary, or canary check the user notices the canary stopped appearing and asks what happened the agent can no longer find the canary contract in its own context the user asks how trustworthy the current context still is you want a check that survives compaction across all sessions: a standing canary in claude.md or agent memory measures only file-based instruction attention, a weaker signal you want structural assurance that harder constraints (architecture decisions, never-touch rules) still hold; a present canary is only weak evidence of health you expect a positive canary to prove context is fine; the test is one-sided and only a missing canary is strong evidence &quot;/watch-my-context&quot; → the agent states the contract &quot;julius · t1 · ctx ok&quot; and prefixes every later reply with it. meta it recommends a fresh session and asks the user's name if unknown, but gates no destructive action.">
+    <div class="head">
+      <h3>watch-my-context</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Installs a per-turn canary line (name, turn counter, self-check) so context degradation shows immediately, and runs a checkpoint-and-re-anchor recovery protocol when it trips.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Starting a long or high-stakes session and wanting an early-warning signal</li>
+        <li>The user mentions a canary, context canary, or canary check</li>
+        <li>The user notices the canary stopped appearing and asks what happened</li>
+        <li>The agent can no longer find the canary contract in its own context</li>
+        <li>The user asks how trustworthy the current context still is</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>You want a check that survives compaction across all sessions: a standing canary in CLAUDE.md or agent memory measures only file-based instruction attention, a weaker signal</li>
+        <li>You want structural assurance that harder constraints (architecture decisions, never-touch rules) still hold; a present canary is only weak evidence of health</li>
+        <li>You expect a positive canary to prove context is fine; the test is one-sided and only a missing canary is strong evidence</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/watch-my-context&quot; → the agent states the contract &quot;Julius · t1 · ctx ok&quot; and prefixes every later reply with it.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It recommends a fresh session and asks the user's name if unknown, but gates no destructive action.</p>
+  </article>
+</section>
+  <p class="empty hidden" id="empty">No skill matches that filter.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>What this page does not claim</h2>
+    <ul>
+      <li>
+        <strong>Guidance is derived, not quoted.</strong> The prose above condenses each skill's own
+        text. The skill body is the authority; this page is an index. Skill bodies are immutable in
+        this repo and are proven against upstream with <code>tools/verify.ps1</code>.
+      </li>
+      <li>
+        <strong>Only 13 of the 41 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
+        ships a &ldquo;When <em>not</em> to Use&rdquo; heading.</strong> The negative guidance here is
+        assembled from each skill's stated exclusions, red flags and hard constraints. Where a skill
+        states none, the entry is limited to what its text clearly supports rather than invented.
+      </li>
+      <li>
+        <strong>The approval model is the harness's, not the skill's.</strong> Changing the session
+        preset changes every row of the approval picture at once. A skill's written gate is a
+        instruction to the agent, not an enforced intercept.
+      </li>
+      <li>
+        Skill names are directory names under <code>skills/</code>. Invoke one with the
+        <code>skill</code> tool or by typing <code>/name</code>.
+      </li>
+    </ul>
+    <h2>Rebuild this page</h2>
+    <ul>
+      <li><code>powershell -File tools/build-skill-page.ps1</code> &mdash; reads
+        <code>tools/skill-page-data.json</code> and <code>RATING.json</code>.</li>
+      <li>Edit the JSON to change wording; edit the script only to change layout.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var onlyGate = document.getElementById('onlyGate');
+  var onlyAuto = document.getElementById('onlyAuto');
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.phase'));
+
+  function apply(){
+    var term = q.value.trim().toLowerCase();
+    var gate = onlyGate.getAttribute('aria-pressed') === 'true';
+    var auto = onlyAuto.getAttribute('aria-pressed') === 'true';
+    var shown = 0;
+
+    cards.forEach(function(card){
+      var ok = true;
+      if (term && card.getAttribute('data-search').indexOf(term) === -1) ok = false;
+      if (gate && card.getAttribute('data-gate') !== 'true') ok = false;
+      if (auto && card.getAttribute('data-gate') !== 'false') ok = false;
+      card.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    });
+
+    sections.forEach(function(sec){
+      var any = sec.querySelectorAll('.card:not(.hidden)').length > 0;
+      sec.classList.toggle('hidden', !any);
+    });
+
+    empty.classList.toggle('hidden', shown !== 0);
+    count.textContent = shown + ' of ' + cards.length + ' shown';
+  }
+
+  [onlyGate, onlyAuto].forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var on = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+      // the two toggles are opposite halves of the same set
+      var other = btn === onlyGate ? onlyAuto : onlyGate;
+      if (!on) other.setAttribute('aria-pressed', 'false');
+      apply();
+    });
+  });
+
+  q.addEventListener('input', apply);
+  q.addEventListener('keydown', function(e){ if (e.key === 'Escape') { q.value = ''; apply(); } });
+  apply();
+})();
+</script>
+</body>
+</html>

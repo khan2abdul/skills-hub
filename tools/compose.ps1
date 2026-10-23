@@ -125,10 +125,14 @@ if (-not $title) {
   $title = (($Name -split '-') | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }) -join ' '
 }
 $n = @($includes).Count
+# YAML-escape the description. An unquoted scalar breaks on the first colon-space
+# ("review of a change: a STRIDE pass"), and dsh then drops the skill from its
+# catalog with only a warning - 15 shipped skills were invisible that way.
+$descYaml = $desc.Replace('\', '\\').Replace('"', '\"')
 $header = @"
 ---
 name: $Name
-description: $desc
+description: "$descYaml"
 ---
 
 # $title

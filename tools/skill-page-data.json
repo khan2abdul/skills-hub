@@ -1,0 +1,799 @@
+[
+  {
+    "name": "trim-my-output",
+    "phase": "Always on",
+    "summary": "Terse caveman-voice replies that keep every technical fact, code, path and number verbatim; stays on until \"stop caveman\" or \"normal mode\".",
+    "when": [
+      "The user types /caveman or says \"caveman mode\", \"be brief\" or \"less tokens\"",
+      "Every output token is billed and read in a terminal",
+      "The answer needs to lead with the result, with ceremony and hedging removed",
+      "A long session should stay compressed until the user says \"normal mode\"",
+      "Routine tool runs need one-line status instead of narration"
+    ],
+    "notWhen": [
+      "A security warning or irreversible action is involved; break the rules and use plain prose, confirming in full sentences first",
+      "Anything persisted outside chat (code, comments, commits, docs, issues, PRs, tickets, memory files) must stay plain",
+      "Step order could be scrambled by a fragment, or the user is confused or repeating the question",
+      "The user asks for /caveman ultra or /caveman wenyan; those route to the ultracave or megacave skill"
+    ],
+    "example": "\"/caveman\" \u2192 the agent answers first in terse plain sentences, keeping code, paths, numbers and errors verbatim.",
+    "gate": { "asks": true, "what": "Irreversible actions require confirming in full sentences before proceeding, and security warnings drop the terseness." }
+  },
+  {
+    "name": "write-less-code",
+    "phase": "Always on",
+    "summary": "Lazy senior dev mode: smallest complete change that solves the task, shortest working diff, no unrequested abstraction, plus a reply a busy human reads once.",
+    "when": [
+      "Any coding task: writing, fixing, refactoring, reviewing, choosing dependencies",
+      "The user says ponytail, be lazy, simplest solution, or yagni",
+      "The user complains about over-engineering or bloat",
+      "A vague build request needs the smallest version that does the core job",
+      "Deciding whether a new dependency or abstraction is warranted"
+    ],
+    "notWhen": [
+      "Being smaller would mean cutting validation at trust boundaries, error handling that prevents data loss, security, accessibility, or something the user asked for",
+      "The user explicitly wants options, flexibility, or extensibility nobody has asked to skip",
+      "The work is a spec, plan, or prose document rather than a coding change"
+    ],
+    "example": "\"/write-less-code add retry to the upload call\" \u2192 the agent greps callers, reuses the existing retry helper, and changes one call site.",
+    "gate": { "asks": false, "what": "Ultra level pushes back on the request before building, but no destructive action needs approval." }
+  },
+  {
+    "name": "route-to-the-right-skill",
+    "phase": "Understand",
+    "summary": "Meta-skill that maps the current development phase to the right skill and enforces shared behaviors: state assumptions, manage confusion, enforce simplicity, verify.",
+    "when": [
+      "Starting a session and deciding which skill or workflow applies",
+      "The ask is vague and you do not know what you want yet",
+      "A spec exists and you need the next phase (plan, build, test, review, ship)",
+      "Something broke and you need the debugging route",
+      "Committing, branching, CI or deploy work is next",
+      "A non-trivial task has no spec written down"
+    ],
+    "notWhen": [
+      "The applicable skill is already known or named, so call it directly instead of loading the router",
+      "A single bug fix: the file says it may need only debugging, tests and review, not the full 16-step lifecycle",
+      "You want a spec or task breakdown now; the router only points at spec-driven-development and planning-and-task-breakdown"
+    ],
+    "example": "\"Which skill applies here?\" \u2192 the agent names the development phase, maps it to a skill, and states its assumptions before starting.",
+    "gate": { "asks": true, "what": "Requires explicit approval before deleting code that seems unused, and stops to wait when requirements conflict." }
+  },
+  {
+    "name": "interview-me-properly",
+    "phase": "Understand",
+    "summary": "Interviews the user one question at a time, each with a guess, until ~95% confidence, then restates intent for an explicit yes.",
+    "when": [
+      "The ask is missing who, why, what success looks like, or the binding constraint",
+      "The request is conventional (\"build me X\", \"make it faster\") and needs unpacking",
+      "The user says interview me, grill me, or stress-test my thinking",
+      "You catch yourself about to fill in ambiguous requirements before any plan, spec or code"
+    ],
+    "notWhen": [
+      "The ask is unambiguous and self-contained (rename a variable, fix a typo)",
+      "The user explicitly asked for speed over verification",
+      "Pure information requests such as how does X work, or mechanical renames, formats and file moves",
+      "Non-interactive contexts: CI pipelines, scheduled runs, /loop, autonomous loops"
+    ],
+    "example": "\"/interview-me-properly build me a dashboard\" \u2192 the agent states a one-sentence hypothesis with a confidence number, then asks one question with its guess attached.",
+    "gate": { "asks": false, "what": "No destructive action, but it requires an explicit yes on the restated intent before any spec, plan or downstream tool call." }
+  },
+  {
+    "name": "discuss-on-new-idea",
+    "phase": "Understand",
+    "summary": "Refines a vague idea through divergent variations, convergent assumption stress-testing, and a one-pager with an explicit Not Doing list.",
+    "when": [
+      "Idea is still vague and needs shaping before it can become a plan",
+      "You want options expanded before converging on one",
+      "You want assumptions attacked before they become a plan",
+      "User says ideate, refine this idea, or stress-test my plan",
+      "A one-pager with MVP scope and a Not Doing list is the deliverable"
+    ],
+    "notWhen": [
+      "The user is unsure what they want at all \u2014 use interview-me",
+      "A direction is already chosen and needs a spec \u2014 use spec-driven-development",
+      "The task is fixing existing behaviour rather than shaping a new idea"
+    ],
+    "example": "\"Help me refine this idea: an internal wiki\" \u2192 the agent restates it as a How Might We, asks 3-5 sharpening questions, then proposes variations.",
+    "gate": { "asks": false, "what": "Nothing destructive is gated." }
+  },
+  {
+    "name": "research-this-topic",
+    "phase": "Research",
+    "summary": "Researches a question against official primary sources and writes cited findings to a Markdown file, with a background agent doing the reading.",
+    "when": [
+      "The user wants a topic researched, or docs and API facts gathered",
+      "You are about to write framework-specific code from memory",
+      "The user wants reading legwork delegated to a background agent",
+      "A pattern must be confirmed against the exact pinned version",
+      "The user asks for documented, verified, or \"correct\" implementation"
+    ],
+    "notWhen": [
+      "Correctness does not depend on version \u2014 renames, typo fixes, moving files",
+      "Pure logic identical across all versions \u2014 loops, conditionals, data structures",
+      "The user explicitly wants speed over verification (\"just do it quickly\")",
+      "You cannot fetch sources and would answer from training data anyway"
+    ],
+    "example": "\"Research React 19 form handling and write it up\" \u2192 the agent detects versions in package.json, then fetches react.dev pages.",
+    "gate": { "asks": false, "what": "Stopping points are questions on ambiguous versions or doc-versus-code conflicts; writing the findings file is not destructive." }
+  },
+  {
+    "name": "explore-this-repo",
+    "phase": "Research",
+    "summary": "Read-only explorer that fans out broad searches and returns only path:line citations of where relevant code lives, keeping reads out of main context.",
+    "when": [
+      "Cold-start orientation in an unfamiliar repo",
+      "Broad cross-file localization across many files",
+      "A direct search already failed",
+      "You need to know where code lives, not have it changed",
+      "Delegating localization so the reads stay out of main context"
+    ],
+    "notWhen": [
+      "The exact file or symbol is already named",
+      "You want an edit or a proposed solution \u2014 this agent never edits, runs commands, or proposes fixes",
+      "You already know the path and just need the file read"
+    ],
+    "example": "\"Where does model routing happen?\" \u2192 the agent fires parallel Glob, Grep and Read calls, then replies with only path:line citations.",
+    "gate": { "asks": false, "what": "Read-only; nothing destructive is gated." }
+  },
+  {
+    "name": "write-the-spec",
+    "phase": "Spec",
+    "summary": "Turns intent into a gated, executable spec covering objectives, commands, structure, code style, testing, boundaries and success criteria before any code is written.",
+    "when": [
+      "Starting a new project or feature",
+      "Requirements are ambiguous or incomplete",
+      "The change touches multiple files or modules",
+      "You are about to make an architectural decision",
+      "The task would take more than 30 minutes to implement",
+      "One request bundles several independently testable capabilities and needs a capability map first"
+    ],
+    "notWhen": [
+      "Single-line fixes, typo corrections, or changes that are unambiguous and self-contained",
+      "A spec already exists and you need to slice it into tasks; planning-and-task-breakdown owns that",
+      "The work is already coded and only needs documentation"
+    ],
+    "example": "\"/write-the-spec add team billing\" \u2192 the agent first lists its assumptions, then asks clarifying questions before writing the spec file.",
+    "gate": { "asks": true, "what": "After saving the spec the agent must end its turn and get human approval before any planning or code." }
+  },
+  {
+    "name": "write-the-domain-glossary",
+    "phase": "Spec",
+    "summary": "Sharpens a project's domain model: challenges terms, records them in GLOSSARY.md, offers ADRs for hard-to-reverse decisions, and reviews the prose.",
+    "when": [
+      "Discussing or challenging codebase terminology",
+      "Writing or editing a GLOSSARY.md",
+      "Recording an architecture decision as an ADR",
+      "The user's term conflicts with the existing glossary definition",
+      "The user uses vague or overloaded terms that need one canonical term",
+      "Domain relationships need stress-testing with concrete scenarios"
+    ],
+    "notWhen": [
+      "Merely reading GLOSSARY.md to pick up vocabulary; that is a one-line habit, not this skill",
+      "The decision is easy to reverse, unsurprising without context, or involved no real trade-off: skip the ADR",
+      "You need to store specs, scratch notes, or implementation details; GLOSSARY.md must hold none of those"
+    ],
+    "example": "The user says \"account\" \u2192 the agent asks whether that means the Customer or the User, then writes the resolved term into GLOSSARY.md.",
+    "gate": { "asks": false, "what": "It calls out conflicts inline and only offers ADRs, with no approval gate on a destructive action." }
+  },
+  {
+    "name": "document-the-decision",
+    "phase": "Spec",
+    "summary": "Records the why behind decisions as ADRs, API docs, README and changelog, matching existing project convention before its own template.",
+    "when": [
+      "A significant architectural decision needs its rationale written",
+      "Choosing between competing approaches",
+      "Adding or changing a public API",
+      "Shipping a feature that changes user-facing behaviour",
+      "You keep explaining the same decision repeatedly"
+    ],
+    "notWhen": [
+      "Documenting obvious code or restating what the code already says",
+      "Throwaway prototypes",
+      "Leaving TODO comments or commented-out code instead of doing or deleting it"
+    ],
+    "example": "\"Document the decision to use PostgreSQL\" \u2192 the agent inspects the existing ADR convention, then writes context, alternatives and consequences.",
+    "gate": { "asks": false, "what": "Documentation-only; nothing destructive is gated." }
+  },
+  {
+    "name": "break-into-tasks",
+    "phase": "Plan",
+    "summary": "Decomposes an approved plan into thin vertical slices with demo lines and dependency order in M###-ROADMAP.md, or GitHub issues after confirmation.",
+    "when": [
+      "break this into slices",
+      "decompose the plan",
+      "vertical slices",
+      "break into issues",
+      "the roadmap's slices are too thick, too few or badly ordered"
+    ],
+    "notWhen": [
+      "Scope is not signed off yet; it runs only once M###-CONTEXT.md is stable",
+      "The deliverable is a document or a spike rather than working code, which it explicitly calls not-a-slice",
+      "You want GitHub issues filed automatically \u2014 that needs explicit confirmation every time"
+    ],
+    "example": "\"/break-into-tasks on the checkout milestone\" \u2192 the agent reads M###-CONTEXT.md and the codebase seams, drafts vertical slices with risk and depends, then asks about granularity.",
+    "gate": { "asks": true, "what": "Filing GitHub issues (outward, irreversible) needs explicit confirmation, and M###-ROADMAP.md is only written after the user approves the breakdown." }
+  },
+  {
+    "name": "review-the-plan",
+    "phase": "Plan",
+    "summary": "Adversarially reviews a plan or design as junior work, grounds findings in codebase and current sources, then writes a promoted rewrite.",
+    "when": [
+      "A plan is ready for sign-off",
+      "You want the assumptions attacked before they become code",
+      "A design needs a harder look than its author can give it",
+      "An agent-generated plan is fog (no interfaces) or tunnel (no product vision)",
+      "The plan's factual claims need checking against the actual repo"
+    ],
+    "notWhen": [
+      "The code is already written and only the diff needs reviewing \u2014 use review-my-code",
+      "No plan artifact exists yet \u2014 the skill says do not review thin air",
+      "A one-line fix or typo with no design decisions behind it",
+      "You need a product direction decided \u2014 the skill refuses to invent one"
+    ],
+    "example": "\"/review-the-plan on the caching plan I just wrote\" \u2192 the agent freezes the artifact, extracts 2-5 domains, then researches the codebase and current docs.",
+    "gate": { "asks": false, "what": "It produces a review plus rewrite and surfaces product decisions as open questions; it never applies the rewrite silently." }
+  },
+  {
+    "name": "design-the-interface",
+    "phase": "Plan",
+    "summary": "Produces several radically different interface designs, compares them on depth and seam placement, then synthesizes and records a recommendation.",
+    "when": [
+      "Asked to design an interface or shape an API",
+      "Planning a new deep module where the first idea is unlikely to be best",
+      "Exploring module boundaries and where the seam belongs",
+      "Choosing between competing interface shapes",
+      "Before writing implementation for a public API"
+    ],
+    "notWhen": [
+      "The work is implementation detail \u2014 file paths, call graphs, internal data structures (implementation creep)",
+      "You want a build-effort ranking; \"easiest to build\" is explicitly not an interface argument",
+      "Nothing actually varies across the seam \u2014 one adapter means a hypothetical seam"
+    ],
+    "example": "\"Design the interface for our repo storage layer\" \u2192 the agent drafts three genuinely different shapes, each with a usage example, before comparing.",
+    "gate": { "asks": false, "what": "Design-only; nothing destructive is gated." }
+  },
+  {
+    "name": "isolate-this-branch",
+    "phase": "Build",
+    "summary": "Creates an isolated git worktree through a native tool or git fallback, then installs dependencies and verifies a clean test baseline.",
+    "when": [
+      "Starting feature work that must be isolated from the current workspace",
+      "Before executing an implementation plan",
+      "You may already be in a worktree or submodule and need Step 0 detection",
+      "You need a verified clean test baseline before implementing"
+    ],
+    "notWhen": [
+      "You are already in a linked worktree \u2014 the skill says do not create another",
+      "The user declined worktree consent \u2014 work in place instead",
+      "You are inside a submodule \u2014 treat it as a normal repo, not a worktree",
+      "The sandbox denied git worktree add \u2014 fall back to working in the current directory"
+    ],
+    "example": "\"/isolate-this-branch start the auth refactor in a worktree\" \u2192 the agent runs Step 0 detection, asks consent, then creates the worktree.",
+    "gate": { "asks": false, "what": "It asks consent before creating a worktree and asks the human whether to proceed when baseline tests fail." }
+  },
+  {
+    "name": "build-it-test-first",
+    "phase": "Build",
+    "summary": "Drives changes with a red-green-refactor test loop and reproduces every bug in a failing test before fixing it.",
+    "when": [
+      "Implementing any new logic or behavior",
+      "A bug report arrives",
+      "Modifying existing functionality",
+      "Adding edge case handling",
+      "Asked to add tests to a function that has none"
+    ],
+    "notWhen": [
+      "Pure configuration changes",
+      "Documentation, static content or other updates with no behavioral impact \u2014 its own stated exclusions"
+    ],
+    "example": "\"Fix this bug: completedAt is never set\" \u2192 the agent writes a failing test that reproduces the missing timestamp, runs the repo's test command, then makes the minimal fix.",
+    "gate": { "asks": false, "what": "No approval gate; it writes the failing test, fixes, and runs the full suite autonomously." }
+  },
+  {
+    "name": "build-in-small-steps",
+    "phase": "Build",
+    "summary": "Implements a change in thin vertical slices, testing, verifying and committing each one before starting the next.",
+    "when": [
+      "Implementing any multi-file change",
+      "Building a new feature from a task breakdown",
+      "Refactoring existing code",
+      "You are about to write more than ~100 lines before testing",
+      "Picking up the next task from a plan"
+    ],
+    "notWhen": [
+      "A single-file, single-function change whose scope is already minimal \u2014 its own stated exclusion",
+      "There is no breakdown yet and the work still needs spec and slicing first"
+    ],
+    "example": "\"Let's implement Task 3 from the plan\" \u2192 the agent changes only the schema and API, runs the repo's tests and build, commits, and leaves the UI for the next increment.",
+    "gate": { "asks": false, "what": "It commits each slice without asking and only notes out-of-scope issues instead of fixing them." }
+  },
+  {
+    "name": "fix-this-bug",
+    "phase": "Build",
+    "summary": "Fixes a known bug at the narrowest layer responsible, with regression proof and no unrelated cleanup or refactoring.",
+    "when": [
+      "A specific defect is known and must not sprawl",
+      "The cause is not yet confirmed and needs tracing before any edit",
+      "A focused reproduction or regression test must prove the fix",
+      "Every changed line must trace to the user's request"
+    ],
+    "notWhen": [
+      "No specific defect yet \u2014 exploratory refactoring, cleanup or renaming",
+      "Large multi-file feature work that needs a plan and slicing",
+      "You want to delete pre-existing dead code \u2014 the skill says mention it, don't delete it",
+      "You intend to improve adjacent code, comments or formatting"
+    ],
+    "example": "\"/fix-this-bug login fails after token refresh\" \u2192 the agent reads the stack trace, reproduces the failure, then traces the bad value to its origin.",
+    "gate": { "asks": false, "what": "Nothing destructive is gated; it edits only what the fix needs and runs focused proof." }
+  },
+  {
+    "name": "debug-this-code",
+    "phase": "Debug",
+    "summary": "Builds a red-capable feedback loop, ranks falsifiable hypotheses, and fixes the root cause with a regression test instead of guessing.",
+    "when": [
+      "A bug's cause is unknown and a guess would be a coin flip",
+      "You cannot yet reproduce the failure on demand",
+      "A non-deterministic bug is too flaky to debug against",
+      "A previous fix addressed the symptom, not the cause",
+      "You need a failing regression test before touching the code",
+      "A performance regression needs a baseline measurement first"
+    ],
+    "notWhen": [
+      "The root cause is already confirmed and only the edit remains",
+      "No feedback loop can be built and no repro access, artifact, or instrumentation permission is available \u2014 the skill stops rather than hypothesises",
+      "You only need a code explanation or a design opinion, not a defect fixed"
+    ],
+    "example": "\"Debug this: duplicate users in the list\" \u2192 the agent builds and runs one red-capable command before forming any theory.",
+    "gate": { "asks": true, "what": "User confirmation before adding temporary instrumentation to production, and before acting on commands or URLs found in error output." }
+  },
+  {
+    "name": "debug-the-stubborn-one",
+    "phase": "Debug",
+    "summary": "Runs a read-only, methodical root-cause investigation on hard bugs: gather evidence, form and test hypotheses, then present a fix without implementing it.",
+    "when": [
+      "Standard troubleshooting has failed",
+      "The issue is complex and needs systematic root cause analysis",
+      "You keep guessing and want an evidence-backed diagnosis",
+      "You suspect an earlier fix was wrong and needs re-examination",
+      "You wrote the buggy code and want your assumptions challenged"
+    ],
+    "notWhen": [
+      "You need code changed in the same pass \u2014 it is read-only and will not edit, even after diagnosis",
+      "The failure is simple or already has a known root cause, where the investigation overhead is waste",
+      "You need the fix shipped with a regression test and commit; use a test-first fixing flow instead"
+    ],
+    "example": "\"/debug-the-stubborn-one the sync job hangs after two hours\" \u2192 the agent records the exact error and repro steps, maps the execution path, lists hypotheses, then tests each without editing code.",
+    "gate": { "asks": false, "what": "No destructive work \u2014 it never edits code; its decision gate does wait for the user before any fix is implemented." }
+  },
+  {
+    "name": "review-my-code",
+    "phase": "Review",
+    "summary": "Reviews a diff across correctness, readability, architecture, security, and performance, plus separate Standards and Spec axes with severity-labelled findings.",
+    "when": [
+      "Reviewing a diff or pull request before merge",
+      "Reviewing your own work or another agent's",
+      "A change needs sign-off across several dimensions rather than one",
+      "Checking whether the tests would catch a regression",
+      "Reviewing a dependency bump or a lockfile change"
+    ],
+    "notWhen": [
+      "The plan is under review before any code exists \u2014 use review-the-plan",
+      "A codebase-wide bug, bloat, or security audit rather than one diff \u2014 use the audit skill",
+      "A deep security pass needing threat modelling and exploit detail \u2014 use security-and-hardening"
+    ],
+    "example": "\"Review my branch against main\" \u2192 the agent pins the fixed point, confirms the diff is non-empty, then finds spec and standards files.",
+    "gate": { "asks": false, "what": "Nothing destructive is gated; it asks for the fixed point or the spec path when they are not given." }
+  },
+  {
+    "name": "check-my-security",
+    "phase": "Review",
+    "summary": "Runs a STRIDE and OWASP threat-model review of the code, then reports each finding with a concrete exploit, severity and remediation.",
+    "when": [
+      "Before shipping anything that touches auth, input handling, secrets or data storage",
+      "Review this for security",
+      "Is this login flow safe",
+      "We added file uploads, CORS or a new external integration",
+      "Check dependency and supply-chain risk via the native audit"
+    ],
+    "notWhen": [
+      "The change touches no auth, input handling, secrets or stored data, so there is no trust boundary to review",
+      "You want the whole repo audited for bugs, load and bloat rather than security alone",
+      "You want forced dependency remediation applied for you \u2014 it never runs npm audit fix --force automatically"
+    ],
+    "example": "\"/check-my-security on the new upload endpoint\" \u2192 the agent maps trust boundaries, walks STRIDE and the OWASP checklist over the actual code, then triages findings by severity x exploitability.",
+    "gate": { "asks": true, "what": "Adding auth flows, storing new PII, changing CORS, adding upload handlers, altering rate limits or granting roles needs human approval; findings stay private until the user agrees to file them." }
+  },
+  {
+    "name": "receive-code-review",
+    "phase": "Review",
+    "summary": "Handles incoming code review feedback with verification and technical pushback instead of performative agreement, clarifying unclear items before implementing.",
+    "when": [
+      "Review feedback has arrived and you are about to implement it",
+      "Some feedback items are unclear or seem technically questionable",
+      "An external reviewer made a suggestion you cannot easily verify",
+      "Multi-item feedback such as \"fix 1-6\"",
+      "A reviewer asks to \"implement properly\" something you suspect is unused"
+    ],
+    "notWhen": [
+      "You are the one writing the review \u2014 that is review-my-code",
+      "No feedback exists yet; this is new code with no reviewer",
+      "The request is a product or architecture direction that belongs to the human partner \u2014 the skill says stop and discuss, not implement"
+    ],
+    "example": "\"Reviewer says remove the legacy compat shim\" \u2192 the agent checks the codebase for real callers before editing anything.",
+    "gate": { "asks": true, "what": "It halts and asks before implementing anything when any feedback item is unclear or conflicts with the human partner's prior decisions." }
+  },
+  {
+    "name": "audit-the-whole-repo",
+    "phase": "Review",
+    "summary": "Audits a whole repo for bugs, security holes, load failures, untested risky code, slowness and bloat, then returns a ranked plain-English report without changing code.",
+    "when": [
+      "Audit this codebase",
+      "Review the whole repo",
+      "Find bloat",
+      "What can I delete",
+      "You inherited a repo and need to know what is wrong with it"
+    ],
+    "notWhen": [
+      "You want something changed: it is a one-shot report and changes no code",
+      "The scope is one diff or pull request, not a folder, package or repo",
+      "You need real load or profiling evidence; this only judges the expected load from the code and says which load it assumed"
+    ],
+    "example": "\"Audit this repo before I take it over\" \u2192 the agent reads README, build config, dependencies, entry points and tests, states the assumed load, then traces the main data flows.",
+    "gate": { "asks": false, "what": "Read-only: it greps whole-tree references, reads files and reports, but never edits or deletes code." }
+  },
+  {
+    "name": "prove-it-works",
+    "phase": "Verify",
+    "summary": "Blocks any claim that work is complete, fixed, or passing until a fresh verification command has been run and its output read.",
+    "when": [
+      "About to claim tests pass, a bug is fixed, or a build succeeds",
+      "About to commit, push, or open a PR",
+      "About to move to the next task",
+      "A subagent or agent reports success",
+      "You catch yourself writing \"should\", \"probably\", or \"seems to\""
+    ],
+    "notWhen": [
+      "No status claim is being made \u2014 a question, a read, or a design discussion",
+      "No verification command exists for the claim, so there is nothing fresh to run and the limitation must be stated instead",
+      "Relying on a partial check, a previous run, or a linter in place of the compiler"
+    ],
+    "example": "\"Is the fix done?\" \u2192 the agent runs the full test command, reads exit code and failure count, then answers.",
+    "gate": { "asks": false, "what": "It is a self-imposed evidence gate before claims; it asks no one for approval." }
+  },
+  {
+    "name": "test-every-surface",
+    "phase": "Verify",
+    "summary": "Report-only QA for API, CLI, job, worker and webhook surfaces: isolated fixtures, a contract map, retained evidence and a reproducible report. Never fixes bugs.",
+    "when": [
+      "Testing an HTTP API, CLI, job, worker or webhook rather than a browser UI",
+      "Coverage must include invalid input, auth, exit codes, timeouts, retries, idempotency or partial failure",
+      "On a feature branch without explicit scope, using diff-aware testing of changed and adjacent behavior",
+      "Replaying a prior functional report in regression mode",
+      "A reproducible evidence report is required, with findings separated from hypotheses"
+    ],
+    "notWhen": [
+      "Browser flows: the description routes those to check-my-ui",
+      "You want the bug fixed or product tests written; this run never edits product code, tests, config or tracked state",
+      "Production access, destruction or external mutation without permission naming the target, operation and effect",
+      "A browser target has no documented test framework; report the gap instead of installing anything"
+    ],
+    "example": "\"/test-every-surface the checkout API\" \u2192 the agent selects the functional surface, sets up isolated fixtures and announces target, tools and permitted writes.",
+    "gate": { "asks": true, "what": "Production access, destruction or external mutation needs explicit permission naming the target, operation and effect; unknown ownership blocks the probe." }
+  },
+  {
+    "name": "check-my-ui",
+    "phase": "Verify",
+    "summary": "Drives a real browser to open the page, click the flow, screenshot it and inspect DOM, console, network and performance.",
+    "when": [
+      "Building or debugging anything that runs in a browser",
+      "Before shipping a change with a visible surface",
+      "A UI bug needs reproducing in a real browser",
+      "Console errors or failed network requests need checking",
+      "Page load, layout shift or interaction performance needs measuring"
+    ],
+    "notWhen": [
+      "The problem lives in a CLI, job, worker, webhook or API with no browser surface",
+      "The behaviour is pure logic that a unit test covers faster",
+      "You need the source code changed: this is a see-and-verify pass, not an implementation skill"
+    ],
+    "example": "\"Check the checkout page after my CSS change\" \u2192 the agent opens it in its own tab, screenshots before and after, clicks the flow and inspects console, network and accessibility.",
+    "gate": { "asks": true, "what": "On a non-local site any mutating action (submit, create, delete, purchase, change settings) needs explicit consent once per run before the first one." }
+  },
+  {
+    "name": "make-it-accessible",
+    "phase": "Verify",
+    "summary": "Audits and fixes web accessibility to WCAG 2.1: alt text, contrast, keyboard paths, focus, labels, motion and ARIA.",
+    "when": [
+      "Running an a11y audit or WCAG 2.1 compliance pass",
+      "Keyboard navigation, focus order or visible focus problems",
+      "Screen-reader semantics, form labels or colour contrast are wrong",
+      "Before shipping any user-facing surface"
+    ],
+    "notWhen": [
+      "Non-web UI with no HTML/CSS or ARIA surface \u2014 the guidance targets web pages and components",
+      "Nothing user-facing changes, e.g. a backend-only edit",
+      "You only want an automated Lighthouse/axe score \u2014 the skill still requires manual keyboard, screen-reader, zoom and reduced-motion checks",
+      "Reference-led design where you plan to copy another product's branding, text, imagery or exact layout \u2014 the skill forbids it"
+    ],
+    "example": "\"/make-it-accessible audit the signup form for WCAG 2.1\" \u2192 the agent checks labels, alt text, contrast, keyboard path and focus order first.",
+    "gate": { "asks": false, "what": "Nothing destructive or irreversible; it edits markup, CSS and JS without an approval gate." }
+  },
+  {
+    "name": "finish-the-experience",
+    "phase": "Finish",
+    "summary": "Finds and finishes the experiential last 20%: the magic moment, page shapes, empty states and defaults, before a build is called done.",
+    "when": [
+      "Planning a build so the magic is specced as concretely as the plumbing",
+      "The solution works but feels like a demo",
+      "User says last 20%, finish this, make it actually good, is this done",
+      "The output reads like filler, or the first run feels dead",
+      "Before declaring any build done"
+    ],
+    "notWhen": [
+      "Adding features \u2014 the last 20% is depth on the core scene, never breadth",
+      "Rewriting working infrastructure to be prettier inside (gold-plating the plumbing)",
+      "The walk already delivers the magic moment \u2014 a solution is allowed to pass"
+    ],
+    "example": "\"Is this wiki actually done?\" \u2192 the agent writes the magic-moment scene and scene list, then walks the wiki cold as a first-time user.",
+    "gate": { "asks": false, "what": "Nothing destructive is gated." }
+  },
+  {
+    "name": "polish-the-ui",
+    "phase": "Finish",
+    "summary": "Builds and polishes accessible, responsive UI: component structure, state, design tokens, typography, colour, motion, and WCAG 2.1 AA checks before delivery.",
+    "when": [
+      "Building new UI components or pages",
+      "Modifying existing user-facing interfaces",
+      "Implementing responsive layouts",
+      "Adding interactivity or state management",
+      "Fixing visual or UX issues",
+      "The output must not look AI-generated"
+    ],
+    "notWhen": [
+      "No rendered surface at all \u2014 backend, API, CLI, or data-layer work",
+      "Copying another product's branding, proprietary text, imagery, or exact layout \u2014 the skill forbids it",
+      "Colour, spacing, or type decisions already fixed by a DESIGN.md token spec you were told to follow verbatim"
+    ],
+    "example": "\"/polish-the-ui the settings page looks AI-generated\" \u2192 the agent first collects 2-3 reference screens and writes a short design contract.",
+    "gate": { "asks": false, "what": "It edits UI code and defers to an existing DESIGN.md; nothing destructive or irreversible." }
+  },
+  {
+    "name": "make-it-fast",
+    "phase": "Finish",
+    "summary": "Measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression.",
+    "when": [
+      "Performance requirements exist: load-time budgets or response-time SLAs",
+      "Users or monitoring report slow behavior",
+      "Core Web Vitals are below thresholds",
+      "You suspect a change introduced a performance regression",
+      "N+1 queries or index problems show up in the query log"
+    ],
+    "notWhen": [
+      "There is no evidence of a problem yet \u2014 premature optimization adds complexity for nothing",
+      "The re-measured gain sits inside run-to-run noise \u2014 that is a revert, not a keep",
+      "The win requires changing, skipping or deleting a test to land",
+      "You plan to raise the connection pool without finding what holds connections"
+    ],
+    "example": "\"/make-it-fast checkout LCP is 4.2s\" \u2192 the agent captures a Lighthouse baseline, profiles the waterfall, and fixes only the largest bottleneck.",
+    "gate": { "asks": false, "what": "Nothing destructive or irreversible; it profiles, edits, and reverts unproven changes itself." }
+  },
+  {
+    "name": "make-it-observable",
+    "phase": "Finish",
+    "summary": "Instruments production code with structured logs, RED/USE metrics, OpenTelemetry traces and symptom-based alerts so incidents can be diagnosed from telemetry.",
+    "when": [
+      "Building any feature that will run in production",
+      "Adding a new service, endpoint, background job, or external integration",
+      "A production incident took too long to diagnose",
+      "Setting up or reviewing alerting rules",
+      "Reviewing a PR that adds I/O, retries, queues, or cross-service calls"
+    ],
+    "notWhen": [
+      "Diagnosing a failure happening right now \u2014 use debugging-and-error-recovery instead",
+      "Profiling and optimizing measured slowness \u2014 use performance-optimization instead",
+      "Launch-day monitoring checklists and rollback triggers \u2014 that is shipping-and-launch",
+      "You cannot name 2-4 on-call questions the telemetry must answer, so you would just log everything"
+    ],
+    "example": "\"/make-it-observable, we're shipping the payment retry\" \u2192 the agent first writes the 2-4 questions on-call will ask.",
+    "gate": { "asks": false, "what": "Instrumentation only. It halts if you cannot name the on-call questions, but that is a readiness bar, not an approval." }
+  },
+  {
+    "name": "simplify-this-code",
+    "phase": "Meta",
+    "summary": "Simplifies code for clarity without changing behavior, one tested change at a time, following project conventions and scoping to recently modified code.",
+    "when": [
+      "Refactoring for readability without changing behavior",
+      "Code works but is harder to maintain than it should be",
+      "Reviewing code that accumulated unnecessary complexity",
+      "A proposed simplification would only move the difficulty somewhere else",
+      "Deep nesting, long functions, nested ternaries, generic names or duplicated logic need cleanup",
+      "You are about to simplify code whose original purpose you do not yet understand"
+    ],
+    "notWhen": [
+      "You are also adding a feature or fixing a bug in the same change; refactors must be separate PRs",
+      "The simplification requires modifying tests to pass, which means behavior changed",
+      "The code is outside the scope of the current task and you were not asked to broaden scope",
+      "You cannot answer what the code is responsible for, what calls it, or why it exists (Chesterton's Fence)"
+    ],
+    "example": "\"Simplify this function\" \u2192 the agent checks git blame, callers and the defining tests, then makes one change and runs the suite.",
+    "gate": { "asks": false, "what": "No destructive action is gated; it reverts a change when tests fail rather than asking for approval." }
+  },
+  {
+    "name": "write-the-docs",
+    "phase": "Docs",
+    "summary": "Authors documentation a cold reader can act on: gather context, agree the outline before prose, reader-test, then link it from an entry point.",
+    "when": [
+      "The user asks to write or rewrite a piece of documentation",
+      "Drafting a proposal, technical spec, decision record, RFC, README section, or PR description",
+      "Before shipping a feature that adds user-facing behavior and needs doc updates",
+      "A document must be understandable without this session's context",
+      "Writing anything that lives under docs/, mintlify-docs/, or gitbook/"
+    ],
+    "notWhen": [
+      "GSD template-scaffolded artifacts (M###-CONTEXT.md, S##-SUMMARY.md, DECISIONS.md, KNOWLEDGE.md), which are out of scope by design",
+      "Producing a spec that drives implementation, which needs the spec gates",
+      "A quick summary of what was done in this conversation rather than a document for a reader"
+    ],
+    "example": "\"/write-the-docs document the auth flow for new contributors\" \u2192 the agent first names the reader and the single action they must be able to take.",
+    "gate": { "asks": false, "what": "It shows the outline to the user and offers a cold-reader subagent, but gates no destructive action." }
+  },
+  {
+    "name": "deslop-the-writing",
+    "phase": "Docs",
+    "summary": "Scans text for AI-writing fingerprints, rewrites by meaning, re-scans until clean, then checks the register fits its genre.",
+    "when": [
+      "User says deslop, deslopify, or remove the AI tells",
+      "Draft has \"not X but Y\" contrasts, em-dash density, or rule-of-three lists",
+      "Text reads uniformly cadenced, puffery-laden, or hedged both ways",
+      "Before publishing any agent-drafted prose",
+      "The text must fit a genre: academic, tweet, reddit, email, blog, docs, marketing"
+    ],
+    "notWhen": [
+      "Facts or claims are wrong \u2014 this is a style pass; flag, do not silently fix",
+      "You want manufactured voice: fake typos, forced slang, humanizer-tool output",
+      "Precision-critical academic or technical text where adding attitude makes it worse"
+    ],
+    "example": "\"Deslopify this blog post\" \u2192 the agent confirms genre and the claim, runs the tell scan, and reports a findings table before rewriting.",
+    "gate": { "asks": false, "what": "Style pass only; nothing destructive is gated." }
+  },
+  {
+    "name": "ship-it",
+    "phase": "Ship",
+    "summary": "Verifies tests, detects the git environment and base branch, offers merge, pull request or keep, then commits, pushes and cleans up.",
+    "when": [
+      "Implementation is complete and the full test suite passes",
+      "You need to decide between merging locally and opening a pull request",
+      "The branch lives in a worktree and cleanup rules must be applied",
+      "On a detached HEAD and need the reduced push-as-new-branch menu",
+      "You want the base branch confirmed before merging",
+      "Pre-commit hygiene: staged-diff check, secrets grep, tests, lint, typecheck"
+    ],
+    "notWhen": [
+      "Tests are failing: the skill reports the failures and stops, it does not fix them",
+      "You want to discard the work: that path exists only on an explicit human request, never as a menu option",
+      "The push was rejected: investigate; force-push only on explicit request",
+      "A worktree holds uncommitted files only it has: removal is refused, never force it on your own initiative"
+    ],
+    "example": "\"/ship-it\" \u2192 the agent runs the full suite, detects the git environment and base branch, then presents the merge/PR/keep menu.",
+    "gate": { "asks": true, "what": "It waits for the human's menu choice before merging or pushing, and permanent deletion of a branch and worktree needs the human to type \"discard\"." }
+  },
+  {
+    "name": "guard-the-dangerous-stuff",
+    "phase": "Ship",
+    "summary": "Hand-applied checklist before destructive commands: recursive deletes, DROP/TRUNCATE, force-push, reset --hard, kubectl delete, docker prune, and PowerShell equivalents.",
+    "when": [
+      "Before rm -rf, DROP TABLE/DATABASE, TRUNCATE, force-push or git reset --hard",
+      "Before any command that can destroy data, uncommitted work or production state",
+      "Before kubectl delete, docker rm -f or docker system prune",
+      "Before PowerShell/cmd equivalents: ri -r -fo, rd /s, Clear-Disk, irm | iex",
+      "Before the destructive contract step of a migration"
+    ],
+    "notWhen": [
+      "Deleting node_modules, dist, .next, __pycache__, build, coverage or .turbo \u2014 listed as safe exceptions",
+      "Read-only inspection, builds or ordinary test runs",
+      "You expect an automatic intercept \u2014 the upstream hook is not installed, this is a written procedure only",
+      "Deciding whether to deprecate a system at all \u2014 that is a product call, answered by the deprecation questions"
+    ],
+    "example": "\"/guard-the-dangerous-stuff I'm about to git push --force\" \u2192 the agent checks the pattern table, confirms it targets a non-default branch, and asks for separate authorization.",
+    "gate": { "asks": true, "what": "Destructive steps must be made explicit and separately authorized (recursive delete, DROP/TRUNCATE, force-push, reset --hard, kubectl delete, docker prune); HIGH-tier shapes are hard-denied." }
+  },
+  {
+    "name": "write-a-new-skill",
+    "phase": "Meta",
+    "summary": "Writes and refines SKILL.md files: frontmatter, context pointers, information hierarchy and progressive disclosure, leading words, pruning, plus TDD pressure-testing of skill wording.",
+    "when": [
+      "Authoring a new skill",
+      "Improving an existing skill",
+      "A skill keeps being ignored or misapplied",
+      "A skill description or pointer does not reliably trigger when its material is needed",
+      "A skill document is sprawling and needs reference pushed behind pointers",
+      "Closing the rationalizations found when agents run the skill"
+    ],
+    "notWhen": [
+      "Writing human-facing prose docs, READMEs, RFCs or proposals: that is a document for a fresh reader, not an agent-consumed skill",
+      "Writing a spec or plan before code",
+      "You only need to find and invoke an existing skill"
+    ],
+    "example": "\"/write-a-new-skill I want a skill that stops agents skipping tests\" \u2192 the agent first runs the pressure scenario without the skill and records the baseline.",
+    "gate": { "asks": false, "what": "It requires baseline and post-skill test runs, but no human approval gate." }
+  },
+  {
+    "name": "set-the-quality-bar",
+    "phase": "Meta",
+    "summary": "Turns a project's quality bar into a written CONSTRAINTS.md with numbers and tools, then guards the diff against quietly weakened checks.",
+    "when": [
+      "Starting a project or feature and no quality bar is written down",
+      "The user says \"set up constraints\", \"define our standards\" or \"add quality gates\"",
+      "An agent is producing volume nobody reads line by line",
+      "CI has checks but nobody knows which ones block a merge",
+      "Coverage, performance or accessibility numbers get re-argued per PR",
+      "About to run an autonomous loop where only the agent-written test suite stands before main"
+    ],
+    "notWhen": [
+      "The project already has CONSTRAINTS.md and the user is not changing it; read and follow it instead",
+      "One-off scripts, spikes or throwaway prototypes",
+      "The user wants a code review now (code-review-and-quality) or a CI pipeline built (ci-cd-and-automation)",
+      "Non-interactive contexts such as CI, /loop or autonomous runs: the interview needs a live user"
+    ],
+    "example": "\"Set up quality gates for this repo\" \u2192 the agent reads package.json, lint and CI config, reports what it found in two lines, then asks Q1.",
+    "gate": { "asks": false, "what": "Nothing destructive is gated; it does stop for a four-question interview with a live user." }
+  },
+  {
+    "name": "split-across-agents",
+    "phase": "Meta",
+    "summary": "Runs independent tasks in parallel subagents with focused, self-contained prompts, then reviews, integrates and runs the full suite on what returns.",
+    "when": [
+      "3+ test files fail with different root causes",
+      "Multiple subsystems are broken independently",
+      "Each problem can be understood without context from the others",
+      "No shared state between investigations",
+      "A large job can be dispatched instead of done inline",
+      "Each dispatched agent can get one scope, one goal, constraints and an expected output"
+    ],
+    "notWhen": [
+      "Failures are related, so fixing one might fix others; investigate together first",
+      "Understanding the problem requires seeing the full system state",
+      "Exploratory debugging where you do not yet know what is broken",
+      "Agents would interfere by editing the same files or using the same resources"
+    ],
+    "example": "\"/split-across-agents\" \u2192 the agent groups the failures into independent domains and dispatches one focused subagent per domain in one response.",
+    "gate": { "asks": false, "what": "No destructive action is gated; returned work goes through a review-and-integrate gate instead." }
+  },
+  {
+    "name": "hand-off-to-next-session",
+    "phase": "Meta",
+    "summary": "Writes a tight continue.md in the active slice and refreshes STATE.md and summaries so a fresh session resumes in one minute.",
+    "when": [
+      "User says pause, hand off, bookmark this, or I'll come back later",
+      "Context budget is running low mid-task",
+      "Before a risky operation such as a dependency upgrade or major refactor",
+      "End of a long multi-day session with unfinished work"
+    ],
+    "notWhen": [
+      "The work is finished \u2014 a slice summary is the artifact, not a handoff",
+      "You want a chat recap of the journey \u2014 the next agent doesn't need it",
+      "Nothing is in flight and no concrete next action exists"
+    ],
+    "example": "\"/hand-off-to-next-session I'm out of context\" \u2192 the agent writes the last action, one concrete next action, and what not to do into continue.md.",
+    "gate": { "asks": false, "what": "It updates summaries, cancels or waits for background jobs, and stops cleanly without an approval gate." }
+  },
+  {
+    "name": "watch-my-context",
+    "phase": "Meta",
+    "summary": "Installs a per-turn canary line (name, turn counter, self-check) so context degradation shows immediately, and runs a checkpoint-and-re-anchor recovery protocol when it trips.",
+    "when": [
+      "Starting a long or high-stakes session and wanting an early-warning signal",
+      "The user mentions a canary, context canary, or canary check",
+      "The user notices the canary stopped appearing and asks what happened",
+      "The agent can no longer find the canary contract in its own context",
+      "The user asks how trustworthy the current context still is"
+    ],
+    "notWhen": [
+      "You want a check that survives compaction across all sessions: a standing canary in CLAUDE.md or agent memory measures only file-based instruction attention, a weaker signal",
+      "You want structural assurance that harder constraints (architecture decisions, never-touch rules) still hold; a present canary is only weak evidence of health",
+      "You expect a positive canary to prove context is fine; the test is one-sided and only a missing canary is strong evidence"
+    ],
+    "example": "\"/watch-my-context\" \u2192 the agent states the contract \"Julius \u00b7 t1 \u00b7 ctx ok\" and prefixes every later reply with it.",
+    "gate": { "asks": false, "what": "It recommends a fresh session and asks the user's name if unknown, but gates no destructive action." }
+  }
+]

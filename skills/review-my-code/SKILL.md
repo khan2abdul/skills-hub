@@ -1,6 +1,6 @@
 ---
 name: review-my-code
-description: Multi-axis code review before merging: correctness, readability and simplicity, architecture, security, and performance, plus a two-axis gate for repo standards and spec conformance. Use when reviewing a diff or pull request, your own work or another agent's, or when a change needs sign-off across several dimensions rather than one.
+description: "Multi-axis code review before merging: correctness, readability and simplicity, architecture, security, and performance, plus a two-axis gate for repo standards and spec conformance. Use when reviewing a diff or pull request, your own work or another agent's, or when a change needs sign-off across several dimensions rather than one."
 ---
 
 # Review My Code

@@ -1,6 +1,6 @@
 ---
 name: write-the-docs
-description: Author a document a stranger can act on: proposal, technical spec, decision record, RFC, README section, or long-form prose. Use when asked to write the docs, draft a proposal or RFC, write the README, or when a document must be understandable without this session's context. Three stages - gather context, iterate on structure, reader-test - plus the verification pass and red flags that catch a document which is clear only to its author.
+description: "Author a document a stranger can act on: proposal, technical spec, decision record, RFC, README section, or long-form prose. Use when asked to write the docs, draft a proposal or RFC, write the README, or when a document must be understandable without this session's context. Three stages - gather context, iterate on structure, reader-test - plus the verification pass and red flags that catch a document which is clear only to its author."
 ---
 
 # Write The Docs

@@ -1,6 +1,6 @@
 ---
 name: guard-the-dangerous-stuff
-description: Safety guardrails before running a destructive command: recursive deletes, DROP/TRUNCATE, force-push, git reset --hard, kubectl delete, docker prune, and the PowerShell/cmd equivalents. Use before any command that can destroy data, uncommitted work, or production state. Apply the checklist by hand - the upstream hook it shipped with is not installed here, so this is a written procedure, not an automatic intercept.
+description: "Safety guardrails before running a destructive command: recursive deletes, DROP/TRUNCATE, force-push, git reset --hard, kubectl delete, docker prune, and the PowerShell/cmd equivalents. Use before any command that can destroy data, uncommitted work, or production state. Apply the checklist by hand - the upstream hook it shipped with is not installed here, so this is a written procedure, not an automatic intercept."
 ---
 
 # Guard The Dangerous Stuff

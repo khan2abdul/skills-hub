@@ -1,6 +1,6 @@
 ---
 name: split-across-agents
-description: Run independent tasks in parallel across subagents, then verify what comes back. Use when facing two or more tasks that need no shared state and no sequential dependency, when work can fan out, or when a large job can be dispatched instead of done inline. Includes the review gate that makes delegation safe: what a delegate's report must contain before you accept it.
+description: "Run independent tasks in parallel across subagents, then verify what comes back. Use when facing two or more tasks that need no shared state and no sequential dependency, when work can fan out, or when a large job can be dispatched instead of done inline. Includes the review gate that makes delegation safe: what a delegate's report must contain before you accept it."
 ---
 
 # Split Across Agents

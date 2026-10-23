@@ -1,6 +1,6 @@
 ---
 name: ship-it
-description: Take finished work to the remote: verify the tests pass, detect the environment and base branch, choose between merging locally and opening a pull request, then commit, push and clean up. Use when implementation is complete and tests pass and you need to decide how to integrate the work.
+description: "Take finished work to the remote: verify the tests pass, detect the environment and base branch, choose between merging locally and opening a pull request, then commit, push and clean up. Use when implementation is complete and tests pass and you need to decide how to integrate the work."
 ---
 
 # Ship It

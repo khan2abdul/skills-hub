@@ -1,6 +1,6 @@
 ---
 name: simplify-this-code
-description: Simplify code for clarity without changing behavior: understand before touching, find the real complexity, apply changes incrementally, and keep the surrounding behavior and tests intact while you do it. Use when refactoring for readability, when code works but is harder to maintain than it should be, when reviewing code that accumulated unnecessary complexity, or when a proposed simplification would only move the difficulty somewhere else.
+description: "Simplify code for clarity without changing behavior: understand before touching, find the real complexity, apply changes incrementally, and keep the surrounding behavior and tests intact while you do it. Use when refactoring for readability, when code works but is harder to maintain than it should be, when reviewing code that accumulated unnecessary complexity, or when a proposed simplification would only move the difficulty somewhere else."
 ---
 
 # Simplify This Code

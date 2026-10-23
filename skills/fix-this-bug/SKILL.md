@@ -1,6 +1,6 @@
 ---
 name: fix-this-bug
-description: Fix a bug or small behavior change at the narrowest responsible layer, with regression proof and preserved surrounding behavior. Use when a specific defect is known and the fix must not sprawl: find the root cause before editing, match the existing style, touch only what the fix needs, keep every changed line traceable to the request, and stop when the focused proof passes.
+description: "Fix a bug or small behavior change at the narrowest responsible layer, with regression proof and preserved surrounding behavior. Use when a specific defect is known and the fix must not sprawl: find the root cause before editing, match the existing style, touch only what the fix needs, keep every changed line traceable to the request, and stop when the focused proof passes."
 ---
 
 # Fix This Bug

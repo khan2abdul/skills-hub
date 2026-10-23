@@ -1,6 +1,6 @@
 ---
 name: trim-my-output
-description: Answer in terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, 'caveman mode', 'talk like caveman', 'be brief', 'less tokens'. Stays on until 'stop caveman' or 'normal mode'. Carries an explicit list of what may be cut and what must survive verbatim, so brevity does not silently drop a fact.
+description: "Answer in terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, 'caveman mode', 'talk like caveman', 'be brief', 'less tokens'. Stays on until 'stop caveman' or 'normal mode'. Carries an explicit list of what may be cut and what must survive verbatim, so brevity does not silently drop a fact."
 ---
 
 # Trim My Output

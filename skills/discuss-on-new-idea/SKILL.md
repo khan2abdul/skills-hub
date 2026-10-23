@@ -1,6 +1,6 @@
 ---
 name: discuss-on-new-idea
-description: Refine a raw idea into a sharp, actionable concept: diverge for options, stress-test the assumptions, then converge on one. Use when an idea is still vague, when you need to expand options before committing, when you want assumptions attacked before they become a plan, or on 'ideate', 'refine this idea', 'stress-test my plan'. Includes the readiness gates an idea must pass before it is worth planning.
+description: "Refine a raw idea into a sharp, actionable concept: diverge for options, stress-test the assumptions, then converge on one. Use when an idea is still vague, when you need to expand options before committing, when you want assumptions attacked before they become a plan, or on 'ideate', 'refine this idea', 'stress-test my plan'. Includes the readiness gates an idea must pass before it is worth planning."
 ---
 
 # Discuss On New Idea

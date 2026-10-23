@@ -1,6 +1,6 @@
 ---
 name: check-my-ui
-description: Drive a real browser to verify a UI: open the page, read it, click through the flow, take screenshots, and inspect DOM, console errors, network requests and performance. Use when building or debugging anything that runs in a browser, or before shipping any change with a visible surface.
+description: "Drive a real browser to verify a UI: open the page, read it, click through the flow, take screenshots, and inspect DOM, console errors, network requests and performance. Use when building or debugging anything that runs in a browser, or before shipping any change with a visible surface."
 ---
 
 # Check My UI

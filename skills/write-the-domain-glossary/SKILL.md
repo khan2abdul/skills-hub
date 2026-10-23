@@ -1,6 +1,6 @@
 ---
 name: write-the-domain-glossary
-description: Build and sharpen a project's domain model: challenge the terms, record them in GLOSSARY.md, and write the decisions behind them as ADRs - then review the prose and check the result against a completion gate before it becomes the vocabulary everyone else has to live with. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording an architecture decision.
+description: "Build and sharpen a project's domain model: challenge the terms, record them in GLOSSARY.md, and write the decisions behind them as ADRs - then review the prose and check the result against a completion gate before it becomes the vocabulary everyone else has to live with. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording an architecture decision."
 ---
 
 # Write The Domain Glossary

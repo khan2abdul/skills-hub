@@ -1,6 +1,6 @@
 ---
 name: make-it-accessible
-description: Audit and improve web accessibility to WCAG 2.1: keyboard paths, screen-reader semantics, focus order and visible focus, contrast, form labelling, and motion. Use for an a11y audit, a WCAG compliance pass, screen-reader or keyboard-navigation problems, or before shipping any user-facing surface. Includes the evidence-and-contract check that confirms the fix landed instead of assuming it did.
+description: "Audit and improve web accessibility to WCAG 2.1: keyboard paths, screen-reader semantics, focus order and visible focus, contrast, form labelling, and motion. Use for an a11y audit, a WCAG compliance pass, screen-reader or keyboard-navigation problems, or before shipping any user-facing surface. Includes the evidence-and-contract check that confirms the fix landed instead of assuming it did."
 ---
 
 # Make It Accessible

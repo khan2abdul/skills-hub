@@ -1,0 +1,394 @@
+<#
+.SYNOPSIS
+  Build SKILLS.html - one page describing every shipped skill.
+.DESCRIPTION
+  Reads tools/skill-page-data.json (hand-derived guidance) plus RATING.json
+  (scores) and emits a single self-contained HTML file. No dependencies, no
+  network, no build step beyond running this.
+.NOTES
+  The guidance text lives in skill-page-data.json, not here, so re-running after
+  a skill changes means editing the JSON, not this script.
+#>
+[CmdletBinding()]
+param(
+  [string]$HubRoot,
+  [string]$OutFile = 'SKILLS.html'
+)
+
+$ErrorActionPreference = 'Stop'
+
+# $PSScriptRoot is empty inside a param block, so resolve it here.
+$scriptDir = $PSScriptRoot
+if (-not $scriptDir) { $scriptDir = Split-Path $MyInvocation.MyCommand.Path -Parent }
+if (-not $HubRoot) { $HubRoot = Split-Path $scriptDir -Parent }
+
+$dataPath = Join-Path $scriptDir 'skill-page-data.json'
+if (-not (Test-Path $dataPath)) { throw "missing $dataPath" }
+
+# PS 5.1's ConvertFrom-Json already yields Object[]; wrapping it in @() would
+# nest the whole array as one element.
+$data = Get-Content $dataPath -Raw | ConvertFrom-Json
+if ($data -isnot [array]) { $data = @($data) }
+$ratings = @{}
+$ratingPath = Join-Path $HubRoot 'RATING.json'
+if (Test-Path $ratingPath) {
+  foreach ($s in (Get-Content $ratingPath -Raw | ConvertFrom-Json).skills) { $ratings[$s.name] = $s }
+}
+
+function Esc([string]$s) {
+  if ($null -eq $s) { return '' }
+  return $s.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;')
+}
+
+# Phases in the order a piece of work actually moves through them.
+$phaseOrder = @('Always on', 'Understand', 'Research', 'Spec', 'Plan', 'Build',
+                'Debug', 'Review', 'Verify', 'Finish', 'Docs', 'Ship', 'Meta')
+$phaseBlurb = @{
+  'Always on' = 'Apply on every task, not at one point in the pipeline.'
+  'Understand' = 'Turn a vague ask into a shared, explicit intent.'
+  'Research'  = 'Get the facts from primary sources before deciding anything.'
+  'Spec'      = 'Write down what will be built and why, before code exists.'
+  'Plan'      = 'Cut the work into slices and stress the plan while it is still cheap.'
+  'Build'     = 'Write the code, in tested increments.'
+  'Debug'     = 'Find the real cause instead of guessing at a symptom.'
+  'Review'    = 'Judge a change before it merges.'
+  'Verify'    = 'Produce evidence that it actually works.'
+  'Finish'    = 'Close the gap between working and good.'
+  'Docs'      = 'Write prose a stranger can act on.'
+  'Ship'      = 'Take it to the remote, or stop something destructive.'
+  'Meta'      = 'Change how the session itself runs.'
+}
+
+$sb = [System.Text.StringBuilder]::new()
+function Add([string]$s) { [void]$sb.AppendLine($s) }
+
+Add @'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>skills-hub &mdash; all 41 skills</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#fff; --ink:#1c1b19; --muted:#6b6862; --line:#e3ded6;
+  --accent:#8a5a2b; --accent-soft:#f3ece1; --ok:#2f6b3f; --ok-soft:#e8f2ea;
+  --stop:#8c3a2b; --stop-soft:#f8ebe7; --code:#f4f1ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16150f; --panel:#1e1d17; --ink:#ece7db; --muted:#a5a094; --line:#33312a;
+    --accent:#d9a15f; --accent-soft:#2a2419; --ok:#7cc08f; --ok-soft:#1c2b20;
+    --stop:#e09079; --stop-soft:#2e1f1a; --code:#26241d;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.6 ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+header.top{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}
+.sub{color:var(--muted);max-width:70ch;margin:0}
+.stat{display:flex;gap:28px;flex-wrap:wrap;margin:22px 0 0;padding:0;list-style:none}
+.stat li{font-size:.9rem;color:var(--muted)}
+.stat b{display:block;font-size:1.5rem;color:var(--ink);font-weight:650;line-height:1.2}
+
+/* approval explainer */
+.note{
+  margin:30px 0 0;padding:18px 20px;border:1px solid var(--line);border-left:3px solid var(--accent);
+  background:var(--panel);border-radius:0 8px 8px 0;
+}
+.note h2{font-size:.95rem;margin:0 0 8px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.note p{margin:0 0 8px;font-size:.92rem;color:var(--muted)}
+.note p:last-child{margin:0}
+.note strong{color:var(--ink)}
+
+/* controls */
+.controls{
+  position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 0;margin-top:0;
+}
+.controls .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.search{position:relative;flex:1 1 260px;min-width:200px}
+.search label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.search input{
+  width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:7px;
+  background:var(--panel);color:var(--ink);font:inherit;font-size:.92rem;
+}
+.search input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.chip{
+  padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+  color:var(--muted);font:inherit;font-size:.84rem;cursor:pointer;
+}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:600}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-size:.84rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+/* phase blocks */
+main{padding:8px 0 80px}
+.phase{margin-top:44px;scroll-margin-top:70px}
+.phase > h2{
+  font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+  margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:10px;
+}
+.phase > h2 span{font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:400}
+.phase > p.blurb{margin:10px 0 0;color:var(--muted);font-size:.9rem;max-width:75ch}
+
+/* cards */
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:20px 22px;margin-top:16px;scroll-margin-top:70px;
+}
+.card:target{outline:2px solid var(--accent);outline-offset:2px}
+.card h3{
+  margin:0;font-size:1.18rem;letter-spacing:-.01em;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.card .head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.badge{
+  font-size:.72rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);
+  color:var(--muted);white-space:nowrap;font-weight:600;
+}
+.badge.auto{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.badge.gate{background:var(--stop-soft);border-color:transparent;color:var(--stop)}
+.score{margin-left:auto;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.summary{margin:0 0 16px;font-size:.96rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.cols h4{
+  margin:0 0 6px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);font-weight:650;
+}
+.cols ul{margin:0;padding-left:18px}
+.cols li{font-size:.9rem;margin-bottom:5px}
+.cols.neg h4{color:var(--stop)}
+.cols > div{min-width:0}
+.ex{margin:20px 0 0}
+.ex h4{margin:0 0 6px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:650}
+.ex p{
+  margin:0;padding:10px 13px;background:var(--code);border-radius:7px;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.85rem;
+  border:1px solid var(--line);white-space:pre-wrap;word-break:break-word;
+}
+.gateline{
+  margin:12px 0 0;padding-top:11px;border-top:1px dashed var(--line);
+  font-size:.85rem;color:var(--muted);
+}
+.gateline b{color:var(--stop);font-weight:650}
+.gateline b.no{color:var(--ok)}
+.hidden{display:none!important}
+
+footer{border-top:1px solid var(--line);padding:34px 0 70px;color:var(--muted);font-size:.88rem}
+footer h2{font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+footer ul{padding-left:18px;margin:0 0 22px}
+footer li{margin-bottom:6px;max-width:85ch}
+footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.85em}
+.empty{padding:60px 0;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>All 41 skills</h1>
+    <p class="sub">
+      Every skill shipped by <code>skills-hub</code>, what each one is for, when it is
+      the wrong tool, how to invoke it, and whether the agent may reach for it on its own.
+    </p>
+    <ul class="stat">
+'@
+
+$gateCount = @($data | Where-Object { $_.gate.asks }).Count
+Add "      <li><b>$($data.Count)</b> skills</li>"
+Add "      <li><b>$gateCount</b> stop and ask first</li>"
+Add "      <li><b>$($data.Count - $gateCount)</b> never interrupt</li>"
+Add "      <li><b>$($data.Count)</b> model-invocable</li>"
+Add "      <li><b>$((@($data.phase | Sort-Object -Unique)).Count)</b> phases</li>"
+Add @'
+    </ul>
+
+    <div class="note">
+      <h2>How &ldquo;auto-approved&rdquo; actually works</h2>
+      <p>
+        <strong>A skill has no approval flag of its own.</strong> dsh decides approval from the
+        session permission preset, not from the skill: <code>read-only</code> asks before every write,
+        <code>workspace-write</code> asks before writes outside the workspace, and
+        <code>danger-full-access</code> never asks. This profile runs
+        <code>danger-full-access</code> with <code>approval: never</code>, so
+        <strong>no skill triggers a permission prompt here</strong>.
+      </p>
+      <p>
+        What a skill <em>can</em> do is carry its own written gate: a step that tells the agent to
+        stop and get your consent before a destructive or irreversible act. Those are marked
+        <span class="badge gate">stop and ask</span> below, and it is the only per-skill
+        approval signal that exists. Everything else is the preset's call.
+      </p>
+      <p>
+        All 41 are <span class="badge auto">auto-invocable</span>: no skill sets
+        <code>disable-model-invocation</code>, so the agent may load any of them without being told to.
+        You can also call any one by name, e.g. <code>/ship-it</code>.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="search">
+      <label for="q">Filter skills</label>
+      <input id="q" type="search" placeholder="Filter by name, use case, or keyword&hellip;" autocomplete="off">
+    </div>
+    <button class="chip" id="onlyGate" aria-pressed="false">Only skills that stop and ask</button>
+    <button class="chip" id="onlyAuto" aria-pressed="false">Only reversible</button>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+</div>
+
+<main class="wrap">
+'@
+
+# nav-free: phase sections in pipeline order
+foreach ($phase in $phaseOrder) {
+  $items = @($data | Where-Object { $_.phase -eq $phase })
+  if ($items.Count -eq 0) { continue }
+  $phaseId = ($phase -replace '[^a-z0-9]+', '-').ToLower()
+  Add "<section class=""phase"" id=""$phaseId"">"
+  Add "  <h2>$phase <span>$($items.Count) skill$(if($items.Count -ne 1){'s'})</span></h2>"
+  if ($phaseBlurb.ContainsKey($phase)) { Add "  <p class=""blurb"">$(Esc $phaseBlurb[$phase])</p>" }
+  foreach ($s in $items) {
+    $r = $ratings[$s.name]
+    $score = if ($r) { "rating {0} / {1}" -f $r.score, $r.grade } else { '' }
+    $haystack = (@($s.name, $s.summary, ($s.when -join ' '), ($s.notWhen -join ' '), $s.example, $s.phase, $s.gate.what) -join ' ').ToLower()
+    $gateAttr = if ($s.gate.asks) { 'true' } else { 'false' }
+    Add "  <article class=""card"" id=""skill-$($s.name)"" data-gate=""$gateAttr"" data-search=""$(Esc $haystack)"">"
+    Add "    <div class=""head"">"
+    Add "      <h3>$($s.name)</h3>"
+    Add "      <span class=""badge auto"">auto-invocable</span>"
+    if ($s.gate.asks) { Add "      <span class=""badge gate"">stops and asks</span>" }
+    if ($score) { Add "      <span class=""score"">$(Esc $score)</span>" }
+    Add "    </div>"
+    Add "    <p class=""summary"">$(Esc $s.summary)</p>"
+    Add "    <div class=""cols"">"
+    Add "      <div class=""pos""><h4>When to use it</h4><ul>"
+    foreach ($w in $s.when) { Add "        <li>$(Esc $w)</li>" }
+    Add "      </ul></div>"
+    Add "      <div class=""neg""><h4>When not to use it</h4><ul>"
+    foreach ($n in $s.notWhen) { Add "        <li>$(Esc $n)</li>" }
+    Add "      </ul></div>"
+    Add "    </div>"
+    Add "    <div class=""ex""><h4>How to use it</h4><p>$(Esc $s.example)</p></div>"
+    $gateCls = if ($s.gate.asks) { '' } else { ' class="no"' }
+    $gateWord = if ($s.gate.asks) { 'Stops and asks:' } else { 'Does not interrupt:' }
+    Add "    <p class=""gateline""><b$gateCls>$(Esc $gateWord)</b> $(Esc $s.gate.what)</p>"
+    Add "  </article>"
+  }
+  Add "</section>"
+}
+
+Add @'
+  <p class="empty hidden" id="empty">No skill matches that filter.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>What this page does not claim</h2>
+    <ul>
+      <li>
+        <strong>Guidance is derived, not quoted.</strong> The prose above condenses each skill's own
+        text. The skill body is the authority; this page is an index. Skill bodies are immutable in
+        this repo and are proven against upstream with <code>tools/verify.ps1</code>.
+      </li>
+      <li>
+        <strong>Only 13 of the 41 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
+        ships a &ldquo;When <em>not</em> to Use&rdquo; heading.</strong> The negative guidance here is
+        assembled from each skill's stated exclusions, red flags and hard constraints. Where a skill
+        states none, the entry is limited to what its text clearly supports rather than invented.
+      </li>
+      <li>
+        <strong>The approval model is the harness's, not the skill's.</strong> Changing the session
+        preset changes every row of the approval picture at once. A skill's written gate is a
+        instruction to the agent, not an enforced intercept.
+      </li>
+      <li>
+        Skill names are directory names under <code>skills/</code>. Invoke one with the
+        <code>skill</code> tool or by typing <code>/name</code>.
+      </li>
+    </ul>
+    <h2>Rebuild this page</h2>
+    <ul>
+      <li><code>powershell -File tools/build-skill-page.ps1</code> &mdash; reads
+        <code>tools/skill-page-data.json</code> and <code>RATING.json</code>.</li>
+      <li>Edit the JSON to change wording; edit the script only to change layout.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var onlyGate = document.getElementById('onlyGate');
+  var onlyAuto = document.getElementById('onlyAuto');
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.phase'));
+
+  function apply(){
+    var term = q.value.trim().toLowerCase();
+    var gate = onlyGate.getAttribute('aria-pressed') === 'true';
+    var auto = onlyAuto.getAttribute('aria-pressed') === 'true';
+    var shown = 0;
+
+    cards.forEach(function(card){
+      var ok = true;
+      if (term && card.getAttribute('data-search').indexOf(term) === -1) ok = false;
+      if (gate && card.getAttribute('data-gate') !== 'true') ok = false;
+      if (auto && card.getAttribute('data-gate') !== 'false') ok = false;
+      card.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    });
+
+    sections.forEach(function(sec){
+      var any = sec.querySelectorAll('.card:not(.hidden)').length > 0;
+      sec.classList.toggle('hidden', !any);
+    });
+
+    empty.classList.toggle('hidden', shown !== 0);
+    count.textContent = shown + ' of ' + cards.length + ' shown';
+  }
+
+  [onlyGate, onlyAuto].forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var on = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+      // the two toggles are opposite halves of the same set
+      var other = btn === onlyGate ? onlyAuto : onlyGate;
+      if (!on) other.setAttribute('aria-pressed', 'false');
+      apply();
+    });
+  });
+
+  q.addEventListener('input', apply);
+  q.addEventListener('keydown', function(e){ if (e.key === 'Escape') { q.value = ''; apply(); } });
+  apply();
+})();
+</script>
+</body>
+</html>
+'@
+
+$outPath = Join-Path $HubRoot $OutFile
+$enc = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText($outPath, $sb.ToString(), $enc)
+
+$size = [math]::Round((Get-Item $outPath).Length / 1KB, 1)
+Write-Host "wrote $outPath ($size KB, $($data.Count) skills, $gateCount with a stop-and-ask gate)"

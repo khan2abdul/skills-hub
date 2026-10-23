@@ -1,6 +1,6 @@
 ---
 name: check-my-security
-description: Threat-model-driven security review of a change, feature, or subsystem: a STRIDE pass over the actual code, an OWASP cross-check, severity x exploitability triage, and a filing-ready report with a concrete exploit and remediation per finding. Use before shipping anything that touches auth, input handling, secrets, or data storage.
+description: "Threat-model-driven security review of a change, feature, or subsystem: a STRIDE pass over the actual code, an OWASP cross-check, severity x exploitability triage, and a filing-ready report with a concrete exploit and remediation per finding. Use before shipping anything that touches auth, input handling, secrets, or data storage."
 ---
 
 # Check My Security

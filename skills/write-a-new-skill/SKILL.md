@@ -1,6 +1,6 @@
 ---
 name: write-a-new-skill
-description: Create, write, and refine a skill: the SKILL.md format, frontmatter fields, section structure, progressive disclosure, and the failure modes that make a skill unusable. Use when authoring a new skill, improving an existing one, or when a skill keeps being ignored or misapplied.
+description: "Create, write, and refine a skill: the SKILL.md format, frontmatter fields, section structure, progressive disclosure, and the failure modes that make a skill unusable. Use when authoring a new skill, improving an existing one, or when a skill keeps being ignored or misapplied."
 ---
 
 # Write A New Skill
