@@ -6,7 +6,7 @@ agent, so the agent can perform the setup itself.
 | Tool | File | Skill location it reads |
 |---|---|---|
 | Claude Code | [claude-code.md](claude-code.md) | `.claude/skills/` or `~/.claude/skills/` |
-| Cursor | [cursor.md](cursor.md) | `.cursor/rules/` (MDC) — no skills dir |
+| Cursor | [cursor.md](cursor.md) | `.cursor/skills/`; rules via User Rules (paste) |
 | Kiro | [kiro.md](kiro.md) | `.kiro/steering/` |
 | Cline | [cline.md](cline.md) | `.clinerules/` |
 | Kilo Code | [kilo-code.md](kilo-code.md) | `skills.paths` in `kilo.json`; legacy `.kilocode/rules-*/` |

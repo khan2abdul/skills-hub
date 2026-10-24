@@ -6,12 +6,15 @@
 
 | Scope | Path | Notes |
 |---|---|---|
+| Skills | `~/.cline/skills/` | on demand, by name |
 | Project rules | `.clinerules/` directory | every `.md` inside is loaded |
 | Project rules (single) | `.clinerules` file | older style |
 | Global rules | `~/Documents/Cline/Rules/` | Windows: `%USERPROFILE%\Documents\Cline\Rules` |
 
-Cline loads **all** rule content. There is no frontmatter-driven lazy loading and
-no skill catalog — `.clinerules/` content is prepended to context.
+Cline has **native skills**, so `bootstrap.py` links all 41 into
+`~/.cline/skills/`. Rules are the other mechanism: Cline loads **all** rule
+content, with no frontmatter-driven lazy loading, so `.clinerules/` content is
+prepended to context on every request.
 
 ## The translation rule
 
