@@ -1,5 +1,7 @@
 # Cline
 
+> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate.
+
 > Paste this whole file into Cline's chat and say: **"set this up for me."**
 
 ## What Cline reads
@@ -11,7 +13,7 @@
 | Project rules (single) | `.clinerules` file | older style |
 | Global rules | `~/Documents/Cline/Rules/` | Windows: `%USERPROFILE%\Documents\Cline\Rules` |
 
-Cline has **native skills**, so `bootstrap.py` links all 41 into
+Cline has **native skills**, so `bootstrap.py` links all 42 into
 `~/.cline/skills/`. Rules are the other mechanism: Cline loads **all** rule
 content, with no frontmatter-driven lazy loading, so `.clinerules/` content is
 prepended to context on every request.

@@ -23,6 +23,7 @@ PHASES = {
     "Understand": ["interview-me-properly", "discuss-on-new-idea", "explore-this-repo", "research-this-topic"],
     "Define": ["write-the-spec", "write-the-domain-glossary", "design-the-interface",
                "document-the-decision", "write-the-docs"],
+    "Visualise": ["diagram-the-system"],
     "Plan": ["break-into-tasks", "review-the-plan", "set-the-quality-bar"],
     "Build": ["build-it-test-first", "build-in-small-steps", "write-less-code", "simplify-this-code",
               "split-across-agents", "isolate-this-branch"],
@@ -106,7 +107,7 @@ def main(argv: list[str] | None = None) -> int:
     composed = sum(1 for r in rows if r["mode"] == "composed")
     authored = sum(1 for r in rows if r["mode"] == "authored")
     # The count must add up to the skill total. Reporting only verbatim and
-    # composed read as "40 skills" for a 41-skill hub once an authored entry
+    # composed read as "40 skills" for the hub once an authored entry
     # existed - exactly the kind of silent gap this file exists to expose.
     assert verbatim + composed + authored == len(rows), (
         f"provenance modes do not add up: {verbatim}+{composed}+{authored} of {len(rows)}"

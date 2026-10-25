@@ -24,6 +24,7 @@ body. Nothing here requires editing a skill body.
 | Review | `review-my-code`, `check-my-security` | findings, including spec conformance |
 | Verify | `prove-it-works`, `test-every-surface` | evidence in this message |
 | UI | `check-my-ui` | live DOM / console / network |
+| Visualise | `diagram-the-system` | checked architecture, sequence, dataflow, ERD and explainer visuals |
 | Docs | `write-the-docs`, `deslop-the-writing` | publishable prose |
 | Ship | `ship-it` | PR, changelog |
 

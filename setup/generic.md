@@ -1,5 +1,7 @@
 # Any other agent
 
+> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate.
+
 > Paste this whole file into any coding agent and say: **"set this up for me."**
 
 ## 0. Find the hub

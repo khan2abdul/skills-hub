@@ -1,16 +1,16 @@
 # skills-hub
 
-One canonical skill per capability, harvested from 9 repos cloned into `repos/`
-(+20 catalogued sources), published under names a human can actually ask for.
+One canonical skill per capability, harvested from 10 repos cloned into `repos/`
+(+19 catalogued sources), published under names a human can actually ask for.
 
 **Core guarantee: no skill text is ever edited.** A shipped skill is either a
 verbatim copy (only the `name:` line changes) or a composition of verbatim
 excerpts with per-block sha256 proofs. `tools/verify.py` proves both on every run.
 
-**Self-contained.** The 9 source repos live inside the hub at `repos/`, cloned
+**Self-contained.** The 10 source repos live inside the hub at `repos/`, cloned
 from `repos.toml` URLs. No absolute paths in tools, specs, or docs. See [Paths](#paths).
 
-**Status:** all 41 capabilities shipped - 17 verbatim copies, 23 compositions, plus
+**Status:** all 42 capabilities shipped - 18 verbatim copies, 23 compositions, plus
 1 authored (`route-to-the-right-skill`, the parent router)
 (`debug-this-code` scores 37/37 on the rubric). `hub.py` reports `HUB HEALTHY`.
 
@@ -24,7 +24,7 @@ Two groups of people use this repo, and they want different things.
 
 | You want | Go to | Needs |
 |---|---|---|
-| The 41 skills and the writing style in my AI tools | [One command](#one-command) | Python 3.11+, 2 minutes |
+| The 42 skills and the writing style in my AI tools | [One command](#one-command) | Python 3.11+ (Node >=18 + browser for `diagram-the-system`) |
 | To change a skill, add a repo, or fix the tooling | [Build](#build-changing-the-hub-itself) | a clone, and `repos/` |
 
 ### One command
@@ -86,7 +86,12 @@ them are failures:
 Python 3.11 or newer (dict ordering, `tomllib`, `X | None` annotations).
 Standard library only - nothing to `pip install`. Every tool starts with
 `#!/usr/bin/env python3`, so on Linux and macOS it also runs directly once the
-exec bit is set:
+exec bit is set.
+
+`diagram-the-system` is the one runtime exception: it ships a Node.js CLI and
+needs Node.js 18+ plus Chrome, Chromium or Edge for its browser gate. Its
+207-file payload is about 17.3 MB because it includes rendered examples; the
+`--no-link` copy fallback copies that too.
 
 ```bash
 chmod +x tools/*.py
@@ -99,12 +104,12 @@ crash on the arrows and box characters in the reports.
 
 ## Why
 
-Nine repos ship 187 skill bundles with heavy overlap - five debuggers, nine token
+Ten repos ship 188 skill bundles with heavy overlap - five debuggers, nine token
 tools, three "prove it works". Each is fine alone; together they collide and the
 agent picks arbitrarily. This hub keeps one winner per capability, records exactly
 where every line came from, and reports when upstream moves.
 
-## The 41 skills
+## The 42 skills
 
 **[SKILLS.md](SKILLS.md) is the catalog**: what each skill does, the upstream
 repo and skill it came from, and - for compositions - the exact sections that
@@ -114,6 +119,7 @@ were combined.
 |---|---|
 | Understand | `interview-me-properly`, `discuss-on-new-idea`, `explore-this-repo`, `research-this-topic` |
 | Define | `write-the-spec`, `write-the-domain-glossary`, `design-the-interface`, `document-the-decision`, `write-the-docs` |
+| Visualise | `diagram-the-system` |
 | Plan | `break-into-tasks`, `review-the-plan`, `set-the-quality-bar` |
 | Build | `build-it-test-first`, `build-in-small-steps`, `write-less-code`, `simplify-this-code`, `split-across-agents`, `isolate-this-branch` |
 | Finish | `finish-the-experience` |
@@ -188,8 +194,8 @@ matches the heading in `CHANGELOG.md`.
 
 ```
 skills-hub/
-├── repos.toml          # 9 cloned + 20 reference sources (paths relative)
-├── manifest.yml        # 41 capabilities -> candidates -> chosen | composed
+├── repos.toml          # 10 cloned + 19 reference sources (paths relative)
+├── manifest.yml        # 42 capabilities -> candidates -> chosen | composed
 ├── style/              # WRITING-STYLE.md: the only copy of the style text
 ├── CHANGELOG.md        # what changed, and the version it changed in
 ├── COVERAGE.md         # generated: every upstream skill, shipped / rejected / dropped
@@ -209,7 +215,7 @@ skills-hub/
 ├── setup/              # one install page per agent tool
 └── tools/
     ├── hub.py          # entry point for the maintainer flow
-    ├── bootstrap.py    # install the style and link the 41 skills into each tool
+    ├── bootstrap.py    # install the style and link the 42 skills into each tool
     ├── refresh.py      # clone, harvest, verify, coverage, rate, catalog
     ├── clone_repos.py  # clone/refresh repos/ from repos.toml
     ├── harvest.py      # read-only drift report
@@ -226,7 +232,7 @@ skills-hub/
     └── mutation_check.py   # edit bootstrap.py on purpose; a surviving mutant is a missing test
 ```
 
-`repos/` is 187 MB shallow-cloned, versus 1.9 GB in the old external folder
+`repos/` is 236 MB shallow-cloned, versus 1.9 GB in the old external folder
 (mostly gstack's untracked `node_modules` and full history). It is gitignored
 because it is regenerable from `repos.toml`.
 
@@ -297,14 +303,14 @@ one command to become self-sufficient. The `setupskills` fallback is kept only s
 a pre-existing external checkout still resolves without re-downloading.
 
 `clone_repos.py` resolves strictly: it never falls back to a discovered folder,
-because a write tool that guesses would clone 9 repos into the wrong tree. If the
+because a write tool that guesses would clone 10 repos into the wrong tree. If the
 declared root is missing you get one clear message and exit code 2.
 
 ## The commands
 
 ```bash
 python3 tools/harvest.py    # drift, broken refs, skills with no decision (read-only)
-python3 tools/coverage.py   # write COVERAGE.md: 187 upstream -> shipped / rejected / dropped
+python3 tools/coverage.py   # write COVERAGE.md: 188 upstream -> shipped / rejected / dropped
 python3 tools/catalog.py    # write SKILLS.md: what each skill does and where it came from
 python3 tools/vendor.py --all --what-if
 python3 tools/evaluate.py   # rubric scores
@@ -409,10 +415,21 @@ into always-on context; the style block is the only text that costs every turn.
 
 ## Design rules
 
-- **Skill text is immutable.** Verbatim, or verified excerpts. One named exception: `mode: authored`, which records its own body hash instead. `route-to-the-right-skill` is the only entry that uses it, and only because no upstream body could route to this hub's 41 names.
+- **Skill text is immutable.** Verbatim, or verified excerpts. One named exception: `mode: authored`, which records its own body hash instead. `route-to-the-right-skill` is the only entry that uses it, and only because no upstream body could route to this hub's 42 names.
 - **One capability, one name.** If two names could fire on the same request, merge them.
 - **Verb-first names that say the job:** `debug-this-code`, `write-the-spec`.
 - **Provenance is mandatory.** A body with no PROVENANCE.md cannot be audited.
 - **Score before you claim better.** `evaluate.py` exists so "improved" is a number.
 - **Ignore loudly.** Every rejected skill gets a line in `ignore.txt`.
 - **Always-on costs every turn.** Per tool, keep the always-loaded set to ~3 skills.
+
+## Licensing and network
+
+Vendored skills keep their upstream licenses. `diagram-the-system` is
+Apache-2.0; its `LICENSE`, `LICENSE-MIT`, `NOTICE` and
+`THIRD_PARTY_NOTICES.md` ship inside `skills/diagram-the-system/`. The hub's own
+code does not yet declare a license.
+
+`diagram-the-system`'s `finalize` performs a bounded update check against
+`tt-a1i.github.io`; it never installs anything, and an unavailable check does not
+block delivery.

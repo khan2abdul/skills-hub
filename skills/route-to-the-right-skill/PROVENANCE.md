@@ -3,7 +3,7 @@
 - canonical: route-to-the-right-skill
 - mode: authored
 - authored: 2026-10-23
-- body sha256: a955a019dbab3e75d328c088022c24bb860c85567d66be4c0818a347d39786ba
+- body sha256: 721acadd2eb3f24307aa8e9c05a6d7c42c1a78e72dbb422326dcd3724ef74bf9
 - published policy: skill text is immutable *except* for an entry that declares
   `mode: authored` here. Nothing upstream owns this text, so there is no excerpt
   to re-hash; `verify.py` proves instead that the shipped body has not drifted
@@ -30,7 +30,7 @@ Three candidates were considered and all three had the same defect:
 
 So the discipline was kept from `using-superpowers` (the compulsory check, the
 red-flag table) and the routing shape from `using-agent-skills` (phase tree), with
-every name rewritten to the 41 that actually ship. The body is prose written for
+every name rewritten to the 42 that actually ship. The body is prose written for
 this hub; no upstream bytes are quoted, so there is no excerpt to prove.
 
 ## What changed from the vendored copy

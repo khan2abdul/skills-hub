@@ -94,7 +94,7 @@ def ps_round(value: float, digits: int = 0) -> float:
     Matching .NET keeps RATING.json, COMPARISON.md and every score identical to
     what the PowerShell tools produced. It is not "more correct" - for 8.35 the
     Python answer follows the real value - but a migration that silently moves
-    published numbers is the worse defect. 29 of 187 upstream skills land on a
+    published numbers is the worse defect. 29 of the original 187 upstream skills land on a
     midpoint, so this is not theoretical.
     """
     scale = 10 ** digits

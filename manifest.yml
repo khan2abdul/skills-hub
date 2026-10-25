@@ -221,6 +221,13 @@ composed = ["write-docs", "context-engineering"]
 candidates = ["write-docs", "documentation-and-adrs", "writing-for-agents"]
 rationale = "Prose for humans; ADRs for decisions; AGENTS.md/CLAUDE.md for machines. Was write-docs alone (craft 9.3, GATES 8/10): three good stages - gather context, iterate structure, reader-test - and no way to tell whether the document actually works before publishing. Added context-engineering's Red Flags and Verification sections, which are exactly the pre-publish check list. The rest of context-engineering was rejected: it optimises an agent's context window, a different job from writing for a human reader."
 
+[[skill]]
+name = "diagram-the-system"
+status = "merged"
+chosen = "archify"
+candidates = ["archify"]
+rationale = "No diagram capability existed in the hub. Archify turns code evidence and requirements into validated standalone HTML for architecture, sequence, dataflow, ERD, lifecycle, class, tree, timeline, waterfall and explainer views. Apache-2.0, local Node CLI, hard finalize and browser gates. Distinct from write-the-docs (prose), polish-the-ui (product UI) and explore-this-repo (path citations)."
+
 # ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Multi-agent and orchestration ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 
 [[skill]]
@@ -307,7 +314,7 @@ name = "route-to-the-right-skill"
 status = "authored"
 chosen = ""
 candidates = ["using-agent-skills", "using-superpowers", "ask-matt"]
-rationale = "The parent skill: routes every request to the right skill, re-routes at phase boundaries and failed attempts, and blocks the rationalisations that skip a skill. Authored rather than vendored - all three candidates routed to skills this hub does not ship. The shipped copy was addy's using-agent-skills, whose tree named 30 retired skills and pointed at ../../references/definition-of-done.md, which does not exist. Discipline taken from using-superpowers (compulsory check, red-flag table), routing shape from using-agent-skills, every name rewritten to the 41 that ship. See skills/route-to-the-right-skill/PROVENANCE.md."
+rationale = "The parent skill: routes every request to the right skill, re-routes at phase boundaries and failed attempts, and blocks the rationalisations that skip a skill. Authored rather than vendored - all three candidates routed to skills this hub does not ship. The shipped copy was addy's using-agent-skills, whose tree named 30 retired skills and pointed at ../../references/definition-of-done.md, which does not exist. Discipline taken from using-superpowers (compulsory check, red-flag table), routing shape from using-agent-skills, every name rewritten to the 42 that ship. See skills/route-to-the-right-skill/PROVENANCE.md."
 
 [[skill]]
 name = "hand-off-to-next-session"

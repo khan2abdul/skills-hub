@@ -3,7 +3,7 @@
 Every skill compared against the upstream original it was fetched from, scored
 with the same rubric (`tools/hubrubric.py`). Wire: `tools/compare_skills.py`.
 
-**Craft: ours 9.69 vs originals 9.42.** Faithfulness: 17 exact, 23 composed, 0 lossy.
+**Craft: ours 9.7 vs originals 9.43.** Faithfulness: 18 exact, 23 composed, 0 lossy.
 
 The headline: our copies are verbatim, so a low score is almost never a
 transcription defect. When ours scores 6, the original also scores 6. The
@@ -14,7 +14,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 | check | result |
 |---|---|
-| body byte-identical to original | 17/41 |
+| body byte-identical to original | 18/42 |
 | body differs | 0 |
 | payload files missing vs original | 5 skills |
 | payload files altered | 9 skills |
@@ -58,6 +58,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 | `debug-the-stubborn-one` | 10 | 10 | `debug-like-expert` (gsd-2) | exact | 10 | 0 |
 | `debug-this-code` | 10 | 10 | `diagnosing-bugs` (mattpocock-skills) | composed | 10 | 2 |
 | `deslop-the-writing` | 10 | 10 | `deslopify` (julius-skills) | exact | 10 | 0 |
+| `diagram-the-system` | 10 | 10 | `archify` (archify) | exact | 10 | 0 |
 | `finish-the-experience` | 10 | 10 | `last-20-percent` (julius-skills) | exact | 10 | 0 |
 | `make-it-fast` | 10 | 10 | `performance-optimization` (addy-agent-skills) | exact | 10 | 0 |
 | `review-the-plan` | 10 | 10 | `junior-to-senior` (julius-skills) | composed | 10 | 0 |
@@ -176,6 +177,7 @@ current score is at its ceiling and cannot be improved without new source materi
 | `debug-the-stubborn-one` | 10 | 10 | at ceiling - no better source in repos/ |
 | `debug-this-code` | 10 | 10 | at ceiling - no better source in repos/ |
 | `deslop-the-writing` | 10 | 10 | at ceiling - no better source in repos/ |
+| `diagram-the-system` | 10 | 10 | at ceiling - no better source in repos/ |
 | `finish-the-experience` | 10 | 10 | at ceiling - no better source in repos/ |
 | `make-it-fast` | 10 | 10 | at ceiling - no better source in repos/ |
 | `review-the-plan` | 10 | 10 | at ceiling - no better source in repos/ |
@@ -785,6 +787,20 @@ ours: structure 10, procedure 10, gates 10, references 10, portability 10, size 
 alternatives the manifest proposed (best first):
 
 - `deslopify` (julius-skills, 7747c) craft 10 - in use elsewhere
+
+### `diagram-the-system` - 10/10
+
+fidelity: exact - faithful copy; the score IS the original score
+
+| source | repo | chars | craft | structure | procedure | gates | references | portability | size |
+|---|---|---|---|---|---|---|---|---|---|
+| `archify` | archify | 18723 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |
+
+ours: structure 10, procedure 10, gates 10, references 10, portability 10, size 10
+
+alternatives the manifest proposed (best first):
+
+- `archify` (archify, 18723c) craft 10 - in use elsewhere
 
 ### `finish-the-experience` - 10/10
 

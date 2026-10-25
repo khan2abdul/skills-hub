@@ -49,7 +49,7 @@
       "The user changes what they want and the spec is stale",
       "About to say done, fixed or works",
       "About to run a destructive or scope-expanding command",
-      "Unsure which of the 41 skills applies, or whether any does"
+      "Unsure which of the 42 skills applies, or whether any does"
     ],
     "notWhen": [
       "Never skip it: the check is compulsory even when its conclusion is that no skill applies",
@@ -637,6 +637,27 @@
     ],
     "example": "\"/write-the-docs document the auth flow for new contributors\" \u2192 the agent first names the reader and the single action they must be able to take.",
     "gate": { "asks": false, "what": "It shows the outline to the user and offers a cold-reader subagent, but gates no destructive action." }
+  },
+  {
+    "name": "diagram-the-system",
+    "phase": "Visualise",
+    "summary": "Creates validated architecture, workflow, sequence, dataflow, lifecycle, ERD, class, tree, timeline and waterfall diagrams as standalone interactive HTML, plus one-page explainers; code-backed diagrams trace repository evidence.",
+    "when": [
+      "A system, API call chain, pipeline, schema, state machine, class model, tree, timeline or waterfall needs a diagram",
+      "A repository or design needs an architecture map grounded in files and commits",
+      "A decision, comparison or diagnosis would land better as a one-page explainer",
+      "A PR, handoff or document needs a visual that a reader can open without the tool"
+    ],
+    "notWhen": [
+      "The user wants a dashboard or a live data visualization rather than a static system diagram",
+      "The request is a freehand illustration or decorative image, not a technical diagram",
+      "There is no Node.js 18+ or browser available for the browser gate; use a text explanation instead"
+    ],
+    "example": "\"Map the request path from the browser through the API and cache to PostgreSQL\" -> a sequence or architecture diagram with source cards and a validated HTML artifact.",
+    "gate": {
+      "asks": false,
+      "what": "No approval gate. finalize runs validate, check and browser gates, and a non-zero exit is not success."
+    }
   },
   {
     "name": "deslop-the-writing",

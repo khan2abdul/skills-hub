@@ -34,7 +34,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if not Path(sources_root).exists():
         print()
-        print(f"{RED}No sources root at that path. The 9 cloned repos are not on this machine.{RESET}")
+        print(f"{RED}No sources root at that path. The cloned repos are not on this machine.{RESET}")
         print(f"{YELLOW}Point at them with either:{RESET}")
         print(f"{YELLOW}  -e SKILLS_HUB_SOURCES   (environment variable, wins){RESET}")
         print(f"{YELLOW}  sources_root in repos.toml (relative to the hub, or absolute){RESET}")
@@ -82,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
     suppressed = sum(1 for k in on_disk if k in ignored)
 
     cloned = sum(1 for r in repos if r.get("status") != "reference")
-    merged_count = sum(1 for s in manifest if s.get("status") == "merged")
+    merged_count = sum(1 for s in manifest if s.get("status") in ("merged", "authored"))
 
     print(f"{CYAN}=== skills-hub harvest ==={RESET}")
     print(f"repos          : {cloned} cloned, {ref_count} reference")
