@@ -20,6 +20,19 @@ hub writes into files the user owns. Use the words **re-run** or **no action**.
 
 ## [Unreleased]
 
+### Added
+
+- **`diagram-the-system`**, a validated architecture, workflow, sequence,
+  dataflow, lifecycle, ERD, class, tree, timeline and waterfall diagram skill
+  from `tt-a1i/archify`. **Re-run** the installer to link it. It needs Node.js
+  >= 18 and Chrome, Chromium or Edge for its browser gate, and its payload is
+  about 17.3 MB because it ships rendered examples.
+
+### Changed
+
+- The hub now ships 42 skills from 10 upstream repos.
+- The installers and `docs/INSTALL.md` report 42 skills.
+
 ## [0.1.0] - 2026-10-23
 
 The first version: one-command install of the 41 skills and the writing style.

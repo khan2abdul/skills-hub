@@ -446,7 +446,15 @@ class TestDetect(TempHome):
 
         self.assertIn(".cursor/skills", text)
         self.assertIn(".agents/skills", text)
-        self.assertIn("41 skills", text)
+        hub = B.C.get_hub_root()
+        skills = B.hub_skills(hub)
+        self.assertIn("diagram-the-system", {p.name for p in skills})
+        expected = sum(
+            1 for s in B.C.read_manifest(hub / "manifest.yml")
+            if s.get("status") in ("merged", "authored")
+        )
+        self.assertEqual(len(skills), expected)
+        self.assertIn(f"{expected} skills", text)
         self.assertNotIn("no writable target", text)
 
     def test_unknown_only_name_is_rejected(self) -> None:

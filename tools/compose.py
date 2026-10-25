@@ -192,7 +192,7 @@ def run(name: str, what_if: bool = False, force: bool = False) -> int:
     # preamble line. The file ends with two newlines, which is what the shipped
     # bodies have and what git stores.
     #
-    # Normalise to LF. 72 of 187 upstream skills are checked out with CRLF, and a
+    # Normalise to LF. 72 of the original 187 upstream skills are checked out with CRLF, and a
     # raw excerpt would carry those CRLFs into the shipped body. The original did
     # not: StringBuilder.AppendLine and the here-strings normalised every line on
     # the way out, so all committed bodies are LF. Writing CRLF here rewrites 16

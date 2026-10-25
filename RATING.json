@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-23T17:52:45Z",
+  "generated": "2026-10-25T16:18:20Z",
   "rubric_version": 2,
   "craft_share": 0.75,
   "weights": {
@@ -19,14 +19,14 @@
     "size": "big enough to be a procedure, small enough to load"
   },
   "summary": {
-    "count": 41,
-    "mean": 9.77,
+    "count": 42,
+    "mean": 9.78,
     "min": 9.6,
     "max": 10,
     "by_grade": [
       {
         "grade": "A",
-        "count": 41
+        "count": 42
       }
     ],
     "auto_fixes": 0
@@ -427,6 +427,46 @@
         ],
         "size": [
           "7669 chars - in range"
+        ]
+      },
+      "findings": [],
+      "fixes": []
+    },
+    {
+      "name": "diagram-the-system",
+      "score": 10,
+      "grade": "A",
+      "craft": 10,
+      "selection": 10,
+      "selection_note": "no candidate scores higher",
+      "chars": 18734,
+      "dimensions": {
+        "structure": 10,
+        "procedure": 10,
+        "gates": 10,
+        "references": 10,
+        "portability": 10,
+        "size": 10
+      },
+      "evidence": {
+        "structure": [
+          "name matches directory",
+          "description 740 chars (usable)"
+        ],
+        "procedure": [
+          "5 numbered steps, 10 headings, 14 bullets"
+        ],
+        "gates": [
+          "6 gate/verification markers"
+        ],
+        "references": [
+          "21/21 referenced files present"
+        ],
+        "portability": [
+          "no absolute paths or vendor helpers"
+        ],
+        "size": [
+          "18734 chars - in range"
         ]
       },
       "findings": [],
@@ -1159,7 +1199,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 7704,
+      "chars": 7914,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -1186,7 +1226,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "7704 chars - in range"
+          "7914 chars - in range"
         ]
       },
       "findings": [],

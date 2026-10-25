@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>skills-hub &mdash; all 41 skills</title>
+<title>skills-hub &mdash; all 42 skills</title>
 <style>
 :root{
   --bg:#fbfaf8; --panel:#fff; --ink:#1c1b19; --muted:#6b6862; --line:#e3ded6;
@@ -134,17 +134,17 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
 
 <header class="top">
   <div class="wrap">
-    <h1>All 41 skills</h1>
+    <h1>All 42 skills</h1>
     <p class="sub">
       Every skill shipped by <code>skills-hub</code>, what each one is for, when it is
       the wrong tool, how to invoke it, and whether the agent may reach for it on its own.
     </p>
     <ul class="stat">
-      <li><b>41</b> skills</li>
+      <li><b>42</b> skills</li>
       <li><b>10</b> stop and ask first</li>
-      <li><b>31</b> never interrupt</li>
-      <li><b>41</b> model-invocable</li>
-      <li><b>13</b> phases</li>
+      <li><b>32</b> never interrupt</li>
+      <li><b>42</b> model-invocable</li>
+      <li><b>14</b> phases</li>
     </ul>
 
     <div class="note">
@@ -164,7 +164,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
         approval signal that exists. Everything else is the preset's call.
       </p>
       <p>
-        All 41 are <span class="badge auto">auto-invocable</span>: no skill sets
+        All 42 are <span class="badge auto">auto-invocable</span>: no skill sets
         <code>disable-model-invocation</code>, so the agent may load any of them without being told to.
         You can also call any one by name, e.g. <code>/ship-it</code>.
       </p>
@@ -248,7 +248,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     <div class="ex"><h4>How to use it</h4><p>&quot;/write-less-code add retry to the upload call&quot; → the agent greps callers, reuses the existing retry helper, and changes one call site.</p></div>
     <p class="gateline"><b class="no">Does not interrupt:</b> Ultra level pushes back on the request before building, but no destructive action needs approval.</p>
   </article>
-  <article class="card" id="skill-route-to-the-right-skill" data-gate="false" data-search="route-to-the-right-skill the parent skill. every other skill is a phase it routes to: check for an applicable skill before you act, say which one you are using, and re-route when the phase changes, two attempts fail, the scope moves, or you are about to claim done. starting a session, before the first tool call crossing a phase boundary: spec approved, review passed, tests green two attempts on the same problem have failed, so it is a debug problem now the user changes what they want and the spec is stale about to say done, fixed or works about to run a destructive or scope-expanding command unsure which of the 41 skills applies, or whether any does never skip it: the check is compulsory even when its conclusion is that no skill applies it is not the work itself. if it is the only skill you used, you routed and never arrived not a substitute for reading the skill it names: routing without reading is the failure it exists to prevent &quot;fix the login redirect bug&quot; → the agent checks for a skill, names the phase (debug), says &quot;using debug-this-code&quot;, reads that file, and re-checks once the fix lands, which is verify → prove-it-works. always on no approval gate of its own. it hands you to the skill that has one: guard-the-dangerous-stuff before a destructive command, review-the-plan before code.">
+  <article class="card" id="skill-route-to-the-right-skill" data-gate="false" data-search="route-to-the-right-skill the parent skill. every other skill is a phase it routes to: check for an applicable skill before you act, say which one you are using, and re-route when the phase changes, two attempts fail, the scope moves, or you are about to claim done. starting a session, before the first tool call crossing a phase boundary: spec approved, review passed, tests green two attempts on the same problem have failed, so it is a debug problem now the user changes what they want and the spec is stale about to say done, fixed or works about to run a destructive or scope-expanding command unsure which of the 42 skills applies, or whether any does never skip it: the check is compulsory even when its conclusion is that no skill applies it is not the work itself. if it is the only skill you used, you routed and never arrived not a substitute for reading the skill it names: routing without reading is the failure it exists to prevent &quot;fix the login redirect bug&quot; → the agent checks for a skill, names the phase (debug), says &quot;using debug-this-code&quot;, reads that file, and re-checks once the fix lands, which is verify → prove-it-works. always on no approval gate of its own. it hands you to the skill that has one: guard-the-dangerous-stuff before a destructive command, review-the-plan before code.">
     <div class="head">
       <h3>route-to-the-right-skill</h3>
       <span class="badge auto">auto-invocable</span>
@@ -263,7 +263,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
         <li>The user changes what they want and the spec is stale</li>
         <li>About to say done, fixed or works</li>
         <li>About to run a destructive or scope-expanding command</li>
-        <li>Unsure which of the 41 skills applies, or whether any does</li>
+        <li>Unsure which of the 42 skills applies, or whether any does</li>
       </ul></div>
       <div class="neg"><h4>When not to use it</h4><ul>
         <li>Never skip it: the check is compulsory even when its conclusion is that no skill applies</li>
@@ -457,6 +457,33 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     </div>
     <div class="ex"><h4>How to use it</h4><p>&quot;Document the decision to use PostgreSQL&quot; → the agent inspects the existing ADR convention, then writes context, alternatives and consequences.</p></div>
     <p class="gateline"><b class="no">Does not interrupt:</b> Documentation-only; nothing destructive is gated.</p>
+  </article>
+</section>
+<section class="phase" id="visualise">
+  <h2>Visualise <span>1 skill</span></h2>
+  <p class="blurb">Turn a system or flow into a checked, explorable diagram.</p>
+  <article class="card" id="skill-diagram-the-system" data-gate="false" data-search="diagram-the-system creates validated architecture, workflow, sequence, dataflow, lifecycle, erd, class, tree, timeline and waterfall diagrams as standalone interactive html, plus one-page explainers; code-backed diagrams trace repository evidence. a system, api call chain, pipeline, schema, state machine, class model, tree, timeline or waterfall needs a diagram a repository or design needs an architecture map grounded in files and commits a decision, comparison or diagnosis would land better as a one-page explainer a pr, handoff or document needs a visual that a reader can open without the tool the user wants a dashboard or a live data visualization rather than a static system diagram the request is a freehand illustration or decorative image, not a technical diagram there is no node.js 18+ or browser available for the browser gate; use a text explanation instead &quot;map the request path from the browser through the api and cache to postgresql&quot; -&gt; a sequence or architecture diagram with source cards and a validated html artifact. visualise no approval gate. finalize runs validate, check and browser gates, and a non-zero exit is not success.">
+    <div class="head">
+      <h3>diagram-the-system</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 10 / A</span>
+    </div>
+    <p class="summary">Creates validated architecture, workflow, sequence, dataflow, lifecycle, ERD, class, tree, timeline and waterfall diagrams as standalone interactive HTML, plus one-page explainers; code-backed diagrams trace repository evidence.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>A system, API call chain, pipeline, schema, state machine, class model, tree, timeline or waterfall needs a diagram</li>
+        <li>A repository or design needs an architecture map grounded in files and commits</li>
+        <li>A decision, comparison or diagnosis would land better as a one-page explainer</li>
+        <li>A PR, handoff or document needs a visual that a reader can open without the tool</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>The user wants a dashboard or a live data visualization rather than a static system diagram</li>
+        <li>The request is a freehand illustration or decorative image, not a technical diagram</li>
+        <li>There is no Node.js 18+ or browser available for the browser gate; use a text explanation instead</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;Map the request path from the browser through the API and cache to PostgreSQL&quot; -&gt; a sequence or architecture diagram with source cards and a validated HTML artifact.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> No approval gate. finalize runs validate, check and browser gates, and a non-zero exit is not success.</p>
   </article>
 </section>
 <section class="phase" id="plan">
@@ -1273,7 +1300,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
         this repo and are proven against upstream with <code>tools/verify.py</code>.
       </li>
       <li>
-        <strong>Only 13 of the 41 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
+        <strong>Only 13 of the 42 ship an explicit &ldquo;When to Use&rdquo; heading, and just one
         ships a &ldquo;When <em>not</em> to Use&rdquo; heading.</strong> The negative guidance here is
         assembled from each skill's stated exclusions, red flags and hard constraints. Where a skill
         states none, the entry is limited to what its text clearly supports rather than invented.

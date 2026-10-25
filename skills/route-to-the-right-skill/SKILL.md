@@ -26,7 +26,7 @@ When a skill applies, you do not have discretion. Read it, then follow it.
 ## How to check
 
 1. **Name the phase.** Understand, Research, Spec, Plan, Build, Debug, Review,
-   Verify, Finish, Docs, Ship. If you cannot name it, you are in Understand.
+   Verify, Finish, Visualise, Docs, Ship. If you cannot name it, you are in Understand.
 2. **Read the matching line in the phase table below.** It names one to four
    skills.
 3. **Read the skill file** at `D:/repo/skills-hub/skills/<name>/SKILL.md` before
@@ -51,6 +51,7 @@ Every skill in the hub appears exactly once. Two are always on.
 | **Review** | code exists and is not yet trusted | `review-my-code` is the gate; add `check-my-security` for auth, input, secrets, storage; `receive-code-review` when the feedback is someone else's; `audit-the-whole-repo` for a one-shot sweep |
 | **Verify** | about to claim it works | `prove-it-works` always; `test-every-surface` for API/CLI/job; `check-my-ui` for a browser surface; `make-it-accessible` before shipping UI |
 | **Finish** | it works but feels like a demo | `finish-the-experience`; `polish-the-ui`; `make-it-fast` only when measured; `make-it-observable` before production |
+| **Visualise** | a system, flow or schema needs a checked picture | `diagram-the-system` for architecture, sequence, dataflow, ERD, lifecycle, class, tree, timeline, waterfall and explainer views |
 | **Docs** | writing prose a stranger must act on | `write-the-docs`; `deslop-the-writing` as a final pass on any prose |
 | **Ship** | tests pass and it needs to reach the remote | `ship-it`; `guard-the-dangerous-stuff` before any destructive command |
 | **Meta** | changing the skill set, the bar, or the process | `simplify-this-code`, `write-a-new-skill`, `set-the-quality-bar`, `split-across-agents`, `hand-off-to-next-session`, `watch-my-context` |
@@ -109,7 +110,7 @@ why it is wrong.
 
 ## Working with dsh's bundled skills
 
-Twelve skills ship with the harness and are not part of this hub's 41. Route to
+Twelve skills ship with the harness and are not part of this hub's 42. Route to
 them the same way; they are not competitors:
 
 - `office`, `office-docx`, `office-xlsx`, `office-pptx`, `office-export-pdf`,

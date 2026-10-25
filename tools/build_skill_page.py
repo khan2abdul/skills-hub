@@ -26,7 +26,7 @@ import hubcommon as C  # noqa: E402
 
 # Phases in the order a piece of work actually moves through them.
 PHASE_ORDER = [
-    "Always on", "Understand", "Research", "Spec", "Plan", "Build",
+    "Always on", "Understand", "Research", "Spec", "Visualise", "Plan", "Build",
     "Debug", "Review", "Verify", "Finish", "Docs", "Ship", "Meta",
 ]
 PHASE_BLURB = {
@@ -34,6 +34,7 @@ PHASE_BLURB = {
     "Understand": "Turn a vague ask into a shared, explicit intent.",
     "Research": "Get the facts from primary sources before deciding anything.",
     "Spec": "Write down what will be built and why, before code exists.",
+    "Visualise": "Turn a system or flow into a checked, explorable diagram.",
     "Plan": "Cut the work into slices and stress the plan while it is still cheap.",
     "Build": "Write the code, in tested increments.",
     "Debug": "Find the real cause instead of guessing at a symptom.",

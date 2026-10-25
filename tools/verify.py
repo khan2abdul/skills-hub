@@ -122,7 +122,7 @@ def main(argv: list[str] | None = None) -> int:
         print()
         print(f"{RED}Sources root not found, so no body can be proven. This is a setup problem,{RESET}")
         print(f"{YELLOW}not a content problem. Fix the path and re-run:{RESET}")
-        print(f"{YELLOW}  SKILLS_HUB_SOURCES='<path to the 9 repos>'{RESET}")
+        print(f"{YELLOW}  SKILLS_HUB_SOURCES='<path to the cloned repos>'{RESET}")
         print(f"{YELLOW}  (or sources_root in repos.toml){RESET}")
         print(f"{YELLOW}Installing does not need this folder. Only proof of the bodies does.{RESET}")
         print(f"{YELLOW}Run 'python tools/refresh.py' to clone the sources and restore it.{RESET}")

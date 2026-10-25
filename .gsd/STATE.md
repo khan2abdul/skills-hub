@@ -1,5 +1,7 @@
 # State
 
+Current: M002 Archify added (2026-10-25). 42 skills, 188 upstream, HUB HEALTHY.
+
 Milestone: M001 - one-command install of 41 skills plus the writing style
 Slice: S06 of 6 (M001 complete)
 Status: S05 and S06 built. Review gate pending on the S05+S06 diff.
@@ -325,3 +327,38 @@ remove exactly what it created.
 - A non-English Windows locale may move Cline's `Documents` target.
 - A machine with no `repos/` cannot prove bodies until `refresh.py` runs.
 
+
+
+## M002: Archify diagram skill (2026-10-25)
+
+Status: added, verified, and catalogued.
+
+- Source: `tt-a1i/archify` at commit `51a291770851ad27a400cca73c753c166b5e0c65`.
+- Canonical name: `diagram-the-system` (verbatim; only the `name:` line changed).
+- License: Apache-2.0. The payload carries `LICENSE`, `LICENSE-MIT`, `NOTICE`
+  and `THIRD_PARTY_NOTICES.md`. The hub root still has no LICENSE file; that is
+  a pre-existing gap, now more visible because this payload is Apache-2.0.
+- Payload: 207 files, 17.31 MB. The bulk is `examples/` (12.49 MB). The cost is
+  documented in `README.md`; the payload stays verbatim.
+- Integration: `repos.toml` (10th cloned repo), `manifest.yml`, `MASTER_ROUTING.md`,
+  `skills/route-to-the-right-skill/SKILL.md` (authored body hash updated), README,
+  `docs/INSTALL.md`, both installers, all setup pages, `CHANGELOG.md`,
+  `SKILLS.html`, `tools/skill-page-data.json`, and `COMPARISON.md`.
+- Routing: `Visualise` is now a phase in the router, `MASTER_ROUTING.md`,
+  `tools/catalog.py`, and the skill page, so the catalog entry has its
+  Size/Score/Provenance line instead of landing under `Other`.
+- Test fix: `tools/test_bootstrap.py` asserts `diagram-the-system` is present and
+  the catalog size matches the manifest's merged+authored entries, so deleting a
+  skill cannot silently pass.
+
+Evidence:
+
+| Command | Result |
+|---|---|
+| `python tools/verify.py` | OK: every shipped body is proven against upstream |
+| `python tools/hub.py` | HUB HEALTHY; 42 skills, 188 upstream, 65 shipped |
+| `python tools/test_bootstrap.py` | 127 tests, OK, exit 0 (350.998s) |
+
+Known limits: Node.js >= 18 is required to render; `browser-check` needs a
+browser. The original test failure was the hard-coded `41 skills` assertion; the
+later `ChildProcess.kill` was the shell timeout, not a test failure.

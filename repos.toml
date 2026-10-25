@@ -1,6 +1,6 @@
 # Skill sources.
 #
-# The 9 harvested repos are cloned INSIDE the hub, at repos/, by
+# The 10 harvested repos are cloned INSIDE the hub, at repos/, by
 # tools/clone_repos.py. That keeps the hub self-contained: one clone of this
 # repo plus one command reproduces every source, with no external folder.
 #
@@ -85,6 +85,14 @@ url = "https://github.com/multica-ai/andrej-karpathy-skills"
 status = "cloned"
 path = "andrej-karpathy-skills"
 roots = ["skills"]
+
+# Payload is 17.3 MB because examples/*.html are rendered showcases; kept verbatim.
+[[repo]]
+name = "archify"
+url = "https://github.com/tt-a1i/archify.git"
+status = "cloned"
+path = "archify"
+roots = ["."]
 
 # --- Reference catalog: candidates worth harvesting later -----------------
 # Not cloned. To promote one, git clone it, change status to "cloned",
@@ -225,14 +233,6 @@ status = "reference"
 focus = "frontend art direction, reference checks, browser verification"
 compat = "Claude Code, Cursor"
 note = "direct competitor to polish-the-ui; compare before choosing"
-
-[[repo]]
-name = "archify"
-url = "https://github.com/tt-a1i/archify"
-status = "reference"
-focus = "diagrams-as-code, sequence diagrams, codebase visualisation"
-compat = "skill"
-note = "no diagram capability in the current manifest; likely a genuine add"
 
 [[repo]]
 name = "diagram-design"
