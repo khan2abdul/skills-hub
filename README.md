@@ -388,7 +388,7 @@ This table is the source of truth. It matches `TOOLS` in
 | Gemini CLI | `~/.gemini/GEMINI.md`, between markers | none |
 | DeepSeek Harness | `~/.dsh/AGENTS.md`, between markers | none; reports wired or not |
 | Kilo Code | `~/.kilocode/rules/writing-style.md`, whole file | `skills.paths` in `~/.config/kilo/kilo.json` |
-| Cline | `~/Documents/Cline/Rules/writing-style.md`, whole file | `~/.cline/skills/` |
+| Cline | the Documents folder's `Cline/Rules/writing-style.md`, whole file | `~/.cline/skills/` |
 | Cursor | none: one manual paste | `~/.cursor/skills/` and `~/.agents/skills/` |
 | Kiro | `~/.kiro/steering/writing-style.md`, whole file | `~/.kiro/skills/` |
 | Windsurf | `~/.codeium/windsurf/memories/writing-style.md`, whole file | none |

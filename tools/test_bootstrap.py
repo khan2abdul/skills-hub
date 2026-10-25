@@ -27,6 +27,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 HERE = Path(__file__).resolve().parent
 
@@ -963,6 +964,93 @@ class TestDshWiring(TempHome):
         self.assertEqual(B.dsh_wiring(self.home, Path("D:/repo/skills-hub/skills")), "wired")
 
 
+class TestDocumentsRoot(TempHome):
+    """Cline asks the shell where Documents is, and OneDrive can move it.
+
+    A write to `~/Documents` on a redirected profile lands in a folder Cline
+    never reads, so the style silently does nothing. The lookup must also never
+    run under `--home`: that home is a fixture, so the answer would point at the
+    real profile and write outside the sandbox.
+    """
+
+    def setUp(self) -> None:
+        super().setUp()
+        B._DOCUMENTS.clear()
+
+    def test_a_fixture_home_never_asks_the_shell(self) -> None:
+        with mock.patch.object(B, "_ask_windows_documents") as ask:
+            root = B.documents_root(self.home)
+        self.assertEqual(root, self.home / "Documents")
+        ask.assert_not_called()
+
+    def test_a_real_home_follows_the_redirect(self) -> None:
+        moved = self.home / "OneDrive" / "Documents"
+        with mock.patch.object(B.os, "name", "nt"), mock.patch.object(
+            B, "_ask_windows_documents", return_value=moved
+        ):
+            root = B.documents_root(self.home, real_home=True)
+        self.assertEqual(root, moved)
+
+    def test_a_failed_ask_keeps_the_literal_path(self) -> None:
+        with mock.patch.object(B.os, "name", "nt"), mock.patch.object(
+            B, "_ask_windows_documents", return_value=None
+        ):
+            root = B.documents_root(self.home, real_home=True)
+        self.assertEqual(root, self.home / "Documents")
+
+    def test_the_ask_uses_the_known_folder_call(self) -> None:
+        done = subprocess.CompletedProcess([], 0, "C:/Users/x/OneDrive/Documents\n", "")
+        with mock.patch.object(B.subprocess, "run", return_value=done) as run:
+            picked = B._ask_windows_documents()
+        self.assertEqual(picked, Path("C:/Users/x/OneDrive/Documents"))
+        argv = " ".join(run.call_args.args[0])
+        self.assertIn("powershell", argv)
+        self.assertIn("[System.Environment]::GetFolderPath", argv)
+
+    def test_a_missing_powershell_is_not_an_error(self) -> None:
+        with mock.patch.object(B.subprocess, "run", side_effect=OSError("no powershell")):
+            self.assertIsNone(B._ask_windows_documents())
+
+    def test_a_target_path_for_a_real_home_uses_the_redirect(self) -> None:
+        """`target_path` resolves the placeholder through the shell answer."""
+        moved = self.home / "OneDrive" / "Documents"
+        cline = next(t for t in B.TOOLS if t["tool"] == "cline")
+        with mock.patch.object(B.os, "name", "nt"), mock.patch.object(
+            B, "_ask_windows_documents", return_value=moved
+        ):
+            path = B.target_path(self.home, cline, real_home=True)
+        self.assertEqual(path, moved / "Cline" / "Rules" / "writing-style.md")
+        self.assertFalse((self.home / "Documents" / "Cline").exists())
+
+    def test_every_real_run_path_follows_the_shells_documents(self) -> None:
+        """Install, check and uninstall must all pass `real_home=True`.
+
+        The helpers are tested above. This pins the call sites that use them:
+        drop `real_home` at one, and a real run goes back to the `~/Documents`
+        folder Cline never reads.
+        """
+        moved = self.home / "OneDrive" / "Documents"
+        asked: list[bool] = []
+
+        def fake_root(home: Path, real_home: bool = False) -> Path:
+            asked.append(real_home)
+            return moved if real_home else home / "Documents"
+
+        with mock.patch.object(B.Path, "home", return_value=self.home), mock.patch.object(
+            B, "documents_root", side_effect=fake_root
+        ):
+            install = B.main(["--only", "cline", "--yes"])
+            check = B.main(["--only", "cline", "--check"])
+            written = (moved / "Cline" / "Rules" / "writing-style.md").is_file()
+            uninstall = B.main(["--only", "cline", "--uninstall"])
+
+        self.assertEqual((install, check, uninstall), (0, 0, 0))
+        self.assertTrue(written, "the install did not write under the redirected Documents")
+        self.assertTrue(asked and all(asked), asked)
+        self.assertFalse((moved / "Cline" / "Rules" / "writing-style.md").exists())
+        self.assertFalse((self.home / "Documents" / "Cline").exists())
+
+
 class TestFileTargets(TempHome):
     """S04: four targets where the hub owns the whole file, so no markers.
 
@@ -983,9 +1071,18 @@ class TestFileTargets(TempHome):
             return B.main(["--all", "--yes", "--home", str(self.home), *extra])
 
     def test_the_four_file_rows_carry_the_spec_paths(self) -> None:
-        rels = {t["tool"]: (t["rel"], t["kind"]) for t in B.TOOLS}
+        """Cline's row carries the Documents placeholder, because the shell
+        decides where that folder is. Under `--home` it resolves to the same
+        literal path the other three spell out.
+        """
+        rows = {t["tool"]: t for t in B.TOOLS}
         for tool, rel in self.FILES.items():
-            self.assertEqual(rels[tool], (rel, "file"), tool)
+            self.assertEqual(rows[tool]["kind"], "file", tool)
+            if tool != "cline":
+                self.assertEqual(rows[tool]["rel"], rel, tool)
+                continue
+            self.assertEqual(rows[tool]["rel"], rel.replace("Documents/", f"{B.DOCUMENTS}/", 1))
+            self.assertEqual(B.target_path(self.home, rows[tool]), self.home / rel)
 
     def test_each_file_target_holds_the_body_with_no_markers(self) -> None:
         self._install()
