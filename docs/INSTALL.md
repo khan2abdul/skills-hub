@@ -43,13 +43,17 @@ manager.
 | Gemini CLI | `~/.gemini/GEMINI.md` (between markers) | — |
 | DSH | `~/.dsh/AGENTS.md` (between markers) | none: reports `wired` or `not wired` for `customSkillDirs` |
 | Kilo | `~/.kilocode/rules/writing-style.md` (whole file) | adds the hub to `skills.paths` in `~/.config/kilo/kilo.json` |
-| Cline | `~/Documents/Cline/Rules/writing-style.md` (whole file) | `~/.cline/skills/` |
+| Cline | the Documents folder's `Cline/Rules/writing-style.md` (whole file) | `~/.cline/skills/` |
 | Kiro | `~/.kiro/steering/writing-style.md` (whole file) | `~/.kiro/skills/` |
 | Windsurf | `~/.codeium/windsurf/memories/writing-style.md` (whole file) | — |
 | Cursor | none: one manual paste, printed at the end | `~/.cursor/skills/` and `~/.agents/skills/` |
 
 A `block` target keeps your own text and only manages the lines between the
 markers. A `file` target is owned whole by the hub.
+
+The Documents folder is the one the shell names, not always `~/Documents`. On
+Windows the hub reads the same known-folder answer that Cline reads, so OneDrive
+Known Folder Move and Folder Redirection land the file where Cline reads it.
 
 ## The other commands
 

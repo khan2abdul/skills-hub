@@ -31,7 +31,7 @@ build a slash-only skill.
 | Claude Code | **yes** | `~/.claude/skills/<name>/SKILL.md` is exposed as `/<name>` | partly — dir layout seen, not run |
 | Kiro | no | steering documents only, read as context | no |
 | Cursor | no | rules (`.cursor/rules/*.mdc`), read by glob/alwaysApply | no |
-| Cline | no | rules + workflows | no |
+| Cline | **yes** | native skills; type `/` in the chat input, then pick the skill | docs page, not run here |
 | Kilo Code | no | rules + workflows | no |
 | Windsurf | no | rules + workflows | no |
 | Codex CLI | no | `AGENTS.md` context | no |
@@ -40,8 +40,9 @@ build a slash-only skill.
 
 **Read the verified column honestly.** Only the DeepSeek Harness row is proven by
 running it here. The rest reflect what each page already documents; their slash
-mechanics were not executed, and no upstream docs were reachable while writing
-this. Do not treat an unverified row as a promise.
+mechanics were not executed. Do not treat an unverified row as a promise.
+Cline's row quotes its own docs: type `/` in the chat input to open the skill
+list.
 
 ## If your tool has no `/`
 

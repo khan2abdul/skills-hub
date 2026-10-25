@@ -32,6 +32,16 @@ hub writes into files the user owns. Use the words **re-run** or **no action**.
 
 - The hub now ships 42 skills from 10 upstream repos.
 - The installers and `docs/INSTALL.md` report 42 skills.
+- **`setup/cline.md` installs the skills, not only `.clinerules`.** The page now
+  runs `bootstrap.py --only cline`, which links all 42 skills, and keeps the
+  project rule file as an optional step. **No action** for an existing install.
+
+### Fixed
+
+- Cline's style file now goes in the folder the shell calls Documents, not in
+  `~/Documents`. With OneDrive Known Folder Move or Folder Redirection the old
+  path was a folder Cline never reads, so the style silently did nothing.
+  **Re-run** the installer on such a profile; other tools are unchanged.
 
 ## [0.1.0] - 2026-10-23
 

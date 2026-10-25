@@ -308,7 +308,7 @@ TOOLS: list[dict] = [
     {"tool": "dsh", "rel": ".dsh/AGENTS.md", "kind": "block", "signals": (".dsh",), "skills": ()},
     # Kilo takes skills.paths in JSON and its style in a file it does not read back.
     {"tool": "kilo", "rel": ".kilocode/rules/writing-style.md", "kind": "file", "signals": (".config/kilo/kilo.json",), "skills": ()},
-    {"tool": "cline", "rel": "Documents/Cline/Rules/writing-style.md", "kind": "file", "signals": (".cline",), "skills": (".cline/skills",)},
+    {"tool": "cline", "rel": "{documents}/Cline/Rules/writing-style.md", "kind": "file", "signals": (".cline",), "skills": (".cline/skills",)},
     # Cursor reads its own folder and the shared one, so it fills both. Its
     # User Rules have no documented file, so the style is a print target.
     {"tool": "cursor", "rel": None, "kind": "print", "signals": (".cursor",), "skills": (".cursor/skills", ".agents/skills")},
@@ -321,6 +321,61 @@ TOOLS: list[dict] = [
 TARGETS: list[dict] = [t for t in TOOLS if t["rel"]]
 
 KILO_JSON = ".config/kilo/kilo.json"
+
+# A `rel` that starts with this word resolves against the folder the shell calls
+# Documents, not against `~/Documents`. OneDrive Known Folder Move and Folder
+# Redirection both move that folder, and Cline asks the shell for it.
+DOCUMENTS = "{documents}"
+
+_DOCUMENTS: dict[str, Path] = {}
+
+
+def _ask_windows_documents() -> Path | None:
+    """Ask the shell for Documents through its known-folder API, or None.
+
+    Cline reads the same system answer, and matching it is the whole point: a
+    path this tool chooses and Cline never reads is worse than no install at
+    all.
+    """
+    command = "[System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::MyDocuments)"
+    try:
+        done = subprocess.run(
+            ["powershell", "-NoProfile", "-Command", command],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    picked = done.stdout.strip()
+    if done.returncode != 0 or not picked:
+        return None
+    return Path(picked)
+
+
+def documents_root(home: Path, real_home: bool = False) -> Path:
+    """The folder this machine calls Documents.
+
+    `real_home` is False under `--home`. That home is a fixture, so asking the
+    shell would aim the write at the real profile and out of the sandbox.
+    """
+    if not real_home or os.name != "nt":
+        return home / "Documents"
+    key = str(home)
+    if key not in _DOCUMENTS:
+        _DOCUMENTS[key] = _ask_windows_documents() or (home / "Documents")
+    return _DOCUMENTS[key]
+
+
+def target_path(home: Path, target: dict, real_home: bool = False) -> Path:
+    """Where `target`'s style file goes, with the Documents root resolved."""
+    rel = target["rel"]
+    if rel is None:
+        raise ValueError(f"{target['tool']} has no style file")
+    if rel.startswith(f"{DOCUMENTS}/"):
+        return documents_root(home, real_home) / rel[len(DOCUMENTS) + 1 :]
+    return home / rel
 
 
 def tool_names() -> list[str]:
@@ -336,7 +391,7 @@ def detect(home: Path) -> set[str]:
     }
 
 
-def plan_lines(home: Path, hub: Path, chosen: set[str]) -> list[str]:
+def plan_lines(home: Path, hub: Path, chosen: set[str], real_home: bool = False) -> list[str]:
     """One line per known tool, so a detection miss is always visible.
 
     Every write this run will make is listed here, skills included. The gate
@@ -366,7 +421,7 @@ def plan_lines(home: Path, hub: Path, chosen: set[str]) -> list[str]:
             continue
         wrote = False
         if t["rel"] is not None:
-            lines.append(f"  {name:<9} {home / t['rel']}")
+            lines.append(f"  {name:<9} {target_path(home, t, real_home)}")
             wrote = True
         if t["kind"] == "print":
             lines.append(f"  {name:<9} paste into {CURSOR_RULES}")
@@ -675,12 +730,13 @@ def uninstall(hub: Path, home: Path, selected: set[str], args: argparse.Namespac
     is a link into this hub. The Kilo JSON and the hub folder stay.
     """
     body = style_body(hub)
+    real_home = not args.home
     # A dry run must not say "removed": the plan is not the act.
     gone = "would remove" if args.dry_run else "removed"
     for t in TOOLS:
         if t["tool"] not in selected or t["kind"] == "print":
             continue
-        path = home / t["rel"]
+        path = target_path(home, t, real_home)
         if not path.is_file():
             continue
         if t["kind"] == "file":
@@ -718,6 +774,8 @@ def uninstall(hub: Path, home: Path, selected: set[str], args: argparse.Namespac
 def run(args: argparse.Namespace) -> int:
     hub = Path(args.dir).resolve() if args.dir else C.get_hub_root()
     home = Path(args.home).resolve() if args.home else Path.home()
+    # A `--home` is a fixture, so the Documents lookup keeps the literal path.
+    real_home = not args.home
     if not style_path(hub).is_file():
         print(f"{RED}no style/WRITING-STYLE.md under {hub}{RESET}")
         print(f"{YELLOW}That file is the only copy of the style text. Nothing was written.{RESET}")
@@ -761,7 +819,7 @@ def run(args: argparse.Namespace) -> int:
                 else:
                     print(f"{YELLOW}SKIP  {t['tool']:<9} not installed{RESET}")
                 continue
-            path = home / t["rel"]
+            path = target_path(home, t, real_home)
             if not path.is_file():
                 if t["tool"] in present:
                     print(f"{RED}DRIFT {t['tool']:<9} {path} is missing{RESET}")
@@ -798,7 +856,7 @@ def run(args: argparse.Namespace) -> int:
         return 0
 
     print(f"{CYAN}This will write:{RESET}")
-    for line in plan_lines(home, hub, selected):
+    for line in plan_lines(home, hub, selected, real_home):
         print(line)
     # A tool can be picked for its skills alone, or for one paste alone, with no
     # file to write, so an empty `wanted` is not "nothing to do".
@@ -822,7 +880,7 @@ def run(args: argparse.Namespace) -> int:
             return 1
 
     for t in wanted:
-        path = home / t["rel"]
+        path = target_path(home, t, real_home)
         if t["kind"] == "file":
             result = apply_file(path, body)
             colour = GREEN if result in ("created", "replaced", "unchanged") else YELLOW

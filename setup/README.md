@@ -8,7 +8,7 @@ agent, so the agent can perform the setup itself.
 | Claude Code | [claude-code.md](claude-code.md) | `.claude/skills/` or `~/.claude/skills/` |
 | Cursor | [cursor.md](cursor.md) | `.cursor/skills/`; rules via User Rules (paste) |
 | Kiro | [kiro.md](kiro.md) | `.kiro/steering/` |
-| Cline | [cline.md](cline.md) | `.clinerules/` |
+| Cline | [cline.md](cline.md) | `~/.cline/skills/`; rules in `.clinerules/` |
 | Kilo Code | [kilo-code.md](kilo-code.md) | `skills.paths` in `kilo.json`; legacy `.kilocode/rules-*/` |
 | DeepSeek Harness | [deepseek-harness.md](deepseek-harness.md) | `customSkillDirs` in the profile patch |
 | Gemini CLI | [gemini-cli.md](gemini-cli.md) | `GEMINI.md` + extension dir |

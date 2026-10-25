@@ -6,24 +6,38 @@
 
 ## What Cline reads
 
-| Scope | Path | Notes |
-|---|---|---|
-| Skills | `~/.cline/skills/` | on demand, by name |
-| Project rules | `.clinerules/` directory | every `.md` inside is loaded |
-| Project rules (single) | `.clinerules` file | older style |
-| Global rules | `~/Documents/Cline/Rules/` | Windows: `%USERPROFILE%\Documents\Cline\Rules` |
-
 Cline has **native skills**, so `bootstrap.py` links all 42 into
-`~/.cline/skills/`. Rules are the other mechanism: Cline loads **all** rule
-content, with no frontmatter-driven lazy loading, so `.clinerules/` content is
-prepended to context on every request.
+`~/.cline/skills/`. It also writes the writing style into the global rules
+folder.
+
+| Scope | Path | Loading |
+|---|---|---|
+| Skills | `~/.cline/skills/` | name and description always; body on demand |
+| Project skills | `.cline/skills/`, `.clinerules/skills/`, `.claude/skills/` | same, per repo |
+| Project rules | `.clinerules/` or `.cline/rules/` | always, unless `paths:` narrows it |
+| Project rules (single) | `.clinerules` file | older style, always on |
+| Global rules | the Documents folder's `Cline/Rules/` | always on |
+| Other rule files | `.cursorrules`, `.windsurfrules`, `AGENTS.md`, `~/.agents/AGENTS.md` | always, when present |
+
+On each request Cline sees the name and description of every skill. The body
+loads only when the skill is triggered.
+
+Cline's own numbers: about **100 tokens per skill** for that list. All 42 cost
+about 4,000 tokens. Cline asks that a body stay under 5,000 tokens when it
+loads. The largest hub body is 32 KB, so it costs more than that. A body costs
+nothing until it loads.
+
+That is the trade-off this page turns on: a skill is cheap at rest. A rule is
+not.
 
 ## The translation rule
 
-This is the tool where over-installing hurts most. Cline concatenates rules, so
-10 full skill bodies is thousands of tokens on every request.
+Cline joins every rule into the context, so ten rule files of skill bodies is
+thousands of tokens on every request, in every project.
 
-**Install 2–3. Reference the rest by path.**
+**Link all 42 skills. Add 2–3 rules at most.**
+
+A linked skill costs its description. A rule costs its whole body, every time.
 
 ## 0. Find the hub
 
@@ -43,6 +57,32 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
+One command links the 42 skills and writes the global style file:
+
+```bash
+python "$hub/tools/bootstrap.py" --only cline
+```
+
+It prints every path it writes, and asks once before it writes.
+
+Then check what it left:
+
+```bash
+python "$hub/tools/bootstrap.py" --only cline --check
+```
+
+The style file goes in the folder the shell calls Documents. `--check` prints
+that full path, so read the line and do not assume `%USERPROFILE%\Documents`. On
+Windows, OneDrive Known Folder Move changes the answer.
+
+The hub owns `writing-style.md` in full. Any other rule file you keep in that
+folder is left alone.
+
+### Optional: rules that are always on
+
+Do this only when you want 2–3 skill bodies in context for every request in a
+repo. The 42 linked skills cover the rest.
+
 ```bash
 New-Item -ItemType Directory -Force -Path ".clinerules" | Out-Null
 
@@ -53,64 +93,82 @@ foreach ($n in $always) {
   $src = "$hub/skills/$n/SKILL.md"
   if (-not (Test-Path $src)) { Write-Warning "missing $n"; continue }
   $raw  = [System.IO.File]::ReadAllText($src)
-  $body = [regex]::Replace($raw, '\A---\r?\n.*?\r?\n---\r?\n', '', 'Singleline')  # strip skill frontmatter
+  $body = [regex]::Replace($raw, '\A---\r?\n.*?\r?\n---\r?\n', '', 'Singleline')
   Set-Content ".clinerules/$n.md" $body -Encoding UTF8
 }
 ```
 
-Add an index so Cline knows the rest exist without loading them:
+Do not write an index file. Cline already lists every linked skill with its
+description, so an index says the same thing twice.
 
-```bash
-$head = @(
-  '# Available procedures'
-  ''
-  'Full skill bodies live in $hub/skills/<name>/SKILL.md.'
-  'When a task matches, read that file first, then follow it.'
-  ''
-)
-$idx = ($head -join "`n") + "`n"
+### Keep a rule off most requests
 
-Get-ChildItem "$hub/skills" -Directory | ForEach-Object {
-  $f = Join-Path $_.FullName 'SKILL.md'
-  if (Test-Path $f) {
-    $d = (Select-String -Path $f -Pattern '^description:' | Select-Object -First 1).Line
-    $d = $d -replace '^description:\s*',''
-    $idx += "- $($_.Name) - $d`n"
-  }
-}
-Set-Content ".clinerules/_index.md" $idx -Encoding UTF8
+A rule in `.clinerules/` can carry `paths:` frontmatter. Cline then activates it
+only when a matching file is in context:
+
+```markdown
+---
+paths:
+  - "src/components/**"
+---
+# React components
+
+When you change a component, keep the props typed and the state local.
 ```
+
+A rule with no frontmatter is always on. That is the default, and the reason a
+big rule file costs you on every request.
 
 ## Verify
 
 ```bash
-Get-ChildItem ".clinerules" | ForEach-Object {
-  "{0,-32} {1,6} B" -f $_.Name, $_.Length
-}
+python "$hub/tools/bootstrap.py" --only cline --check
 ```
 
-Then in Cline, open the Rules panel and confirm the files are attached.
+It must print `OK` twice: once for `writing-style.md`, once for
+`~/.cline/skills (42 skills)`. Then look in Cline:
+
+| Where | What to see |
+|---|---|
+| Scale icon, left of the model selector, then **Rules** | `writing-style.md`, toggled on |
+| Same icon, then **Skills** | 42 skills, toggled on |
+| Chat input, type `/` | the skill names, for example `/write-less-code` |
 
 ## Recommended subset
 
-`write-less-code`, `prove-it-works`, `trim-my-output`
+- **Skills:** all 42. Leave them on.
+- **Rules:** `write-less-code`, `prove-it-works`, `trim-my-output`.
 
-Everything else: path reference only.
+If the list cost matters, turn off the skills you never use in the Skills tab. A
+skill that is off costs nothing.
 
 ## Invoking it with `/`
 
-The hub's rule is that every skill is reachable as `/<name>`. Because this tool has no `/<name>`, the hub keeps the body and changes the wrapper.
+The hub's rule is that every skill is reachable as `/<name>`. Cline has that
+mechanism: type `/` in the chat input, then pick the skill. Cline loads that
+`SKILL.md` and follows it.
 
-This tool has no slash mechanism. It reads rules, so the skill body is loaded by topic rather than by an explicit `/` trigger.
+A skill that is off in the Skills tab does not appear in `/`. When a name is
+missing, check the toggle first.
 
 See [invoking-with-slash.md](invoking-with-slash.md) for the full matrix and for
 what to do when `/<name>` does not appear.
 
 ## Notes
 
-- `.clinerules` as a **directory** is the current format; a single
-  `.clinerules` **file** is legacy. Prefer the directory.
-- Cline has no `name:` matching requirement, so the body can be used as-is once
-  frontmatter is stripped.
-- Global rules live outside the repo — useful for a shared baseline, but they do
-  not travel with the project, so a teammate will not get them.
+- `.clinerules/` as a **directory** is the current format. `.cline/rules/` works
+  the same way. A single `.clinerules` **file** is legacy.
+- Cline also reads `.cursorrules`, `.windsurfrules` and `AGENTS.md`. That text
+  enters the context too, so a repo with an old `.cursorrules` pays twice.
+- Cline follows links in a skills folder: it accepts a directory, or a junction
+  or symlink whose target is a directory. So `bootstrap.py` links and does not
+  copy. Checked against 4.1.25.
+- The skills parser is lenient. It takes `name` from the folder name when that
+  key is absent. It ignores unknown keys such as `argument-hint`. The docs say
+  `name` must match the directory name, and every hub skill does.
+- Global rules live outside the repo. They are a good shared baseline, but they
+  do not travel with the project, so a teammate will not get them.
+- Global rules go in the folder the shell calls Documents. On Windows that is
+  `[System.Environment]::GetFolderPath('MyDocuments')`. OneDrive Known Folder
+  Move changes the answer. A write to `%USERPROFILE%\Documents` then lands in a
+  folder Cline never reads.
