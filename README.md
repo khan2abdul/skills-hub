@@ -14,6 +14,89 @@ from `repos.toml` URLs. No absolute paths in tools, specs, or docs. See [Paths](
 1 authored (`route-to-the-right-skill`, the parent router)
 (`debug-this-code` scores 37/37 on the rubric). `hub.py` reports `HUB HEALTHY`.
 
+If you just want the skills on your machine, read [Install](#install) and stop
+there. Everything from [Build](#build-changing-the-hub-itself) onward is for
+changing the hub itself.
+
+## Install
+
+Two groups of people use this repo, and they want different things.
+
+| You want | Go to | Needs |
+|---|---|---|
+| The 41 skills and the writing style in my AI tools | [One command](#one-command) | Python 3.11+, 2 minutes |
+| To change a skill, add a repo, or fix the tooling | [Build](#build-changing-the-hub-itself) | a clone, and `repos/` |
+
+### One command
+
+```powershell
+# Windows
+irm https://raw.githubusercontent.com/khan2abdul/skills-hub/main/install.ps1 | iex
+```
+
+```sh
+# Linux and macOS
+curl -fsSL https://raw.githubusercontent.com/khan2abdul/skills-hub/main/install.sh | sh
+```
+
+The installer finds Python 3.11+, offers to install it for your user only, puts
+the hub in `%LOCALAPPDATA%\skills-hub` (Windows) or
+`~/.local/share/skills-hub` (Linux, macOS), then hands off once to
+`bootstrap.py`. That last step prints every path it will write and asks once.
+Nothing needs admin. See [docs/INSTALL.md](docs/INSTALL.md) for the per-tool
+detail and the Cursor paste step.
+
+### Day to day
+
+Run these from the installed hub folder:
+
+```sh
+python tools/bootstrap.py --check        # is everything still in place? exit 1 if not
+python tools/bootstrap.py --dry-run      # print the plan, write nothing
+python tools/bootstrap.py --update       # re-apply every target and re-link
+python tools/bootstrap.py --uninstall    # remove only what this tool wrote
+```
+
+`--check` is the one to put in a habit. It reports three states and only two of
+them are failures:
+
+| State | Means | Fails the run? |
+|---|---|---|
+| `OK` | in place and current | no |
+| `manual` | Cursor, needs the one paste | no |
+| `DRIFT` | changed or missing | yes, exit 1 |
+
+### What changes for you
+
+- **Your own text is safe.** A `block` target keeps everything outside its
+  markers. A `file` target is replaced only when its text is the hub's body; add
+  your own line and the hub calls it yours and leaves it alone.
+- **Uninstall is conservative.** It deletes a style file only when it can prove
+  it wrote that text, and removes a skill entry only when it is a link into the
+  hub. A real folder of yours stays, even at a skill name.
+- **`--update` asks first.** It never writes unseen. With no terminal it refuses
+  and tells you to pass `--yes`.
+- **Editing a file the hub owns invites drift.** If you edit a `file` target, the
+  hub reports `kept` and stops managing it. That is deliberate, and it means your
+  text survives. To put the file back under management, move your text elsewhere,
+  delete the file, and run `--update`. The hub then writes its body again.
+
+### Requirements
+
+Python 3.11 or newer (dict ordering, `tomllib`, `X | None` annotations).
+Standard library only - nothing to `pip install`. Every tool starts with
+`#!/usr/bin/env python3`, so on Linux and macOS it also runs directly once the
+exec bit is set:
+
+```bash
+chmod +x tools/*.py
+./tools/hub.py
+```
+
+On Windows use `python tools/hub.py`, or `py -3 tools/hub.py` where `python` is
+not on `PATH`. The tools force stdout to UTF-8, so a cp1252 console will not
+crash on the arrows and box characters in the reports.
+
 ## Why
 
 Nine repos ship 187 skill bundles with heavy overlap - five debuggers, nine token
@@ -40,33 +123,66 @@ were combined.
 | Operate | `make-it-observable`, `ship-it`, `guard-the-dangerous-stuff`, `hand-off-to-next-session` |
 | Meta | `watch-my-context`, `trim-my-output`, `route-to-the-right-skill`, `write-a-new-skill`, `deslop-the-writing` |
 
-## Quick start
+## Build: changing the hub itself
+
+An install does not need `repos/`. Changing the hub does, because every skill
+body is proved against its upstream. So this flow is separate from the install.
+
+```bash
+git clone https://github.com/khan2abdul/skills-hub.git
+cd skills-hub
+python3 tools/refresh.py          # clone, harvest, verify, coverage, rate, catalog
+```
+
+`refresh.py` is the whole flow in one command, and it stops at the first failure
+so a catalog is never built from unverified bodies. The steps it runs:
 
 ```bash
 python3 tools/clone_repos.py      # clone/refresh the 9 sources into repos/
-python3 tools/hub.py              # health: harvest + verify + coverage + rating + catalog
-python3 tools/hub.py --tools       # list install pages
-python3 tools/hub.py --setup cursor  # print a page to paste into that agent
+python3 tools/harvest.py          # drift, broken refs, skills with no decision
+python3 tools/verify.py           # the guarantee: prove every body
+python3 tools/coverage.py         # write COVERAGE.md
+python3 tools/rate_skills.py      # write RATING.md + RATING.json
+python3 tools/catalog.py          # write SKILLS.md
 ```
 
 `clone_repos.py` is shallow by default (`--depth 1`): the hub only needs current
 file contents to vendor from. Full history would be ~1.5 GB for gstack alone.
 
-### Requirements
-
-Python 3.11 or newer (dict ordering, `tomllib`, `X | None` annotations).
-Standard library only - nothing to `pip install`. Every tool starts with
-`#!/usr/bin/env python3`, so on Linux and macOS it also runs directly once the
-exec bit is set:
+To inspect a tool's install page:
 
 ```bash
-chmod +x tools/*.py
-./tools/hub.py
+python3 tools/hub.py --tools          # list every install page
+python3 tools/hub.py --setup cursor   # print one page to paste into that agent
 ```
 
-On Windows use `python tools/hub.py`, or `py -3 tools/hub.py` where `python` is
-not on `PATH`. The tools force stdout to UTF-8, so a cp1252 console will not
-crash on the arrows and box characters in the reports.
+### Before you open a pull request
+
+```bash
+python3 tools/test_bootstrap.py    # 127 tests, temp homes only, never your real one
+python3 tools/verify.py            # must print both OK lines, exit 0
+python3 tools/hub.py               # must print HUB HEALTHY
+```
+
+`python3 tools/hub.py` rewrites `RATING.json` as a side effect. If you did not
+mean to change a rating, run `git checkout -- RATING.json` before you commit.
+
+## Changelog and versioning
+
+[CHANGELOG.md](CHANGELOG.md) is the record of what changed and when. The project
+uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the format is
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+Version numbers move like this:
+
+| Change | Version |
+|---|---|
+| A new skill, a new target tool, a new flag | minor (`0.1.0` -> `0.2.0`) |
+| A fix that changes behaviour, or a change a user must act on | patch (`0.1.0` -> `0.1.1`) |
+| A rename, or a removal of a flag or a file | major (`0.x` -> `0.(x+1)` until 1.0.0) |
+
+There are no git tags yet. When a version is ready to ship, add the tag that
+matches the heading in `CHANGELOG.md`.
 
 ## Layout
 
@@ -74,12 +190,16 @@ crash on the arrows and box characters in the reports.
 skills-hub/
 ├── repos.toml          # 9 cloned + 20 reference sources (paths relative)
 ├── manifest.yml        # 41 capabilities -> candidates -> chosen | composed
+├── style/              # WRITING-STYLE.md: the only copy of the style text
+├── CHANGELOG.md        # what changed, and the version it changed in
 ├── COVERAGE.md         # generated: every upstream skill, shipped / rejected / dropped
 ├── RATING.md           # generated: every shipped skill scored /10, with fixes
 ├── RATING.json         # generated: same, machine-readable, consumed by apply-rating
 ├── SKILLS.md           # generated: what every skill does, where it came from
-├── ignore.txt          # 122 upstream skills deliberately not selected
+├── ignore.txt          # 123 upstream skills deliberately not selected
 ├── MASTER_ROUTING.md   # phase router for always-on context
+├── install.ps1         # one-line installer, Windows
+├── install.sh          # one-line installer, Linux and macOS
 ├── repos/              # the 9 upstream repos, cloned here (gitignored)
 ├── compose/            # <name>.yml: which excerpts make up a composed skill
 ├── skills/             # shipped skills
@@ -88,17 +208,22 @@ skills-hub/
 │       └── PROVENANCE.md   # repo, path, commit, per-block sha256
 ├── setup/              # one install page per agent tool
 └── tools/
-    ├── hub.py         # entry point
-    ├── clone_repos.py # clone/refresh repos/ from repos.toml
-    ├── harvest.py     # read-only drift report
-    ├── coverage.py    # write COVERAGE.md from PROVENANCE.md
-    ├── rate_skills.py # score every skill /10 -> RATING.md + RATING.json
-    ├── catalog.py     # write SKILLS.md: what each skill does and where it came from
-    ├── apply_rating.py# apply body-preserving fixes, then verify
-    ├── vendor.py      # verbatim copy; name: line only
-    ├── compose.py     # build from compose/<name>.yml
-    ├── evaluate.py    # score skills against a rubric
-    └── verify.py      # prove every body against upstream
+    ├── hub.py          # entry point for the maintainer flow
+    ├── bootstrap.py    # install the style and link the 41 skills into each tool
+    ├── refresh.py      # clone, harvest, verify, coverage, rate, catalog
+    ├── clone_repos.py  # clone/refresh repos/ from repos.toml
+    ├── harvest.py      # read-only drift report
+    ├── coverage.py     # write COVERAGE.md from PROVENANCE.md
+    ├── rate_skills.py  # score every skill /10 -> RATING.md + RATING.json
+    ├── catalog.py      # write SKILLS.md: what each skill does and where it came from
+    ├── apply_rating.py # apply body-preserving fixes, then verify
+    ├── vendor.py       # verbatim copy; name: line only
+    ├── compose.py      # build from compose/<name>.yml
+    ├── evaluate.py     # score skills against a rubric
+    ├── verify.py       # prove every body against upstream, and the style
+    ├── hubcommon.py    # shared path resolution and config parsing
+    ├── test_bootstrap.py   # the suite: temp homes only
+    └── mutation_check.py   # edit bootstrap.py on purpose; a surviving mutant is a missing test
 ```
 
 `repos/` is 187 MB shallow-cloned, versus 1.9 GB in the old external folder
@@ -155,14 +280,17 @@ that over-engineering.
 
 ## Paths
 
-Everything resolves at runtime:
+Everything resolves at runtime. The tools are Python, so the hub root is found
+from the file's own location, not from a shell variable:
 
 | What | Resolution order |
 |---|---|
-| Hub root | `$PSScriptRoot` of the running tool |
-| Sources root | `$env:SKILLS_HUB_SOURCES` -> `sources_root` in `repos.toml` (default `repos`) -> walk up for a sibling `setupskills`/`skills-sources` that actually holds repos |
+| Hub root | `tools/` lives one level under it, so the parent of the running tool's folder |
+| Sources root | `$SKILLS_HUB_SOURCES` -> `sources_root` in `repos.toml` (default `repos`) -> walk up for a sibling `setupskills`/`skills-sources` that actually holds repos |
 | Repo path | relative to the sources root, or absolute |
-| Docs | `$hub = $env:SKILLS_HUB`, else walk up for `skills-hub/tools/verify.py` |
+| Target home | `--home DIR` if given, else the current user's home |
+
+`bootstrap.py` also takes `--dir DIR` to use another hub folder as the source.
 
 The default is now `repos/`, inside the hub, so a fresh clone of this repo needs
 one command to become self-sufficient. The `setupskills` fallback is kept only so
@@ -242,28 +370,42 @@ exit 1.
 
 Reference-only repos use `status = "reference"` and are skipped by harvest.
 
-## Installing into a tool
+## What `bootstrap.py` writes, per tool
 
-| Tool | Page | Reads |
+This table is the source of truth. It matches `TOOLS` in
+[tools/bootstrap.py](tools/bootstrap.py).
+
+| Tool | Style | Skill links |
 |---|---|---|
-| Claude Code | [setup/claude-code.md](setup/claude-code.md) | `.claude/skills/`, `~/.claude/skills/` |
-| Cursor | [setup/cursor.md](setup/cursor.md) | `.cursor/rules/*.mdc` |
-| Kiro | [setup/kiro.md](setup/kiro.md) | `.kiro/steering/` |
-| Cline | [setup/cline.md](setup/cline.md) | `.clinerules/` |
-| Kilo Code | [setup/kilo-code.md](setup/kilo-code.md) | `skills.paths` in `kilo.json` (native), or `.kilocode/rules-*/` (legacy) |
-| DeepSeek Harness | [setup/deepseek-harness.md](setup/deepseek-harness.md) | `customSkillDirs` (+ `includeDefaultRoots: false` to retire the defaults) |
-| Gemini CLI | [setup/gemini-cli.md](setup/gemini-cli.md) | `GEMINI.md` |
-| Codex CLI | [setup/codex-cli.md](setup/codex-cli.md) | `AGENTS.md` |
-| Windsurf | [setup/windsurf.md](setup/windsurf.md) | `.windsurf/rules/` |
-| Anything else | [setup/generic.md](setup/generic.md) | depends |
+| Claude Code | `~/.claude/CLAUDE.md`, between markers | `~/.claude/skills/` |
+| Codex CLI | `~/.codex/AGENTS.md`, between markers | `~/.agents/skills/` (shared) |
+| Gemini CLI | `~/.gemini/GEMINI.md`, between markers | none |
+| DeepSeek Harness | `~/.dsh/AGENTS.md`, between markers | none; reports wired or not |
+| Kilo Code | `~/.kilocode/rules/writing-style.md`, whole file | `skills.paths` in `~/.config/kilo/kilo.json` |
+| Cline | `~/Documents/Cline/Rules/writing-style.md`, whole file | `~/.cline/skills/` |
+| Cursor | none: one manual paste | `~/.cursor/skills/` and `~/.agents/skills/` |
+| Kiro | `~/.kiro/steering/writing-style.md`, whole file | `~/.kiro/skills/` |
+| Windsurf | `~/.codeium/windsurf/memories/writing-style.md`, whole file | none |
 
-Each page is self-contained: paste the whole file into that agent and say
-"set this up for me." Every shell example has been run, and the conversion
-snippet was executed end-to-end to confirm the body survives unchanged.
+`block` keeps your own text and manages only the lines between the markers.
+`file` is owned whole by the hub, and is replaced only when its text is still the
+hub's body. `print` writes no file: Cursor keeps User Rules in its settings, so
+the run prints the text and the click path, and `--check` reports `manual`.
 
-Claude Code, dsh, Gemini and Kilo Code 7.8+ have real skill directories. Cursor,
-Kiro, Cline, Codex and Windsurf load *rules* - always-on text. Their pages name
-a 2-3 skill always-on set for that reason.
+Six tools get skill links: Claude Code, Codex, Cline, Cursor, Kiro, and the shared
+`~/.agents/skills`. Codex and Cursor both read that shared folder, so it is
+written once. A tool loads a skill body only when it uses it.
+
+Gemini CLI, DeepSeek Harness and Windsurf get the writing style only, because
+`bootstrap.py` does not link skills into them. DeepSeek Harness needs
+`customSkillDirs` in its profile patch; [setup/deepseek-harness.md](setup/deepseek-harness.md)
+explains that one, and how `includeDefaultRoots: false` retires the old roots.
+
+Each `setup/` page is self-contained: paste the whole file into that agent and say
+"set this up for me."
+
+Installing is not the same as loading. `bootstrap.py` never puts a skill body
+into always-on context; the style block is the only text that costs every turn.
 
 ## Design rules
 

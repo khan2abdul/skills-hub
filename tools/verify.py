@@ -64,6 +64,47 @@ def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def check_style(hub: Path, home: Path | None = None) -> int:
+    """Check the writing style source and every `block` target it reaches.
+
+    The style text has one source. A target that holds the block must hold the
+    same body, so a hand edit shows here before it reaches a tool. A target that
+    was never installed is SKIP: an absent file is not drift.
+    """
+    import bootstrap as B
+
+    home = home or Path.home()
+    style = hub / "style" / "WRITING-STYLE.md"
+    if not style.is_file():
+        print(f"{RED}MISSING style: {style}{RESET}")
+        return 1
+    body = B.style_body(hub)
+    if not body.strip():
+        print(f"{RED}EMPTY style  : {style} has no text{RESET}")
+        return 1
+    print(f"{GREEN}OK    style  : {style} ({len(body.splitlines())} lines){RESET}")
+
+    fail = 0
+    for t in B.TOOLS:
+        if t["kind"] != "block":
+            continue
+        path = home / t["rel"]
+        if not path.is_file():
+            print(f"{YELLOW}SKIP  style  : {t['tool']} (not installed){RESET}")
+            continue
+        span = B._find_block(C.read_text(path))
+        if span is None:
+            print(f"{YELLOW}SKIP  style  : {t['tool']} (no managed block){RESET}")
+            continue
+        held = C.read_text(path)[span[0] : span[1]]
+        if B._same_block(held, B.render_block(body)):
+            print(f"{GREEN}OK    style  : {t['tool']} block equals style/{RESET}")
+        else:
+            print(f"{RED}STYLE DRIFT: {t['tool']} block differs from style/{RESET}")
+            fail += 1
+    return fail
+
+
 def main(argv: list[str] | None = None) -> int:
     hub = C.get_hub_root()
     skills_dir = hub / "skills"
@@ -83,6 +124,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{YELLOW}not a content problem. Fix the path and re-run:{RESET}")
         print(f"{YELLOW}  SKILLS_HUB_SOURCES='<path to the 9 repos>'{RESET}")
         print(f"{YELLOW}  (or sources_root in repos.toml){RESET}")
+        print(f"{YELLOW}Installing does not need this folder. Only proof of the bodies does.{RESET}")
+        print(f"{YELLOW}Run 'python tools/refresh.py' to clone the sources and restore it.{RESET}")
+        # The style check is the one thing this machine can still prove.
+        check_style(hub)
         return 2
 
     for s in merged:
@@ -281,7 +326,12 @@ def main(argv: list[str] | None = None) -> int:
     if fail > 0:
         print(f"{RED}FAILED: {fail} problem(s){RESET}")
         return 1
+    style_fail = check_style(hub)
+    if style_fail:
+        print(f"{RED}FAILED: {style_fail} style target(s) drifted{RESET}")
+        return 1
     print(f"{GREEN}OK: every shipped body is proven against upstream{RESET}")
+    print(f"{GREEN}OK: writing style is consistent{RESET}")
     return 0
 
 

@@ -4,19 +4,18 @@
 
 ## What Kiro reads
 
-Kiro uses **steering documents**, not skills:
+Kiro has **native skills** at `~/.kiro/skills/`, and `bootstrap.py` links all 41
+into it. It also reads **steering documents**, which are always-on text:
 
-| Scope | Path |
-|---|---|
-| Workspace | `.kiro/steering/*.md` |
-| User (global) | `~/.kiro/steering/*.md` |
+| Scope | Path | Loading |
+|---|---|---|
+| Skills | `~/.kiro/skills/` | on demand, by name |
+| Workspace steering | `.kiro/steering/*.md` | per frontmatter |
+| User steering | `~/.kiro/steering/*.md` | per frontmatter |
 
-Every file in `.kiro/steering/` is loaded. There is no frontmatter-driven
-on-demand loading, so **anything you put there is always in context.**
-
-Steering files may carry frontmatter with `inclusion: always | fileMatch | manual`
-and `fileMatchPattern`, which lets you scope a file. This is the closest thing
-Kiro has to on-demand skills.
+Every file in `.kiro/steering/` is loaded on every request. There is no
+frontmatter that loads a steering file on demand, so **anything you put there is
+always in context.** Use skills for the 41, and steering for the writing style.
 
 ## The translation rule
 

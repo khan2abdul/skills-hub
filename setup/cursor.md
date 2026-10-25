@@ -4,15 +4,23 @@
 
 ## What Cursor reads
 
-Cursor has **no skills directory**. It reads rules:
+Cursor has **native skills**. It reads four user-level folders, and
+`bootstrap.py` links all 41 skills into them:
 
 | Type | Path | When it loads |
 |---|---|---|
+| Skills | `~/.cursor/skills/` | on demand, by name |
+| Skills, shared | `~/.agents/skills/` | on demand; Codex reads it too |
+| Skills, inherited | `~/.claude/skills/` | on demand, when Claude Code is set up |
 | Project rules | `.cursor/rules/*.mdc` | per `globs` / `alwaysApply` |
 | User rules | Cursor Settings → Rules | every request |
 | Legacy | `.cursorrules` (root) | every request, deprecated |
 
-Modern format is **MDC**: markdown with YAML frontmatter.
+The writing style goes in **User Rules**, which is an app setting with no
+documented file. `bootstrap.py` prints the text and the click path; that one
+paste is the only manual step.
+
+Modern rules format is **MDC**: markdown with YAML frontmatter.
 
 ```markdown
 ---
