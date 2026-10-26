@@ -94,10 +94,11 @@ def main(argv: list[str] | None = None) -> int:
 
         # Mirror vendor.ps1 exactly: rewrite name: only inside the frontmatter
         # block, and only once. Replacing every name: in the file would hit
-        # code-fence examples too.
+        # code-fence examples too. The match stops before \r, so a CRLF source
+        # keeps its line ending.
         head, yaml, sep, rest = m
         import re
-        yaml2 = re.sub(r'(?m)^name:\s*.*$', f"name: {canonical}", yaml, count=1)
+        yaml2 = re.sub(r'(?m)^name:[^\r\n]*', f"name: {canonical}", yaml, count=1)
         if yaml2 == yaml and not re.search(r'(?m)^name:\s*', yaml):
             errors.append(f"{canonical} : '{source_name}' frontmatter has no name: line")
             continue

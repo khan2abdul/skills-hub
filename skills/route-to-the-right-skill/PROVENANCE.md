@@ -3,7 +3,7 @@
 - canonical: route-to-the-right-skill
 - mode: authored
 - authored: 2026-10-23
-- body sha256: 721acadd2eb3f24307aa8e9c05a6d7c42c1a78e72dbb422326dcd3724ef74bf9
+- body sha256: 23f0f5855bd3733f1873dac13d1934a87b6c343b88f9fbe53c0356959c94ef1c
 - published policy: skill text is immutable *except* for an entry that declares
   `mode: authored` here. Nothing upstream owns this text, so there is no excerpt
   to re-hash; `verify.py` proves instead that the shipped body has not drifted

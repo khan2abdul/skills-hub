@@ -27,13 +27,21 @@ hub writes into files the user owns. Use the words **re-run** or **no action**.
   from `tt-a1i/archify`. **Re-run** the installer to link it. It needs Node.js
   >= 18 and Chrome, Chromium or Edge for its browser gate, and its payload is
   about 17.3 MB because it ships rendered examples.
+- **`landing-page-design`**, a landing-page system from
+  `elayadesign/ai-design-skills`: intake, page structure, conversion copy, SEO,
+  and a strict visual layer. **Re-run** the installer to link it. MIT; no
+  runtime dependency.
+- **`design-to-motion`**, a motion-showcase skill from the same repo: it turns a
+  static design into a pixel-exact animated HTML replica and exports MP4 and
+  GIF. **Re-run** the installer to link it. MIT. It needs a Figma personal
+  access token, headless Chrome and ffmpeg.
 
 ### Changed
 
-- The hub now ships 42 skills from 10 upstream repos.
-- The installers and `docs/INSTALL.md` report 42 skills.
+- The hub now ships 44 skills from 11 upstream repos.
+- The installers and `docs/INSTALL.md` report 44 skills.
 - **`setup/cline.md` installs the skills, not only `.clinerules`.** The page now
-  runs `bootstrap.py --only cline`, which links all 42 skills, and keeps the
+  runs `bootstrap.py --only cline`, which links all 44 skills, and keeps the
   project rule file as an optional step. **No action** for an existing install.
 
 ### Fixed

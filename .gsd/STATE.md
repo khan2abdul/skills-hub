@@ -1,6 +1,6 @@
 # State
 
-Current: M002 Archify added (2026-10-25). 42 skills, 188 upstream, HUB HEALTHY.
+Current: M003 design skills added (2026-10-26). 44 skills, 190 upstream, HUB HEALTHY.
 
 Milestone: M001 - one-command install of 41 skills plus the writing style
 Slice: S06 of 6 (M001 complete)
@@ -362,3 +362,43 @@ Evidence:
 Known limits: Node.js >= 18 is required to render; `browser-check` needs a
 browser. The original test failure was the hard-coded `41 skills` assertion; the
 later `ChildProcess.kill` was the shell timeout, not a test failure.
+
+## M003: design skills from ai-design-skills (2026-10-26)
+
+Status: added, verified, and catalogued.
+
+- Source: `elayadesign/ai-design-skills` at commit
+  `a2735a3eaf092eaaffb6dc17df25de33ef3bd048`.
+- License: MIT. The upstream `LICENSE` ships inside each skill folder.
+- Payload: two single-file skills, 18.8 KB and 39.1 KB. Both are byte-identical
+  to the upstream blob; the name line already matched, so no byte changed.
+- Names: `landing-page-design` and `design-to-motion`, kept upstream at the
+  owner's request. This is a recorded exception to the verb-first naming rule.
+- Integration: `repos.toml` (the 11th cloned repo), `manifest.yml`,
+  `MASTER_ROUTING.md`, `README.md`, `docs/INSTALL.md`, both installers, all setup
+  pages, `CHANGELOG.md`, `tools/catalog.py`, `tools/skill-page-data.json`,
+  `skills/route-to-the-right-skill/SKILL.md` (authored body hash updated),
+  `SKILLS.md`, `SKILLS.html`, `COVERAGE.md`, `RATING.md`, `RATING.json`,
+  `COMPARISON.md`.
+- Routing: both sit in the UI phase and in the router's Finish row.
+- Runtime: `design-to-motion` needs a Figma personal access token, headless
+  Chrome and ffmpeg. `landing-page-design` needs nothing.
+- Tool fix found during the add: `repos/` clones inherited
+  `core.autocrlf=true`, so a source without `eol` attributes checked out CRLF
+  and the vendored body was not byte-identical to the LF blob.
+  `clone_repos.py` now disables `core.autocrlf` and rewrites a fresh tree from
+  the index. `vendor.py` no longer eats the `\r` of a CRLF `name:` line.
+
+Evidence:
+
+| Command | Result |
+|---|---|
+| `python tools/verify.py` | every shipped body proven; style consistent |
+| `python tools/hub.py` | HUB HEALTHY; 44 skills, 190 upstream, 67 shipped |
+| `python tools/test_bootstrap.py` | 134 tests, OK, exit 0 |
+| `python tools/coverage.py` | 190 upstream: 67 shipped, 123 rejected, 0 dropped |
+| `python tools/rate_skills.py` | 44 skills, mean 9.75/10 |
+
+Known limits: the new bodies are 18.8 KB and 39.1 KB, so both exceed Cline's 5k
+token body guidance. The motion skill also depends on a Figma token, a browser
+and ffmpeg.

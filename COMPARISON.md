@@ -3,7 +3,7 @@
 Every skill compared against the upstream original it was fetched from, scored
 with the same rubric (`tools/hubrubric.py`). Wire: `tools/compare_skills.py`.
 
-**Craft: ours 9.7 vs originals 9.43.** Faithfulness: 18 exact, 23 composed, 0 lossy.
+**Craft: ours 9.67 vs originals 9.42.** Faithfulness: 20 exact, 23 composed, 0 lossy.
 
 The headline: our copies are verbatim, so a low score is almost never a
 transcription defect. When ours scores 6, the original also scores 6. The
@@ -14,7 +14,7 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 | check | result |
 |---|---|
-| body byte-identical to original | 18/42 |
+| body byte-identical to original | 20/44 |
 | body differs | 0 |
 | payload files missing vs original | 5 skills |
 | payload files altered | 9 skills |
@@ -23,6 +23,8 @@ one - composing in sections, or re-vendoring from a stronger candidate.
 
 | skill | ours | original | from | fidelity | reachable | gaps |
 |---|---|---|---|---|---|---|
+| `landing-page-design` | 9 | 9 | `landing-page-design` (ai-design-skills) | exact | 9.2 | 0 |
+| `design-to-motion` | 9.2 | 9.2 | `design-to-motion` (ai-design-skills) | exact | 9.4 | 0 |
 | `explore-this-repo` | 9.4 | 8.4 | `cavecrew` (caveman) | composed | 9.6 | 2 |
 | `write-the-spec` | 9.6 | 8.4 | `to-spec` (mattpocock-skills) | composed | 10 | 0 |
 | `audit-the-whole-repo` | 9.6 | 9.6 | `review` (gsd-2) | composed | 9.7 | 1 |
@@ -142,6 +144,8 @@ current score is at its ceiling and cannot be improved without new source materi
 
 | skill | now | reachable | the move |
 |---|---|---|---|
+| `landing-page-design` | 9 | 9.2 | at ceiling - no better source in repos/ |
+| `design-to-motion` | 9.2 | 9.4 | at ceiling - no better source in repos/ |
 | `explore-this-repo` | 9.4 | 9.6 | gains procedure (9 -> 10) by composing 'cavecrew' |
 | `write-the-spec` | 9.6 | 10 | re-vendor from 'loop-factory' (craft 10) instead of 'to-spec' (craft 9.6) (+2 more) |
 | `audit-the-whole-repo` | 9.6 | 9.7 | gains references (8 -> 10) by composing 'code-optimizer' |
@@ -186,6 +190,26 @@ current score is at its ceiling and cannot be improved without new source materi
 | `write-a-new-skill` | 10 | 10 | at ceiling - no better source in repos/ |
 
 ## Detail
+
+### `landing-page-design` - 9.2/10
+
+fidelity: exact - faithful copy; the score IS the original score
+
+| source | repo | chars | craft | structure | procedure | gates | references | portability | size |
+|---|---|---|---|---|---|---|---|---|---|
+| `landing-page-design` | ai-design-skills | 18750 | 9 | 10 | 10 | 6 | 8 | 10 | 10 |
+
+ours: structure 10, procedure 10, gates 6, references 8, portability 10, size 10
+
+### `design-to-motion` - 9.4/10
+
+fidelity: exact - faithful copy; the score IS the original score
+
+| source | repo | chars | craft | structure | procedure | gates | references | portability | size |
+|---|---|---|---|---|---|---|---|---|---|
+| `design-to-motion` | ai-design-skills | 39011 | 9.2 | 10 | 10 | 10 | 8 | 10 | 7 |
+
+ours: structure 10, procedure 10, gates 10, references 8, portability 10, size 7
 
 ### `explore-this-repo` - 9.6/10
 

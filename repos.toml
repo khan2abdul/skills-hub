@@ -1,6 +1,6 @@
 # Skill sources.
 #
-# The 10 harvested repos are cloned INSIDE the hub, at repos/, by
+# The 11 harvested repos are cloned INSIDE the hub, at repos/, by
 # tools/clone_repos.py. That keeps the hub self-contained: one clone of this
 # repo plus one command reproduces every source, with no external folder.
 #
@@ -93,6 +93,15 @@ url = "https://github.com/tt-a1i/archify.git"
 status = "cloned"
 path = "archify"
 roots = ["."]
+
+# Two single-file design skills, MIT: a landing page system and a motion
+# showcase pipeline. Kept verbatim.
+[[repo]]
+name = "ai-design-skills"
+url = "https://github.com/elayadesign/ai-design-skills.git"
+status = "cloned"
+path = "ai-design-skills"
+roots = ["skills"]
 
 # --- Reference catalog: candidates worth harvesting later -----------------
 # Not cloned. To promote one, git clone it, change status to "cloned",

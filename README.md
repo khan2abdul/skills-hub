@@ -1,16 +1,16 @@
 # skills-hub
 
-One canonical skill per capability, harvested from 10 repos cloned into `repos/`
+One canonical skill per capability, harvested from 11 repos cloned into `repos/`
 (+19 catalogued sources), published under names a human can actually ask for.
 
 **Core guarantee: no skill text is ever edited.** A shipped skill is either a
 verbatim copy (only the `name:` line changes) or a composition of verbatim
 excerpts with per-block sha256 proofs. `tools/verify.py` proves both on every run.
 
-**Self-contained.** The 10 source repos live inside the hub at `repos/`, cloned
+**Self-contained.** The 11 source repos live inside the hub at `repos/`, cloned
 from `repos.toml` URLs. No absolute paths in tools, specs, or docs. See [Paths](#paths).
 
-**Status:** all 42 capabilities shipped - 18 verbatim copies, 23 compositions, plus
+**Status:** all 44 capabilities shipped - 20 verbatim copies, 23 compositions, plus
 1 authored (`route-to-the-right-skill`, the parent router)
 (`debug-this-code` scores 37/37 on the rubric). `hub.py` reports `HUB HEALTHY`.
 
@@ -24,7 +24,7 @@ Two groups of people use this repo, and they want different things.
 
 | You want | Go to | Needs |
 |---|---|---|
-| The 42 skills and the writing style in my AI tools | [One command](#one-command) | Python 3.11+ (Node >=18 + browser for `diagram-the-system`) |
+| The 44 skills and the writing style in my AI tools | [One command](#one-command) | Python 3.11+ (Node >=18 + browser for `diagram-the-system`; Figma token, headless Chrome and ffmpeg for `design-to-motion`) |
 | To change a skill, add a repo, or fix the tooling | [Build](#build-changing-the-hub-itself) | a clone, and `repos/` |
 
 ### One command
@@ -93,6 +93,10 @@ needs Node.js 18+ plus Chrome, Chromium or Edge for its browser gate. Its
 207-file payload is about 17.3 MB because it includes rendered examples; the
 `--no-link` copy fallback copies that too.
 
+`design-to-motion` needs a Figma personal access token to read a frame, headless
+Chrome to render it, and ffmpeg to encode the MP4 and GIF exports. The
+`landing-page-design` skill has no runtime dependency.
+
 ```bash
 chmod +x tools/*.py
 ./tools/hub.py
@@ -104,12 +108,12 @@ crash on the arrows and box characters in the reports.
 
 ## Why
 
-Ten repos ship 188 skill bundles with heavy overlap - five debuggers, nine token
+Eleven repos ship 190 skill bundles with heavy overlap - five debuggers, nine token
 tools, three "prove it works". Each is fine alone; together they collide and the
 agent picks arbitrarily. This hub keeps one winner per capability, records exactly
 where every line came from, and reports when upstream moves.
 
-## The 42 skills
+## The 44 skills
 
 **[SKILLS.md](SKILLS.md) is the catalog**: what each skill does, the upstream
 repo and skill it came from, and - for compositions - the exact sections that
@@ -125,7 +129,7 @@ were combined.
 | Finish | `finish-the-experience` |
 | Debug | `debug-this-code`, `debug-the-stubborn-one`, `fix-this-bug` |
 | Review | `review-my-code`, `receive-code-review`, `check-my-security`, `audit-the-whole-repo`, `prove-it-works`, `test-every-surface` |
-| UI | `check-my-ui`, `polish-the-ui`, `make-it-accessible`, `make-it-fast` |
+| UI | `check-my-ui`, `polish-the-ui`, `landing-page-design`, `design-to-motion`, `make-it-accessible`, `make-it-fast` |
 | Operate | `make-it-observable`, `ship-it`, `guard-the-dangerous-stuff`, `hand-off-to-next-session` |
 | Meta | `watch-my-context`, `trim-my-output`, `route-to-the-right-skill`, `write-a-new-skill`, `deslop-the-writing` |
 
@@ -195,7 +199,7 @@ matches the heading in `CHANGELOG.md`.
 ```
 skills-hub/
 ├── repos.toml          # 10 cloned + 19 reference sources (paths relative)
-├── manifest.yml        # 42 capabilities -> candidates -> chosen | composed
+├── manifest.yml        # 44 capabilities -> candidates -> chosen | composed
 ├── style/              # WRITING-STYLE.md: the only copy of the style text
 ├── CHANGELOG.md        # what changed, and the version it changed in
 ├── COVERAGE.md         # generated: every upstream skill, shipped / rejected / dropped
@@ -215,7 +219,7 @@ skills-hub/
 ├── setup/              # one install page per agent tool
 └── tools/
     ├── hub.py          # entry point for the maintainer flow
-    ├── bootstrap.py    # install the style and link the 42 skills into each tool
+    ├── bootstrap.py    # install the style and link the 44 skills into each tool
     ├── refresh.py      # clone, harvest, verify, coverage, rate, catalog
     ├── clone_repos.py  # clone/refresh repos/ from repos.toml
     ├── harvest.py      # read-only drift report
@@ -303,14 +307,14 @@ one command to become self-sufficient. The `setupskills` fallback is kept only s
 a pre-existing external checkout still resolves without re-downloading.
 
 `clone_repos.py` resolves strictly: it never falls back to a discovered folder,
-because a write tool that guesses would clone 10 repos into the wrong tree. If the
+because a write tool that guesses would clone 11 repos into the wrong tree. If the
 declared root is missing you get one clear message and exit code 2.
 
 ## The commands
 
 ```bash
 python3 tools/harvest.py    # drift, broken refs, skills with no decision (read-only)
-python3 tools/coverage.py   # write COVERAGE.md: 188 upstream -> shipped / rejected / dropped
+python3 tools/coverage.py   # write COVERAGE.md: 190 upstream -> shipped / rejected / dropped
 python3 tools/catalog.py    # write SKILLS.md: what each skill does and where it came from
 python3 tools/vendor.py --all --what-if
 python3 tools/evaluate.py   # rubric scores
@@ -415,7 +419,7 @@ into always-on context; the style block is the only text that costs every turn.
 
 ## Design rules
 
-- **Skill text is immutable.** Verbatim, or verified excerpts. One named exception: `mode: authored`, which records its own body hash instead. `route-to-the-right-skill` is the only entry that uses it, and only because no upstream body could route to this hub's 42 names.
+- **Skill text is immutable.** Verbatim, or verified excerpts. One named exception: `mode: authored`, which records its own body hash instead. `route-to-the-right-skill` is the only entry that uses it, and only because no upstream body could route to this hub's 44 names.
 - **One capability, one name.** If two names could fire on the same request, merge them.
 - **Verb-first names that say the job:** `debug-this-code`, `write-the-spec`.
 - **Provenance is mandatory.** A body with no PROVENANCE.md cannot be audited.
@@ -427,8 +431,10 @@ into always-on context; the style block is the only text that costs every turn.
 
 Vendored skills keep their upstream licenses. `diagram-the-system` is
 Apache-2.0; its `LICENSE`, `LICENSE-MIT`, `NOTICE` and
-`THIRD_PARTY_NOTICES.md` ship inside `skills/diagram-the-system/`. The hub's own
-code does not yet declare a license.
+`THIRD_PARTY_NOTICES.md` ship inside `skills/diagram-the-system/`.
+`landing-page-design` and `design-to-motion` are MIT; each ships its upstream
+`LICENSE` inside its skill folder. The hub's own code does not yet declare a
+license.
 
 `diagram-the-system`'s `finalize` performs a bounded update check against
 `tt-a1i.github.io`; it never installs anything, and an unavailable check does not

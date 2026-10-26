@@ -263,6 +263,20 @@ candidates = ["constraint-driven-development", "best-practices"]
 rationale = "Write CONSTRAINTS.md and stop agents quietly lowering it. Distinct from review: this is the contract, review is the check."
 
 [[skill]]
+name = "landing-page-design"
+status = "merged"
+chosen = "landing-page-design"
+candidates = ["landing-page-design"]
+rationale = "Landing-page system: intake, page structure, layout, conversion copy, SEO, and a strict visual layer. Distinct from polish-the-ui (existing product UI) and finish-the-experience (the experiential last pass). Name kept upstream at the owner's request, so it breaks the hub's verb-first rule on purpose. MIT; LICENSE ships in skills/landing-page-design/."
+
+[[skill]]
+name = "design-to-motion"
+status = "merged"
+chosen = "design-to-motion"
+candidates = ["design-to-motion"]
+rationale = "Turns a static design into a pixel-exact animated HTML showcase and exports MP4 and GIF. Distinct from polish-the-ui (shipping UI motion) and diagram-the-system (checked diagram views). Needs a Figma token, headless Chrome and ffmpeg. Name kept upstream at the owner's request, so it breaks the hub's verb-first rule on purpose. MIT; LICENSE ships in skills/design-to-motion/."
+
+[[skill]]
 name = "polish-the-ui"
 status = "merged"
 chosen = ""
@@ -314,7 +328,7 @@ name = "route-to-the-right-skill"
 status = "authored"
 chosen = ""
 candidates = ["using-agent-skills", "using-superpowers", "ask-matt"]
-rationale = "The parent skill: routes every request to the right skill, re-routes at phase boundaries and failed attempts, and blocks the rationalisations that skip a skill. Authored rather than vendored - all three candidates routed to skills this hub does not ship. The shipped copy was addy's using-agent-skills, whose tree named 30 retired skills and pointed at ../../references/definition-of-done.md, which does not exist. Discipline taken from using-superpowers (compulsory check, red-flag table), routing shape from using-agent-skills, every name rewritten to the 42 that ship. See skills/route-to-the-right-skill/PROVENANCE.md."
+rationale = "The parent skill: routes every request to the right skill, re-routes at phase boundaries and failed attempts, and blocks the rationalisations that skip a skill. Authored rather than vendored - all three candidates routed to skills this hub does not ship. The shipped copy was addy's using-agent-skills, whose tree named 30 retired skills and pointed at ../../references/definition-of-done.md, which does not exist. Discipline taken from using-superpowers (compulsory check, red-flag table), routing shape from using-agent-skills, every name rewritten to the 44 that ship. See skills/route-to-the-right-skill/PROVENANCE.md."
 
 [[skill]]
 name = "hand-off-to-next-session"

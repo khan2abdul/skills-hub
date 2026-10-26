@@ -140,10 +140,10 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
       the wrong tool, how to invoke it, and whether the agent may reach for it on its own.
     </p>
     <ul class="stat">
-      <li><b>42</b> skills</li>
+      <li><b>44</b> skills</li>
       <li><b>10</b> stop and ask first</li>
-      <li><b>32</b> never interrupt</li>
-      <li><b>42</b> model-invocable</li>
+      <li><b>34</b> never interrupt</li>
+      <li><b>44</b> model-invocable</li>
       <li><b>14</b> phases</li>
     </ul>
 
@@ -922,7 +922,7 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
   </article>
 </section>
 <section class="phase" id="finish">
-  <h2>Finish <span>4 skills</span></h2>
+  <h2>Finish <span>6 skills</span></h2>
   <p class="blurb">Close the gap between working and good.</p>
   <article class="card" id="skill-finish-the-experience" data-gate="false" data-search="finish-the-experience finds and finishes the experiential last 20%: the magic moment, page shapes, empty states and defaults, before a build is called done. planning a build so the magic is specced as concretely as the plumbing the solution works but feels like a demo user says last 20%, finish this, make it actually good, is this done the output reads like filler, or the first run feels dead before declaring any build done adding features — the last 20% is depth on the core scene, never breadth rewriting working infrastructure to be prettier inside (gold-plating the plumbing) the walk already delivers the magic moment — a solution is allowed to pass &quot;is this wiki actually done?&quot; → the agent writes the magic-moment scene and scene list, then walks the wiki cold as a first-time user. finish nothing destructive is gated.">
     <div class="head">
@@ -972,6 +972,55 @@ footer code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.
     </div>
     <div class="ex"><h4>How to use it</h4><p>&quot;/polish-the-ui the settings page looks AI-generated&quot; → the agent first collects 2-3 reference screens and writes a short design contract.</p></div>
     <p class="gateline"><b class="no">Does not interrupt:</b> It edits UI code and defers to an existing DESIGN.md; nothing destructive or irreversible.</p>
+  </article>
+  <article class="card" id="skill-landing-page-design" data-gate="false" data-search="landing-page-design builds a high-conversion landing page: intake, page structure, layout, conversion copy, seo, and a strict visual system for type, spacing, radius, colour, icons and motion. building a landing page or marketing site from scratch choosing page sections, headlines, ctas or a layout writing or reviewing conversion copy for one offer and one audience setting type, spacing, radius and colour values for a page reviewing a landing page before it ships upgrading an existing site rather than building one — the upstream project ships a separate redesign skill backend, api, cli or data-layer work with no rendered page a design.md already fixes every visual value you were told to follow verbatim copying another product's branding, proprietary text, imagery or exact layout &quot;/landing-page-design build the waitlist page for our beta&quot; → the agent asks for the one action, audience and offer before choosing any section or type value. finish it writes page code and copy; nothing destructive or irreversible.">
+    <div class="head">
+      <h3>landing-page-design</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.2 / A</span>
+    </div>
+    <p class="summary">Builds a high-conversion landing page: intake, page structure, layout, conversion copy, SEO, and a strict visual system for type, spacing, radius, colour, icons and motion.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Building a landing page or marketing site from scratch</li>
+        <li>Choosing page sections, headlines, CTAs or a layout</li>
+        <li>Writing or reviewing conversion copy for one offer and one audience</li>
+        <li>Setting type, spacing, radius and colour values for a page</li>
+        <li>Reviewing a landing page before it ships</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Upgrading an existing site rather than building one — the upstream project ships a separate redesign skill</li>
+        <li>Backend, API, CLI or data-layer work with no rendered page</li>
+        <li>A DESIGN.md already fixes every visual value you were told to follow verbatim</li>
+        <li>Copying another product's branding, proprietary text, imagery or exact layout</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/landing-page-design build the waitlist page for our beta&quot; → the agent asks for the one action, audience and offer before choosing any section or type value.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It writes page code and copy; nothing destructive or irreversible.</p>
+  </article>
+  <article class="card" id="skill-design-to-motion" data-gate="false" data-search="design-to-motion turns a static design into a pixel-exact animated html replica that loads from an empty state and loops every visual's story, then exports an mp4 and gifs. animating a figma frame, screenshot, dashboard, card set or hero image making a loading, appear or showcase loop for a design building a motion mockup, video or gif of a design adding bento or feature cards that pair text with a visual on a site shipping interaction motion inside a product such as hovers, menus or toasts — use polish-the-ui the job is a checked diagram, not an animated design — use diagram-the-system a redesign is wanted rather than a faithful animation of the existing frame a figma token, headless chrome or ffmpeg is unavailable and exports are required &quot;/design-to-motion animate this figma frame for x&quot; → the agent rebuilds the exact frame, defines the story loops, then records and encodes the mp4 and gif. finish it writes html, frames and media files and runs ffmpeg; nothing destructive or irreversible.">
+    <div class="head">
+      <h3>design-to-motion</h3>
+      <span class="badge auto">auto-invocable</span>
+      <span class="score">rating 9.4 / A</span>
+    </div>
+    <p class="summary">Turns a static design into a pixel-exact animated HTML replica that loads from an empty state and loops every visual's story, then exports an MP4 and GIFs.</p>
+    <div class="cols">
+      <div class="pos"><h4>When to use it</h4><ul>
+        <li>Animating a Figma frame, screenshot, dashboard, card set or hero image</li>
+        <li>Making a loading, appear or showcase loop for a design</li>
+        <li>Building a motion mockup, video or GIF of a design</li>
+        <li>Adding bento or feature cards that pair text with a visual on a site</li>
+      </ul></div>
+      <div class="neg"><h4>When not to use it</h4><ul>
+        <li>Shipping interaction motion inside a product such as hovers, menus or toasts — use polish-the-ui</li>
+        <li>The job is a checked diagram, not an animated design — use diagram-the-system</li>
+        <li>A redesign is wanted rather than a faithful animation of the existing frame</li>
+        <li>A Figma token, headless Chrome or ffmpeg is unavailable and exports are required</li>
+      </ul></div>
+    </div>
+    <div class="ex"><h4>How to use it</h4><p>&quot;/design-to-motion animate this Figma frame for X&quot; → the agent rebuilds the exact frame, defines the story loops, then records and encodes the MP4 and GIF.</p></div>
+    <p class="gateline"><b class="no">Does not interrupt:</b> It writes HTML, frames and media files and runs ffmpeg; nothing destructive or irreversible.</p>
   </article>
   <article class="card" id="skill-make-it-fast" data-gate="false" data-search="make-it-fast measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression. performance requirements exist: load-time budgets or response-time slas users or monitoring report slow behavior core web vitals are below thresholds you suspect a change introduced a performance regression n+1 queries or index problems show up in the query log there is no evidence of a problem yet — premature optimization adds complexity for nothing the re-measured gain sits inside run-to-run noise — that is a revert, not a keep the win requires changing, skipping or deleting a test to land you plan to raise the connection pool without finding what holds connections &quot;/make-it-fast checkout lcp is 4.2s&quot; → the agent captures a lighthouse baseline, profiles the waterfall, and fixes only the largest bottleneck. finish nothing destructive or irreversible; it profiles, edits, and reverts unproven changes itself.">
     <div class="head">

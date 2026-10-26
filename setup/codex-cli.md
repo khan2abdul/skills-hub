@@ -1,6 +1,6 @@
 # OpenAI Codex CLI
 
-> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate.
+> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate. `design-to-motion` needs a Figma token, headless Chrome and ffmpeg.
 
 > Paste this whole file into Codex CLI and say: **"set this up for me."**
 
