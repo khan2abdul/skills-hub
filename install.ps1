@@ -87,7 +87,7 @@ function Get-Hub {
 
 Write-Host ''
 Write-Host 'skills-hub' -ForegroundColor White
-Write-Host '44 skills and one writing style for your AI tools.' -ForegroundColor Gray
+Write-Host '43 skills and one writing style for your AI tools.' -ForegroundColor Gray
 Write-Host ''
 
 $py = Find-Python

@@ -92,7 +92,7 @@ get_hub() {
 }
 
 printf '\n\033[37mskills-hub\033[0m\n'
-printf '\033[90m44 skills and one writing style for your AI tools.\033[0m\n\n'
+printf '\033[90m43 skills and one writing style for your AI tools.\033[0m\n\n'
 
 PY=""
 if ! find_python; then

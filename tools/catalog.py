@@ -31,7 +31,7 @@ PHASES = {
     "Debug": ["debug-this-code", "debug-the-stubborn-one", "fix-this-bug"],
     "Review": ["review-my-code", "receive-code-review", "check-my-security", "audit-the-whole-repo",
                "prove-it-works", "test-every-surface"],
-    "UI": ["check-my-ui", "polish-the-ui", "landing-page-design", "design-to-motion",
+    "UI": ["check-my-ui", "polish-the-ui", "landing-page-design",
            "make-it-accessible", "make-it-fast"],
     "Operate": ["make-it-observable", "ship-it", "guard-the-dangerous-stuff", "hand-off-to-next-session"],
     "Meta": ["watch-my-context", "trim-my-output", "route-to-the-right-skill", "write-a-new-skill",

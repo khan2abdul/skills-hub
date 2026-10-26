@@ -94,8 +94,8 @@ status = "cloned"
 path = "archify"
 roots = ["."]
 
-# Two single-file design skills, MIT: a landing page system and a motion
-# showcase pipeline. Kept verbatim.
+# A single-file landing-page skill, MIT, kept verbatim. The repo's
+# design-to-motion skill is ignored: it needs a Figma token and heavy runtime.
 [[repo]]
 name = "ai-design-skills"
 url = "https://github.com/elayadesign/ai-design-skills.git"

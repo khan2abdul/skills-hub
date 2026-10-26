@@ -23,7 +23,7 @@ body. Nothing here requires editing a skill body.
 | Debug | `debug-this-code` → `debug-the-stubborn-one` | failing test, then fix |
 | Review | `review-my-code`, `check-my-security` | findings, including spec conformance |
 | Verify | `prove-it-works`, `test-every-surface` | evidence in this message |
-| UI | `check-my-ui`, `polish-the-ui`, `landing-page-design`, `design-to-motion`, `make-it-accessible`, `make-it-fast` | live DOM / console / network; page and motion craft |
+| UI | `check-my-ui`, `polish-the-ui`, `landing-page-design`, `make-it-accessible`, `make-it-fast` | live DOM / console / network; page craft |
 | Visualise | `diagram-the-system` | checked architecture, sequence, dataflow, ERD and explainer visuals |
 | Docs | `write-the-docs`, `deslop-the-writing` | publishable prose |
 | Ship | `ship-it` | PR, changelog |

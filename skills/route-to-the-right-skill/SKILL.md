@@ -50,7 +50,7 @@ Every skill in the hub appears exactly once. Two are always on.
 | **Debug** | something is broken and the cause is unknown | `debug-this-code`; escalate to `debug-the-stubborn-one` after two failed hypotheses |
 | **Review** | code exists and is not yet trusted | `review-my-code` is the gate; add `check-my-security` for auth, input, secrets, storage; `receive-code-review` when the feedback is someone else's; `audit-the-whole-repo` for a one-shot sweep |
 | **Verify** | about to claim it works | `prove-it-works` always; `test-every-surface` for API/CLI/job; `check-my-ui` for a browser surface; `make-it-accessible` before shipping UI |
-| **Finish** | it works but feels like a demo | `finish-the-experience`; `polish-the-ui`; `landing-page-design`; `design-to-motion`; `make-it-fast` only when measured; `make-it-observable` before production |
+| **Finish** | it works but feels like a demo | `finish-the-experience`; `polish-the-ui`; `landing-page-design`; `make-it-fast` only when measured; `make-it-observable` before production |
 | **Visualise** | a system, flow or schema needs a checked picture | `diagram-the-system` for architecture, sequence, dataflow, ERD, lifecycle, class, tree, timeline, waterfall and explainer views |
 | **Docs** | writing prose a stranger must act on | `write-the-docs`; `deslop-the-writing` as a final pass on any prose |
 | **Ship** | tests pass and it needs to reach the remote | `ship-it`; `guard-the-dangerous-stuff` before any destructive command |
@@ -110,7 +110,7 @@ why it is wrong.
 
 ## Working with dsh's bundled skills
 
-Twelve skills ship with the harness and are not part of this hub's 44. Route to
+Twelve skills ship with the harness and are not part of this hub's 43. Route to
 them the same way; they are not competitors:
 
 - `office`, `office-docx`, `office-xlsx`, `office-pptx`, `office-export-pdf`,

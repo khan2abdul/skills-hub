@@ -31,17 +31,12 @@ hub writes into files the user owns. Use the words **re-run** or **no action**.
   `elayadesign/ai-design-skills`: intake, page structure, conversion copy, SEO,
   and a strict visual layer. **Re-run** the installer to link it. MIT; no
   runtime dependency.
-- **`design-to-motion`**, a motion-showcase skill from the same repo: it turns a
-  static design into a pixel-exact animated HTML replica and exports MP4 and
-  GIF. **Re-run** the installer to link it. MIT. It needs a Figma personal
-  access token, headless Chrome and ffmpeg.
-
 ### Changed
 
-- The hub now ships 44 skills from 11 upstream repos.
-- The installers and `docs/INSTALL.md` report 44 skills.
+- The hub now ships 43 skills from 11 upstream repos.
+- The installers and `docs/INSTALL.md` report 43 skills.
 - **`setup/cline.md` installs the skills, not only `.clinerules`.** The page now
-  runs `bootstrap.py --only cline`, which links all 44 skills, and keeps the
+  runs `bootstrap.py --only cline`, which links all 43 skills, and keeps the
   project rule file as an optional step. **No action** for an existing install.
 
 ### Fixed

@@ -579,25 +579,6 @@
     "gate": { "asks": false, "what": "It writes page code and copy; nothing destructive or irreversible." }
   },
   {
-    "name": "design-to-motion",
-    "phase": "Finish",
-    "summary": "Turns a static design into a pixel-exact animated HTML replica that loads from an empty state and loops every visual's story, then exports an MP4 and GIFs.",
-    "when": [
-      "Animating a Figma frame, screenshot, dashboard, card set or hero image",
-      "Making a loading, appear or showcase loop for a design",
-      "Building a motion mockup, video or GIF of a design",
-      "Adding bento or feature cards that pair text with a visual on a site"
-    ],
-    "notWhen": [
-      "Shipping interaction motion inside a product such as hovers, menus or toasts \u2014 use polish-the-ui",
-      "The job is a checked diagram, not an animated design \u2014 use diagram-the-system",
-      "A redesign is wanted rather than a faithful animation of the existing frame",
-      "A Figma token, headless Chrome or ffmpeg is unavailable and exports are required"
-    ],
-    "example": "\"/design-to-motion animate this Figma frame for X\" \u2192 the agent rebuilds the exact frame, defines the story loops, then records and encodes the MP4 and GIF.",
-    "gate": { "asks": false, "what": "It writes HTML, frames and media files and runs ffmpeg; nothing destructive or irreversible." }
-  },
-  {
     "name": "make-it-fast",
     "phase": "Finish",
     "summary": "Measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression.",

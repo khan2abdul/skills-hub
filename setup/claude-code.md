@@ -1,6 +1,6 @@
 # Claude Code
 
-> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate. `design-to-motion` needs a Figma token, headless Chrome and ffmpeg.
+> **Runtime note:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js 18+ and Chrome, Chromium or Edge for its browser gate.
 
 > Paste this whole file into Claude Code and say: **"set this up for me."**
 

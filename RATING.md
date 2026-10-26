@@ -3,7 +3,7 @@
 Every shipped skill scored out of 10 by `tools/rate_skills.py` (rubric v2).
 Wire: `tools/apply_rating.py`. Do not edit by hand - re-run the tool.
 
-**Mean 9.75/10** over 44 skills. Grades: A 44.
+**Mean 9.76/10** over 43 skills. Grades: A 43.
 
 The score has two halves, because "is this a good skill" and "was this the
 best skill available" are different questions:
@@ -60,7 +60,7 @@ where a wrong-but-well-made choice shows up.
 | 29 | `receive-code-review` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 6163 |
 | 30 | `research-this-topic` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 10876 |
 | 31 | `review-my-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 15325 |
-| 32 | `route-to-the-right-skill` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7957 |
+| 32 | `route-to-the-right-skill` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 7937 |
 | 33 | `set-the-quality-bar` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 10 | 10 | 7 | 20946 |
 | 34 | `ship-it` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 9112 |
 | 35 | `simplify-this-code` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 11347 |
@@ -71,8 +71,7 @@ where a wrong-but-well-made choice shows up.
 | 40 | `write-the-domain-glossary` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 5676 |
 | 41 | `write-the-spec` | **9.7** | A | 9.6 | 10 | 10 | 10 | 10 | 8 | 10 | 10 | 16159 |
 | 42 | `explore-this-repo` | **9.6** | A | 9.4 | 10 | 10 | 9 | 10 | 8 | 10 | 10 | 3119 |
-| 43 | `design-to-motion` | **9.4** | A | 9.2 | 10 | 10 | 10 | 10 | 8 | 10 | 7 | 39011 |
-| 44 | `landing-page-design` | **9.2** | A | 9 | 10 | 10 | 10 | 6 | 8 | 10 | 10 | 18750 |
+| 43 | `landing-page-design` | **9.2** | A | 9 | 10 | 10 | 10 | 6 | 8 | 10 | 10 | 18750 |
 
 ## How to improve
 

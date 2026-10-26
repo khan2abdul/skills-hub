@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T03:51:54Z",
+  "generated": "2026-10-26T03:58:58Z",
   "rubric_version": 2,
   "craft_share": 0.75,
   "weights": {
@@ -19,14 +19,14 @@
     "size": "big enough to be a procedure, small enough to load"
   },
   "summary": {
-    "count": 44,
-    "mean": 9.75,
+    "count": 43,
+    "mean": 9.76,
     "min": 9.2,
     "max": 10,
     "by_grade": [
       {
         "grade": "A",
-        "count": 44
+        "count": 43
       }
     ],
     "auto_fixes": 0
@@ -387,46 +387,6 @@
         ],
         "size": [
           "13041 chars - in range"
-        ]
-      },
-      "findings": [],
-      "fixes": []
-    },
-    {
-      "name": "design-to-motion",
-      "score": 9.4,
-      "grade": "A",
-      "craft": 9.2,
-      "selection": 10,
-      "selection_note": "no candidate scores higher",
-      "chars": 39011,
-      "dimensions": {
-        "structure": 10,
-        "procedure": 10,
-        "gates": 10,
-        "references": 8,
-        "portability": 10,
-        "size": 7
-      },
-      "evidence": {
-        "structure": [
-          "name matches directory",
-          "description 914 chars (usable)"
-        ],
-        "procedure": [
-          "6 numbered steps, 21 headings, 126 bullets"
-        ],
-        "gates": [
-          "7 gate/verification markers"
-        ],
-        "references": [
-          "names no resource files"
-        ],
-        "portability": [
-          "no absolute paths or vendor helpers"
-        ],
-        "size": [
-          "39011 chars - heavy"
         ]
       },
       "findings": [],
@@ -1279,7 +1239,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 7957,
+      "chars": 7937,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -1306,7 +1266,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "7957 chars - in range"
+          "7937 chars - in range"
         ]
       },
       "findings": [],

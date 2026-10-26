@@ -165,3 +165,6 @@ land-and-deploy
 caveman-learn
 # office-hours: product/startup strategy, outside the engineering loop; 94k + gstack runtime
 office-hours
+# design-to-motion: needs a Figma personal access token, headless Chrome and ffmpeg;
+# the owner does not want an external credential, so the hub does not ship it
+design-to-motion

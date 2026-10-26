@@ -1,11 +1,10 @@
 # Install
 
-One line installs everything: the 44 skills, the writing style, and the links
+One line installs everything: the 43 skills, the writing style, and the links
 each AI tool reads.
 
 **Runtime:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js
-18+ and Chrome, Chromium or Edge for its browser gate. `design-to-motion` needs
-a Figma token, headless Chrome and ffmpeg; `landing-page-design` needs nothing.
+18+ and Chrome, Chromium or Edge for its browser gate.
 
 ## Windows
 
