@@ -1,6 +1,6 @@
 # Install
 
-One line installs everything: the 42 skills, the writing style, and the links
+One line installs everything: the 43 skills, the writing style, and the links
 each AI tool reads.
 
 **Runtime:** the hub needs Python 3.11+. `diagram-the-system` also needs Node.js

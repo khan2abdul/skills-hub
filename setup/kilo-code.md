@@ -19,7 +19,7 @@ description cost context until the model invokes the body.
 ```
 
 Merge that into `~/.config/kilo/kilo.json` (global) or `./kilo.json` (project),
-replacing `<hub>` with the path from step 0. This loads all 42 hub skills,
+replacing `<hub>` with the path from step 0. This loads all 43 hub skills,
 including `finish-the-experience`, `deslop-the-writing`, `test-every-surface`
 and the updated `review-my-code`.
 
@@ -107,8 +107,8 @@ $root = $j.skills.paths[0]
 "skills found: $(@(Get-ChildItem $root -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'SKILL.md') }).Count)"
 ```
 
-Expect the hub path and 42. Restart or reload Kilo; the skill picker should list
-all 42. If you used the legacy rules fallback, open the Rules panel and confirm
+Expect the hub path and 43. Restart or reload Kilo; the skill picker should list
+all 43. If you used the legacy rules fallback, open the Rules panel and confirm
 they appear under the right mode.
 
 ## Invoking it with `/`
@@ -125,7 +125,7 @@ description: <what it does>
 Use the <skill-name> skill on: $ARGUMENTS
 ```
 
-The hub does not ship shims; the 42 skill names are the interface.
+The hub does not ship shims; the 43 skill names are the interface.
 See [invoking-with-slash.md](invoking-with-slash.md) for the full matrix.
 
 ## Notes

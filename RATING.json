@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-25T16:18:20Z",
+  "generated": "2026-10-26T03:58:58Z",
   "rubric_version": 2,
   "craft_share": 0.75,
   "weights": {
@@ -19,14 +19,14 @@
     "size": "big enough to be a procedure, small enough to load"
   },
   "summary": {
-    "count": 42,
-    "mean": 9.78,
-    "min": 9.6,
+    "count": 43,
+    "mean": 9.76,
+    "min": 9.2,
     "max": 10,
     "by_grade": [
       {
         "grade": "A",
-        "count": 42
+        "count": 43
       }
     ],
     "auto_fixes": 0
@@ -833,6 +833,46 @@
       "fixes": []
     },
     {
+      "name": "landing-page-design",
+      "score": 9.2,
+      "grade": "A",
+      "craft": 9,
+      "selection": 10,
+      "selection_note": "no candidate scores higher",
+      "chars": 18750,
+      "dimensions": {
+        "structure": 10,
+        "procedure": 10,
+        "gates": 6,
+        "references": 8,
+        "portability": 10,
+        "size": 10
+      },
+      "evidence": {
+        "structure": [
+          "name matches directory",
+          "description 655 chars (usable)"
+        ],
+        "procedure": [
+          "25 numbered steps, 30 headings, 85 bullets"
+        ],
+        "gates": [
+          "3 gate/verification markers"
+        ],
+        "references": [
+          "names no resource files"
+        ],
+        "portability": [
+          "no absolute paths or vendor helpers"
+        ],
+        "size": [
+          "18750 chars - in range"
+        ]
+      },
+      "findings": [],
+      "fixes": []
+    },
+    {
       "name": "make-it-accessible",
       "score": 9.7,
       "grade": "A",
@@ -1199,7 +1239,7 @@
       "craft": 9.6,
       "selection": 10,
       "selection_note": "no candidate scores higher",
-      "chars": 7914,
+      "chars": 7937,
       "dimensions": {
         "structure": 10,
         "procedure": 10,
@@ -1226,7 +1266,7 @@
           "no absolute paths or vendor helpers"
         ],
         "size": [
-          "7914 chars - in range"
+          "7937 chars - in range"
         ]
       },
       "findings": [],

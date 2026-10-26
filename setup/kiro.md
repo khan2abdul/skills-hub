@@ -6,7 +6,7 @@
 
 ## What Kiro reads
 
-Kiro has **native skills** at `~/.kiro/skills/`, and `bootstrap.py` links all 42
+Kiro has **native skills** at `~/.kiro/skills/`, and `bootstrap.py` links all 43
 into it. It also reads **steering documents**, which are always-on text:
 
 | Scope | Path | Loading |
@@ -17,11 +17,11 @@ into it. It also reads **steering documents**, which are always-on text:
 
 Every file in `.kiro/steering/` is loaded on every request. There is no
 frontmatter that loads a steering file on demand, so **anything you put there is
-always in context.** Use skills for the 42, and steering for the writing style.
+always in context.** Use skills for the 43, and steering for the writing style.
 
 ## The translation rule
 
-Because Kiro has no lazy loading by default, copying 42 skills into
+Because Kiro has no lazy loading by default, copying 43 skills into
 `.kiro/steering/` will consume your entire context on triggers alone.
 
 Use `manual` inclusion for the ones you want available but not always loaded,

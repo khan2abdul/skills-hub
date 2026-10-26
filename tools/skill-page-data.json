@@ -559,6 +559,26 @@
     "gate": { "asks": false, "what": "It edits UI code and defers to an existing DESIGN.md; nothing destructive or irreversible." }
   },
   {
+    "name": "landing-page-design",
+    "phase": "Finish",
+    "summary": "Builds a high-conversion landing page: intake, page structure, layout, conversion copy, SEO, and a strict visual system for type, spacing, radius, colour, icons and motion.",
+    "when": [
+      "Building a landing page or marketing site from scratch",
+      "Choosing page sections, headlines, CTAs or a layout",
+      "Writing or reviewing conversion copy for one offer and one audience",
+      "Setting type, spacing, radius and colour values for a page",
+      "Reviewing a landing page before it ships"
+    ],
+    "notWhen": [
+      "Upgrading an existing site rather than building one \u2014 the upstream project ships a separate redesign skill",
+      "Backend, API, CLI or data-layer work with no rendered page",
+      "A DESIGN.md already fixes every visual value you were told to follow verbatim",
+      "Copying another product's branding, proprietary text, imagery or exact layout"
+    ],
+    "example": "\"/landing-page-design build the waitlist page for our beta\" \u2192 the agent asks for the one action, audience and offer before choosing any section or type value.",
+    "gate": { "asks": false, "what": "It writes page code and copy; nothing destructive or irreversible." }
+  },
+  {
     "name": "make-it-fast",
     "phase": "Finish",
     "summary": "Measures first, fixes only the measured bottleneck, re-measures to keep or revert, then guards the metric against regression.",

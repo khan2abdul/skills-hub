@@ -7,7 +7,7 @@
 ## What Cursor reads
 
 Cursor has **native skills**. It reads four user-level folders, and
-`bootstrap.py` links all 42 skills into them:
+`bootstrap.py` links all 43 skills into them:
 
 | Type | Path | When it loads |
 |---|---|---|
@@ -52,7 +52,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 ## The translation rule
 
 A skill is on-demand; a Cursor rule with `alwaysApply: true` is always on. **Do
-not copy all 42 skills as always-on rules** — you would spend the whole context
+not copy all 43 skills as always-on rules** — you would spend the whole context
 window on trigger text.
 
 Two valid strategies:

@@ -6,7 +6,7 @@
 
 ## What Cline reads
 
-Cline has **native skills**, so `bootstrap.py` links all 42 into
+Cline has **native skills**, so `bootstrap.py` links all 43 into
 `~/.cline/skills/`. It also writes the writing style into the global rules
 folder.
 
@@ -22,8 +22,8 @@ folder.
 On each request Cline sees the name and description of every skill. The body
 loads only when the skill is triggered.
 
-Cline's own numbers: about **100 tokens per skill** for that list. All 42 cost
-about 4,000 tokens. Cline asks that a body stay under 5,000 tokens when it
+Cline's own numbers: about **100 tokens per skill** for that list. All 43 cost
+about 4,300 tokens. Cline asks that a body stay under 5,000 tokens when it
 loads. The largest hub body is 32 KB, so it costs more than that. A body costs
 nothing until it loads.
 
@@ -35,7 +35,7 @@ not.
 Cline joins every rule into the context, so ten rule files of skill bodies is
 thousands of tokens on every request, in every project.
 
-**Link all 42 skills. Add 2–3 rules at most.**
+**Link all 43 skills. Add 2–3 rules at most.**
 
 A linked skill costs its description. A rule costs its whole body, every time.
 
@@ -57,7 +57,7 @@ if (-not (Test-Path "$hub/skills")) { throw "no skills/ under $hub" }
 
 ## Install
 
-One command links the 42 skills and writes the global style file:
+One command links the 43 skills and writes the global style file:
 
 ```bash
 python "$hub/tools/bootstrap.py" --only cline
@@ -81,7 +81,7 @@ folder is left alone.
 ### Optional: rules that are always on
 
 Do this only when you want 2–3 skill bodies in context for every request in a
-repo. The 42 linked skills cover the rest.
+repo. The 43 linked skills cover the rest.
 
 ```bash
 New-Item -ItemType Directory -Force -Path ".clinerules" | Out-Null
@@ -126,17 +126,17 @@ python "$hub/tools/bootstrap.py" --only cline --check
 ```
 
 It must print `OK` twice: once for `writing-style.md`, once for
-`~/.cline/skills (42 skills)`. Then look in Cline:
+`~/.cline/skills (43 skills)`. Then look in Cline:
 
 | Where | What to see |
 |---|---|
 | Scale icon, left of the model selector, then **Rules** | `writing-style.md`, toggled on |
-| Same icon, then **Skills** | 42 skills, toggled on |
+| Same icon, then **Skills** | 43 skills, toggled on |
 | Chat input, type `/` | the skill names, for example `/write-less-code` |
 
 ## Recommended subset
 
-- **Skills:** all 42. Leave them on.
+- **Skills:** all 43. Leave them on.
 - **Rules:** `write-less-code`, `prove-it-works`, `trim-my-output`.
 
 If the list cost matters, turn off the skills you never use in the Skills tab. A

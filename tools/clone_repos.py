@@ -79,18 +79,26 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"{RED}FAILED  {r['name']}{RESET}")
                 rows.append({"repo": r["name"], "state": "FAILED", "commit": "", "skills": 0, "mb": 0})
                 continue
-        elif args.update:
-            git("-C", str(dest), "fetch", "--quiet", "origin")
-            head = git("-C", str(dest), "rev-parse", "HEAD")
-            remote = git("-C", str(dest), "rev-parse", "origin/HEAD")
-            if not remote:
-                remote = git("-C", str(dest), "rev-parse", "origin/HEAD^{commit}")
-            drift = head != remote
-            if drift and args.force:
-                git("-C", str(dest), "reset", "--hard", "--quiet", remote)
-                print(f"{GREEN}updated {r['name']:<24} {head[:7]} -> {remote[:7]}{RESET}")
-            elif drift:
-                print(f"{YELLOW}DRIFT   {r['name']:<24} local {head[:7]}, upstream {remote[:7]} (use --force to reset){RESET}")
+            # A fresh clone checks out before this config applies, so rewrite the
+            # tree from the index. Sources are proved byte for byte; a CRLF
+            # working tree would make a vendored body differ by machine.
+            git("-C", str(dest), "config", "core.autocrlf", "false")
+            git("-C", str(dest), "checkout-index", "-a", "-f")
+        else:
+            if not args.what_if:
+                git("-C", str(dest), "config", "core.autocrlf", "false")
+            if args.update:
+                git("-C", str(dest), "fetch", "--quiet", "origin")
+                head = git("-C", str(dest), "rev-parse", "HEAD")
+                remote = git("-C", str(dest), "rev-parse", "origin/HEAD")
+                if not remote:
+                    remote = git("-C", str(dest), "rev-parse", "origin/HEAD^{commit}")
+                drift = head != remote
+                if drift and args.force:
+                    git("-C", str(dest), "reset", "--hard", "--quiet", remote)
+                    print(f"{GREEN}updated {r['name']:<24} {head[:7]} -> {remote[:7]}{RESET}")
+                elif drift:
+                    print(f"{YELLOW}DRIFT   {r['name']:<24} local {head[:7]}, upstream {remote[:7]} (use --force to reset){RESET}")
 
         commit = ""
         if (dest / ".git").exists():
